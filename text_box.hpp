@@ -4,7 +4,7 @@
 #include "sprite.hpp"
 #include <bits/stdc++.h>
 
-class TextBox : Sprite {
+class TextBox : public Sprite {
     std::string text_;
 public:
     TextBox(Sprite*, std::string="");
