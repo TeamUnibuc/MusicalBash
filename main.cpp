@@ -15,6 +15,11 @@ using namespace std;
 
 int main()
 {
+    // Register our custom sf::SoundFileReader for mp3 files.
+	// This is the preferred way of adding support for a new audio format.
+	// Other formats will be handled by their respective readers.
+	sf::SoundFileFactory::registerReader<audio::SoundFileReaderMp3>();
+    
     SoundPlayer soundp("data/beatSample.mp3");
     soundp.Play();
 
