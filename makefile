@@ -8,7 +8,7 @@ flags_fast = -std=c++11 -O2
 
 INC_PARAMS = -Iinc/
 SCR_PARAMS = main.cpp src/*.cpp
-LIB_PARAMS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio
+LIB_PARAMS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio -lmpg123
 
 # make all creates sanitized binary, overflows, illegal memory accesses and undefined behaviour raise an exception
 all: $(sources)
@@ -21,4 +21,4 @@ fast: $(sources)
 # removes a.out file
 clean:
 	rm $(PROGRAM_NAME).out
-
+	

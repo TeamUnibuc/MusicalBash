@@ -1,5 +1,7 @@
 #include "sound_player.hpp"
 #include "console_manipulation.hpp"
+#include "SoundFileReaderMp3.hpp"
+
 using namespace std;
 
 int main()
