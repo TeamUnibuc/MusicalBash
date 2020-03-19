@@ -3,8 +3,16 @@
 
 #include <bits/stdc++.h>
 
-void WriteCharAt(char, int, int);
-void WriteStringAt(std::string, int, int);
-std::pair <int, int> GetConsoleDimensions();
+/**
+ * Self explaning
+*/
+
+class ConsoleManipulation
+{
+public:
+    static void WriteCharAt(char c, int poz_x, int poz_y);
+    static void WriteStringAt(std::string s, int poz_x, int poz_y);
+    static std::pair <int, int> GetConsoleDimensions();
+};
 
 #endif // INC_CONSOLE_MANIPULATION_

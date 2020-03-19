@@ -4,7 +4,8 @@
 #include <SFML/Audio.hpp>
 #include <bits/stdc++.h>
 
-class SoundPlayer {
+class SoundPlayer
+{
 protected:
     sf::Music music;
 public:
