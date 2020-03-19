@@ -1,4 +1,6 @@
 #include "sound_player.hpp"
+#include "SoundFileReaderMp3.hpp"
+
 using namespace std;
 
 // https://www.sfml-dev.org/tutorials/2.5/audio-sounds.php
@@ -13,7 +15,7 @@ using namespace std;
 
 int main()
 {
-    SoundPlayer soundp("data/IWillSurvive.wav");
+    SoundPlayer soundp("data/beatSample.mp3");
     soundp.Play();
 
     while (soundp.IsPlaying())
