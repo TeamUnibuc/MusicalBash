@@ -4,7 +4,7 @@ using namespace std;
 
 TextBox::TextBox() : text_("") { }
 
-TextBox::TextBox(string text, int dim_x, int dim_y) : text_(text), Sprite(dim_x, dim_y) { }
+TextBox::TextBox(string text, int dim_x, int dim_y) : Sprite(dim_x, dim_y), text_(text) { }
 
 void TextBox::Render(int poz_x, int poz_y, bool forced)
 {

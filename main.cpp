@@ -1,48 +1,26 @@
 #include "sound_player.hpp"
+#include "console_manipulation.hpp"
 using namespace std;
-
-// https://www.sfml-dev.org/tutorials/2.5/audio-sounds.php
-// install sfml with sudo apt-get install libsfml-dev
-// https://www.sfml-dev.org/tutorials/2.5/start-linux.php
-
-/*
-    MUSIC DOES NOT WORK FROM VSCODE TERMINAL
-    APP MUST BE LAUNCHED FROM A REAL TERMINAL
-    FOR SOUND
-*/
 
 int main()
 {
-    SoundPlayer soundp("data/IWillSurvive.wav");
-    soundp.Play();
+    // SoundPlayer soundp("data/IWillSurvive.wav");
+    // soundp.Play();
+    system("clear");
+    ConsoleManipulation::PlaceCursorAt(5, 5);
+    cout << "Yep";
+    ConsoleManipulation::WriteStringAt("It is working, Type an integer", 3, 3);
+    int x;
+    cin >> x;
 
-    while (soundp.IsPlaying())
-    { }
+    ConsoleManipulation::WriteStringAt(to_string(x), 10, 10);
+
+    cout.flush();
+
+    this_thread::sleep_for(chrono::seconds(10));
+
+    // while (soundp.IsPlaying())
+    // { }
 
     return 0;
 }
-
-// #include <SFML/Graphics.hpp>
-
-// int main()
-// {
-//     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-//     sf::CircleShape shape(100.f);
-//     shape.setFillColor(sf::Color::Green);
-
-//     while (window.isOpen())
-//     {
-//         sf::Event event;
-//         while (window.pollEvent(event))
-//         {
-//             if (event.type == sf::Event::Closed)
-//                 window.close();
-//         }
-
-//         window.clear();
-//         window.draw(shape);
-//         window.display();
-//     }
-
-//     return 0;
-// }
