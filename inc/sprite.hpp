@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #ifndef INC_SPRITE_
 #define INC_SPRITE_
 
@@ -36,23 +35,3 @@ public:
 };
 
 #endif // INC_SPRITE_
-=======
-#ifndef INC_SPRITE_
-#define INC_SPRITE_
-
-#include <bits/stdc++.h>
-
-class Sprite {
-protected:
-    Sprite* origin_;
-    bool had_render_updates_;
-    std::vector <std::tuple <Sprite*, int, int>> under_me_;
-public:
-    Sprite(Sprite*);
-    virtual void Render(int, int, bool = false);
-    void AddElement(Sprite*, int, int);
-    void RenderUpdate();
-};
-
-#endif // INC_SPRITE_
->>>>>>> 9947741ebd0c1bd6a57f2afe35f25a922e58c301
