@@ -1,24 +1,23 @@
-#include <SFML/Audio.hpp>
-#include <bits/stdc++.h>
+#include "sound_player.hpp"
 using namespace std;
 
 // https://www.sfml-dev.org/tutorials/2.5/audio-sounds.php
 // install sfml with sudo apt-get install libsfml-dev
 // https://www.sfml-dev.org/tutorials/2.5/start-linux.php
 
+/*
+    MUSIC DOES NOT WORK FROM VSCODE TERMINAL
+    APP MUST BE LAUNCHED FROM A REAL TERMINAL
+    FOR SOUND
+*/
 
 int main()
 {
-    sf::Music music;
-    if (!music.openFromFile("data/IWillSurvive.wav"))
-        return -1; // error
-    
-    music.setPitch(1.2f);
-    music.setVolume(50.f);
-    music.play();
+    SoundPlayer soundp("data/IWillSurvive.wav");
+    soundp.Play();
 
-
-    while (music.getStatus() == music.Playing) { }
+    while (soundp.IsPlaying())
+    { }
 
     return 0;
 }

@@ -1,5 +1,5 @@
-#ifndef TEXT_BOX_
-#define TEXT_BOX_
+#ifndef INC_TEXT_BOX_
+#define INC_TEXT_BOX_
 
 #include "sprite.hpp"
 #include <bits/stdc++.h>
@@ -11,4 +11,4 @@ public:
     void Render(int, int, bool = false);
 };
 
-#endif // TEXT_BOX_
+#endif // INC_TEXT_BOX_

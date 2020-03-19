@@ -1,5 +1,5 @@
-#ifndef SPRITE_
-#define SPRITE_
+#ifndef INC_SPRITE_
+#define INC_SPRITE_
 
 #include <bits/stdc++.h>
 
@@ -15,4 +15,4 @@ public:
     void RenderUpdate();
 };
 
-#endif // SPRITE_
+#endif // INC_SPRITE_
