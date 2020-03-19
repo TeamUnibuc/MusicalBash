@@ -12,9 +12,13 @@ int main()
     sf::Music music;
     if (!music.openFromFile("data/IWillSurvive.wav"))
         return -1; // error
+    
+    music.setPitch(1.2f);
+    music.setVolume(50.f);
     music.play();
 
-    this_thread::sleep_for(chrono::seconds(10));
+
+    while (music.getStatus() == music.Playing) { }
 
     return 0;
 }
