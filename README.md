@@ -4,7 +4,7 @@
 
 The project is build with a CLI (Command Line Interface), but we intent to make some nice ASCII art (Eventually with SFML) we could make a nice GUI but it seems overkill. The base class for the CLI is in [inc/sprite.hpp](inc/sprite.hpp).
 
-## Instalation
+## Installation
 
 The project relies on the SFML library and mpg123 for encoding mp3 files.
 You can install both with the commands:
