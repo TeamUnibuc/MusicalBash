@@ -1,7 +1,10 @@
 #include "sprite.hpp"
 using namespace std;
 
-Sprite::Sprite(Sprite* origin) : origin_(origin), had_render_updates_(true) { }
+Sprite::Sprite() : origin_(NULL), had_render_updates_(false), dim_x_(-1), dim_y_(-1) { }
+
+Sprite::Sprite(int dim_x, int dim_y) : origin_(NULL), had_render_updates_(true),
+    dim_x_(dim_x), dim_y_(dim_y) { }
 
 void Sprite::Render(int x_min, int y_min, bool forced)
 {
@@ -17,7 +20,8 @@ void Sprite::Render(int x_min, int y_min, bool forced)
 void Sprite::AddElement(Sprite* s, int poz_x, int poz_y)
 {
     under_me_.emplace_back(s, poz_x, poz_y);
-    RenderUpdate();
+    s->origin_ = this;
+    s->RenderUpdate();
 }
 
 void Sprite::RenderUpdate()

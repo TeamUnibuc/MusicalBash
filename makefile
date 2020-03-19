@@ -21,4 +21,4 @@ fast: $(sources)
 # removes a.out file
 clean:
 	rm $(PROGRAM_NAME).out
-
+	
