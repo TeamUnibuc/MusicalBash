@@ -1,5 +1,4 @@
 #include "sound_player.hpp"
-#include "console_manipulation.hpp"
 #include "SoundFileReaderMp3.hpp"
 
 using namespace std;
@@ -11,11 +10,14 @@ int main()
     sf::SoundFileFactory::registerReader<audio::SoundFileReaderMp3>();
     
 
-    sf::SoundBuffer soundp;
-    soundp.loadFromFile("data/beatSample.mp3");
-    
-    sf::Sound snd(soundp);
-    snd.play();
+    SoundPlayer snd("data/beatSample.mp3");
+    snd.Play();
+
+    while (true) {
+        while (snd.IsPlaying()) {}
+        
+        snd.Play();
+    }
 
     
     sf::sleep(sf::seconds(4.f));
