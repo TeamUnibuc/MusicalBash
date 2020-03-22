@@ -15,7 +15,7 @@ SoundFileReaderMp3::SoundFileReaderMp3()
 	, m_stream            (nullptr)
 	, m_frameInfo         ()
 	, m_outputFormat      ()
-	, m_streambufferSize  (5000) // any size will work
+	, m_streambufferSize  (15000) // any size will work
 	, m_streambuffer      (new unsigned char[m_streambufferSize])
 {}
 
@@ -228,7 +228,7 @@ void SoundFileReaderMp3::seek(sf::Uint64  sampleOffset ) {
 	/// std::cout << "SEEK sample offset " << sampleOffset << " FIXME not implemented" << std::endl;
 
 	// probably should go something like this
-	off_t ok = mpg123_feedseek (m_handle, sampleOffset, SEEK_SET, NULL);
+	// off_t ok = mpg123_feedseek (m_handle, sampleOffset, SEEK_SET, NULL);
 }
 
 // Quick check if the reader can handle the input

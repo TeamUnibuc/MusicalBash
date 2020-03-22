@@ -11,17 +11,16 @@ int main()
     sf::SoundFileFactory::registerReader<audio::SoundFileReaderMp3>();
     
 
-    SoundPlayer soundp("data/beatSample.mp3");
-    soundp.Play();
+    sf::SoundBuffer soundp;
+    soundp.loadFromFile("data/beatSample.mp3");
+    
+    sf::Sound snd(soundp);
+    snd.play();
 
-    while (soundp.IsPlaying())
-    { 
-        
-    }
+    
+    sf::sleep(sf::seconds(4.f));
 
-    // while (music.getStatus() == music.Playing) {
-    //     ///std::cout << "playing...\n";
-        
+
     // }
 
     std::cout << "hehe\n";
