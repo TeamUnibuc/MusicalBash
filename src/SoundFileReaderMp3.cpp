@@ -15,12 +15,14 @@ SoundFileReaderMp3::SoundFileReaderMp3()
 	, m_stream            (nullptr)
 	, m_frameInfo         ()
 	, m_outputFormat      ()
-	, m_streambufferSize  (80000) // any size will work
+	, m_streambufferSize  (5000) // any size will work
 	, m_streambuffer      (new unsigned char[m_streambufferSize])
 {}
 
 SoundFileReaderMp3::~SoundFileReaderMp3()
 {
+	// std::cerr << "Who called me?\n";
+	// exit(1);
 	close();
 }
 
@@ -35,7 +37,7 @@ void SoundFileReaderMp3::close() {
         delete [] m_streambuffer;
         m_streambuffer = nullptr;
     }
-    // std:;cout << "Mp3 reader close" << std::endl;
+    std::cout << "Mp3 reader close" << std::endl;
 }
 
 // \brief Open a sound file for reading
@@ -43,31 +45,31 @@ void SoundFileReaderMp3::close() {
 // \param info   Structure to fill with the properties of the loaded sound
 // \return True if the file was successfully opened
 bool SoundFileReaderMp3::open(sf::InputStream& stream, sf::SoundFileReader::Info& info) {
-	// std:;cout << "OPEN" << std::endl;
+	std::cout << "OPEN" << std::endl;
 	initializeLibrary();
 	probeFirstFrame(stream);
 
 	 if(!m_outputFormat.update(m_handle)){
-		// std:;cout << "Failed to get format information" << std::endl;
+		std::cout << "Failed to get format information" << std::endl;
 		return false;
 	}
-	// std:;cout << m_outputFormat.toString() << std::endl;
+	std::cout << m_outputFormat.toString() << std::endl;
 
 	if(!m_frameInfo.update(m_handle)){
-		// std:;cout << "Failed to get header information" << std::endl;
+		std::cout << "Failed to get header information" << std::endl;
 		return false;
 	}
-	// std:;cout << m_frameInfo.toString() << std::endl;
+	std::cout << m_frameInfo.toString() << std::endl;
 
 	fillSfmlInfo(info);
 
-	// std:;cout << "wrote info: channels: " << info.channelCount << ", expected number of samples: " << info.sampleCount
-			  // << ", sampling rate: " << info.sampleRate << std::endl;
+	std::cout << "wrote info: channels: " << info.channelCount << ", expected number of samples: " << info.sampleCount
+			   << ", sampling rate: " << info.sampleRate << std::endl;
 
 	// save the reference since we never get it again
 	m_stream = &stream;
 
-	// std:;cout << "OPEN: SUCCESS" << std::endl;
+	std::cout << "OPEN: SUCCESS" << std::endl;
 	return true;
 }
 
@@ -93,7 +95,7 @@ bool SoundFileReaderMp3::initializeLibrary() {
 		std::cerr << "Unable to create mpg123 handle: " << mpg123_plain_strerror(ok) << std::endl;
 		return false;
 	}
-	// std:;cout << "created handle at address " << (std::uintptr_t)m_handle << std::endl;
+	std::cout << "created handle at address " << (std::uintptr_t)m_handle << std::endl;
 
 	// Later we have to read the audio input from sf::InputStream, which can be from a file,
 	// from the network or from any other input stream. This decides how we open mpg123:
@@ -102,7 +104,7 @@ bool SoundFileReaderMp3::initializeLibrary() {
 		std::cerr << "mpg123_open_feed(): " << mpg123_plain_strerror(ok) << std::endl;
 		return false;
 	}
-	// std:;cout << "opened handle for feeding" << std::endl;
+	std::cout << "opened handle for feeding" << std::endl;
 	return true;
 }
 
@@ -120,7 +122,7 @@ bool SoundFileReaderMp3::probeFirstFrame(sf::InputStream& stream) {
 		sf::Int64 bytesReadFromStream = stream.read(streamBuffer, streamSize); // read from input stream
 		numReadsFromStream++;
 		if (bytesReadFromStream <= 0) {
-			// std:;cout << (bytesReadFromStream == 0 ? "stream empty" : ("stream error: " + bytesReadFromStream)) << std::endl;
+			std::cout << (bytesReadFromStream == 0 ? "stream empty" : ("stream error: " + bytesReadFromStream)) << std::endl;
 			return 0;
 			break;
 		}
@@ -133,11 +135,11 @@ bool SoundFileReaderMp3::probeFirstFrame(sf::InputStream& stream) {
 
 		needMore = ret == MPG123_NEED_MORE;
 	}
-	// std:;cout << "first header decoded"  << std::endl;
-	// std:;cout << "buffersize: "          << streamSize << std::endl;
-	// std:;cout << "total bytes read: "    << totalReadBytes << std::endl;
-	// std:;cout << "total bytes decoded: " << totalDecodedBytes << std::endl;
-	// std:;cout << "reads from stream: "   << numReadsFromStream << std::endl;
+	std::cout << "first header decoded"  << std::endl;
+	std::cout << "buffersize: "          << streamSize << std::endl;
+	std::cout << "total bytes read: "    << totalReadBytes << std::endl;
+	std::cout << "total bytes decoded: " << totalDecodedBytes << std::endl;
+	std::cout << "reads from stream: "   << numReadsFromStream << std::endl;
 	return 1;
 }
 
@@ -152,7 +154,7 @@ void SoundFileReaderMp3::fillSfmlInfo(sf::SoundFileReader::Info& info) const {
 // \param maxCount Maximum number of samples to read
 // \return Number of samples actually read. If less samples than maxCount are read, sfml assumes that EOF has been reached and terminates playback.
 sf::Uint64 SoundFileReaderMp3::read(sf::Int16* samples, sf::Uint64 maxCount) {
-	// std:;cout << "READ: request up to " << maxCount << " samples. size of streambuffer: " << m_streambufferSize << " bytes" << std::endl;
+	std::cout << "READ: request up to " << maxCount << " samples. size of streambuffer: " << m_streambufferSize << " bytes" << std::endl;
 
 	// since we get fed bytes from the input stream, casting the
 	// output buffer to bytes makes life easier
@@ -185,7 +187,7 @@ sf::Uint64 SoundFileReaderMp3::read(sf::Int16* samples, sf::Uint64 maxCount) {
 			    , maxBytes-offset      // number of decoded bytes we want to get out: this calculation is why casting to byte size was a good idea
 				, &numDecodedBytes);         // this tells us the size of the decoded data. it will never exceed the size we requested in the above parameter
 		offset += numDecodedBytes;     // set sample offset for next call
-		// std:;cout << "decoded " << numDecodedBytes << " bytes from leftover input. offset into samples: " << offset << " / " << maxBytes << std::endl;
+		std::cout << "decoded " << numDecodedBytes << " bytes from leftover input. offset into samples: " << offset << " / " << maxBytes << std::endl;
 
 	} // NEED_MORE is returned when no more input is available and the output array is not full yet. not sure about ERR though. probably when output is full.
 	while (ret != MPG123_NEED_MORE && ret != MPG123_ERR && offset < maxBytes);
@@ -194,9 +196,9 @@ sf::Uint64 SoundFileReaderMp3::read(sf::Int16* samples, sf::Uint64 maxCount) {
 	{
 		// now run the normal reading-decoding loop
 		sf::Int64 bytesReadFromStream = m_stream->read(m_streambuffer, m_streambufferSize);
-		// std:;cout << "read " << bytesReadFromStream << " bytes from stream" << std::endl;
+		std::cout << "read " << bytesReadFromStream << " bytes from stream" << std::endl;
 		if (bytesReadFromStream <= 0) {
-			// std:;cout << (bytesReadFromStream == 0 ? "stream empty" : ("stream error: " + bytesReadFromStream)) << std::endl;
+			std::cout << (bytesReadFromStream == 0 ? "stream empty" : ("stream error: " + bytesReadFromStream)) << std::endl;
 			break;
 		}
 		totalReadBytes += bytesReadFromStream;
@@ -205,15 +207,15 @@ sf::Uint64 SoundFileReaderMp3::read(sf::Int16* samples, sf::Uint64 maxCount) {
 		std::size_t numDecodedBytes = 0;
 		ret = mpg123_decode(m_handle, m_streambuffer, bytesReadFromStream, &byteSamples[offset], maxBytes-offset, &numDecodedBytes);
 		offset += numDecodedBytes;
-		// std:;cout << "decoded " << bytesReadFromStream << " to " << numDecodedBytes << " decoded bytes. total decoded bytes: "
-				  // << offset << " / " << maxBytes << std::endl;
+		std::cout << "decoded " << bytesReadFromStream << " to " << numDecodedBytes << " decoded bytes. total decoded bytes: "
+				   << offset << " / " << maxBytes << std::endl;
 	}
 
 	std::size_t totalSamples = offset/sizeof(short);
 
-	// std:;cout << "samples delivered: " << totalSamples << " of " << maxCount << " requested"<< std::endl;
-	// std:;cout << "total bytes read: " << totalReadBytes << std::endl;
-	// std:;cout << "READ: SUCCESS" << std::endl;
+	std::cout << "samples delivered: " << totalSamples << " of " << maxCount << " requested"<< std::endl;
+	std::cout << "total bytes read: " << totalReadBytes << std::endl;
+	std::cout << "READ: SUCCESS" << std::endl;
 
 	return totalSamples;
 }
@@ -222,16 +224,16 @@ sf::Uint64 SoundFileReaderMp3::read(sf::Int16* samples, sf::Uint64 maxCount) {
 // If the given offset exceeds the total number of samples,
 // this function must jump to the end of the file.
 // \param sampleOffset Index of the sample to jump to, relative to the beginning
-void SoundFileReaderMp3::seek(sf::Uint64 /* sampleOffset */) {
-	// std:;cout << "SEEK sample offset " << sampleOffset << " FIXME not implemented" << std::endl;
+void SoundFileReaderMp3::seek(sf::Uint64  sampleOffset ) {
+	/// std::cout << "SEEK sample offset " << sampleOffset << " FIXME not implemented" << std::endl;
 
 	// probably should go something like this
-//	off_t ok = mpg123_feedseek (m_handle, sampleOffset, SEEK_SET, NULL);
+	off_t ok = mpg123_feedseek (m_handle, sampleOffset, SEEK_SET, NULL);
 }
 
 // Quick check if the reader can handle the input
 bool SoundFileReaderMp3::check(sf::InputStream& stream) {
-	// std:;cout << "CHECK: can Mp3 Reader handle the stream?" << std::endl;
+	std::cout << "CHECK: can Mp3 Reader handle the stream?" << std::endl;
 	SoundFileReaderMp3 reader;
 	bool result = reader.initializeLibrary();
 	if(result)
@@ -241,7 +243,7 @@ bool SoundFileReaderMp3::check(sf::InputStream& stream) {
 	if(result)
 		result = reader.m_frameInfo.update(reader.m_handle);
 
-	// std:;cout << "CHECK: " << (result ? "SUCCESS" : "FAILED") << std::endl;
+	std::cout << "CHECK: " << (result ? "SUCCESS" : "FAILED") << std::endl;
 
 	// no cleanup required since destructor of reader takes care of everything
 	return result;
