@@ -5,7 +5,7 @@
 
 /**
  * Self explaning
-*/
+**/
 
 class ConsoleManipulation
 {

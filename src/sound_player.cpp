@@ -1,30 +1,53 @@
 #include "sound_player.hpp"
-using namespace std;
 
 SoundPlayer::SoundPlayer() { }
 
-SoundPlayer::SoundPlayer(const string & source)
+SoundPlayer::SoundPlayer(const std::string & source) :
+    p_mp3(getExtensionLC(source) == ".mp3" ? std::make_unique<sfe::Mp3>() : nullptr),
+    p_music(p_mp3 ? nullptr : std::make_unique<sf::Music>())
 {
-    if(!music.openFromFile(source))
-        throw runtime_error("Unable to open " + source);
+    if (p_mp3)
+        p_mp3->openFromFile(source);
+    else
+        p_music->openFromFile(source);
 }
 
 void SoundPlayer::Play()
 {
-    music.play();
+    if (p_mp3)
+        p_mp3->play();
+    else
+        p_music->play();
 }
 
 void SoundPlayer::Pause()
 {
-    music.pause();
+    if (p_mp3)
+        p_mp3->pause();
+    else
+        p_music->pause();
 }
 
 bool SoundPlayer::IsPlaying() const
 {
-    return music.getStatus() == music.Playing;
+    if (p_mp3)
+        return p_mp3->getStatus() == p_mp3->Playing;
+    else
+        return p_music->getStatus() == p_music->Playing;
 }
 
 void SoundPlayer::SetVolume(float volume)
 {
-    music.setVolume(volume);
+    if (p_mp3)
+        p_mp3->setVolume(volume);
+    else
+        p_music->setVolume(volume);
+}
+
+std::string SoundPlayer::getExtensionLC(const std::string& filePath)
+{
+    size_t pos = filePath.rfind('.');
+    if (pos == std::string::npos)
+        return "";
+    return filePath.substr(pos, filePath.size() - pos);
 }
