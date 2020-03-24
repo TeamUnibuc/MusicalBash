@@ -3,11 +3,14 @@
 
 PROGRAM_NAME = musicalbash
 
-flags_all = -std=c++11 -g -O0 -Wall -Wextra -fsanitize=address,undefined,signed-integer-overflow
-flags_fast = -std=c++11 -O2
+CSTD = c++17
 
-INC_PARAMS = -Iinc/
-SCR_PARAMS = src/*.cpp
+flags_all = -std=$(CSTD) -g -O0 -Wall -Wextra -fsanitize=address,undefined,signed-integer-overflow
+flags_fast = -std=$(CSTD) -O2
+
+INC_PARAMS = -Iinc/ -Iinc/*/
+SCR_PARAMS = src/*.cpp src/*/*.cpp
+
 LIB_PARAMS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio -lmpg123
 
 # make all creates sanitized binary, overflows, illegal memory accesses and undefined behaviour raise an exception
