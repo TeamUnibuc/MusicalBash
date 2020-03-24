@@ -10,6 +10,7 @@ flags_fast = -std=$(CSTD) -O2
 
 INC_PARAMS = -Iinc/ -Iinc/*/
 SCR_PARAMS = src/*.cpp src/*/*.cpp
+
 LIB_PARAMS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio -lmpg123
 
 # make all creates sanitized binary, overflows, illegal memory accesses and undefined behaviour raise an exception
