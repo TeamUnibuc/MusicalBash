@@ -10,7 +10,7 @@ namespace unit_tests
             // cout << "Start SoundPlayer test to play music:\n";
             cout << ".";
 
-            SoundPlayer test_mp3("data/Beethoven_12_Variation.mp3");
+            SoundPlayer test_mp3("data/music_samples/Beethoven_12_Variation.mp3");
             test_mp3.Play();
 
             // std::cout << "Beethoven 12th Variation  playing...\n";
@@ -21,7 +21,7 @@ namespace unit_tests
             test_mp3.SetVolume(30);
             sf::sleep(sf::seconds(1.5));
 
-            SoundPlayer test_wav("data/IWillSurvive.wav");
+            SoundPlayer test_wav("data/music_samples/IWillSurvive.wav");
             test_wav.Play();
 
             // std::cout << "I WIll Survive  playing...\n";

@@ -1,8 +1,8 @@
 # MusicalBash
 
-## CLI
+## GUI
 
-The project is build with a CLI (Command Line Interface), but we intent to make some nice ASCII art (Eventually with SFML) we could make a nice GUI but it seems overkill. The base class for the CLI is in [inc/sprite.hpp](inc/sprite.hpp).
+We are building the project with the help of a GUI. The most basic scheme of the gui can be seen [here](https://tinyurl.com/2fcpre6).
 
 ## Installation
 
