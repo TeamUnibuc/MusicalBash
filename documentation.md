@@ -12,7 +12,7 @@ The design of the project is based on the design pattern descibed [here](https:/
 
 1. [Application](docs/application.md)
     
-    Main class, creating both the UI and the backend classes.
+    Main class, initiates/closes the app and the high level classes to start the app.
 
 1. [UI](docs/ui.md)
 
@@ -24,21 +24,54 @@ The design of the project is based on the design pattern descibed [here](https:/
 
 1. [Command](docs/command.md)
 
-    Mainly virtual class, sending requests / commands from the UI to the player (like for instance `STOP MUSIC` or `GETPLAYLIST`).
+    Mainly virtual class, contains the small logic parts of the code that actually does something, like: playing sounds, searching for files, saves records of songs, actions of buttons clicked, etc...
+
+1. [Index](docs/index.md)
+
+    Class that:
+        
+    __holds records__ (data) of albums, playlists 
+    
+    __saves records__ (data) of music files/albums/playlists to the file system
+
+    Returns to the application the list of albums, playlists, songs, etc...
 
 ## UI-associated classes
 
-1. [UPlayerNavigator](docs/u_player_navigator.md)
+### Should be some kind of aggregator / always on pieces that change their internal state to reflect what the user does
+
+*__Sugestie__*: Implementati aceste clase folosind [State Design Pattern](https://refactoring.guru/design-patterns/state)
+
+*__Sugestie__*: Nu folositi o lista de stari "externe", adica aplicatia e in starea X
+Ci mai degraba, Fiecare clasa isi gestioneaza starile ei, si mai apoi, eventual apeland [comenzi](https://refactoring.guru/design-patterns/command), (comenzi care sunt triggeruite de butoane, cel mai probabil) fiecare isi schimba state-ul vizual
+
+1. [UPlayerNavigatorWindow](docs/u_player_navigator.md)
 
     Class able to display the buttons and the status bar of the music player.
 
-1. [UAlbumNavigator](docs/u_album_navigator.md)
+2. [UMainWindow](docs/u_album_navigator.md)
 
-    Class displaying the active album in the central part of the app.
+    Class that controls the main view (center) of the app.
 
-1. [USideBar](docs/u_side_bar.md)
+3. [USideBarWindow](docs/u_side_bar.md)
 
     Class displaying the side bar, containing the albums navigator, and the settings buttons (TODO: see how to implement them).
+
+### Basic UI elements
+
+### Little objects that are used freely by the 3 main Windows
+
+0. [UBasicElement](docs/)
+
+    Abstract class, to provide a template for the common UI elements
+
+1. [UButton](docs/u_button.md)
+
+2. [UImage](docs/u_image.md)
+
+3. [UTextBox](docs/u_text_box.md)
+
+4. [UScrollView](docs/u_scroll_view.md)
 
 ## Player-associated classes
 
@@ -46,13 +79,27 @@ The design of the project is based on the design pattern descibed [here](https:/
 
     Class maintaining a list of musics from a list of files.
 
-1. [PMusicPlayer](docs/p_music_player.md)
+2. [PPlaylist](docs/p_playlist.md)
+
+    Class that maintains a hand picked list of files.
+
+3. [PMusicPlayer](docs/p_music_player.md)
 
     Class handeling playing the music from a file.
+    (The Previous sound_player class)
 
-1. [PMusicFinder](docs/p_music_finder.md)
+1. [PTrack](docs/p_track.md)
 
-    Class able to look (ideally asyncroniously) through the documents to find playable files.
+    Class that handles the current set of songs played. Do you play asong from an album, a playlist, or from the entire gallery?
+
+    *__Sugestie__*: Aici folosim [observer](https://refactoring.guru/design-patterns/observer) peste comenzi, pentru a afla cum se schimba track-ul
+
+1.  ~~[PMusicFinder](docs/p_music_finder.md)~~ Obsolete
+
+    ~~Class able to look (ideally asyncroniously) through the documents to find playable files.~~
+
+    Good ideea, but this is more like a subclass of commands.
+
 
 ## Command-associated classes
 
@@ -64,10 +111,6 @@ The design of the project is based on the design pattern descibed [here](https:/
 
     class requesting a music to pause.
 
-1. [CStopMusic](docs/c_stop_music.md)
-
-    class requesting a music to pause.
-
 1. [CNextMusic](docs/c_next_music.md)
 
     class requesting a music to pause.
@@ -76,6 +119,6 @@ The design of the project is based on the design pattern descibed [here](https:/
 
     class requesting a music to pause.
 
-1. [CGetAlbum](docs/c_get_album.md)
+1. [CClose](docs/c_exit.md)
 
-    class requesting a music to pause.
+    class that handles what happens when the app is exiting

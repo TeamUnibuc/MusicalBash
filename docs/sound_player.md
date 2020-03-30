@@ -21,7 +21,7 @@ void Pause();
 bool IsPlaying();
 
 /// returns length in seconds of the music
-int getDudartion();
+int getDuration();
 
 /// returns time played (from start)
 int getPlayingOffest();
