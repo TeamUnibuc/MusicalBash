@@ -1,6 +1,6 @@
 # SoundPlayer
 
-### Class able to play sound using the `SFML/Sound` engine.\
+### Class able to play sound using the `SFML/Sound` engine.
 
 ## List of methods:
 
@@ -21,16 +21,17 @@ void Pause();
 bool IsPlaying();
 
 /// returns length in seconds of the music
-int getDuration();
+int GetDuration();
 
 /// returns time played (from start)
-int getPlayingOffest();
+int GetPlayingOffest();
 
 /// sets offset (where to start the music from)
-void setPlayingOffest(int where);
+void SetPlayingOffest(int where);
 
 /// sets volume (0-100)
-void setVolume(float volume);
+void SetVolume(float volume);
 
 /// gets curent volume
-int getVolume(); 
+int GetVolume(); 
+```

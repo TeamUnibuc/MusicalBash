@@ -8,7 +8,7 @@
 
 The design of the project is based on the design pattern descibed [here](https://refactoring.guru/design-patterns/command).
 
-### Core
+## Core
 
 1. [Application](docs/application.md)
     
@@ -59,7 +59,7 @@ Ci mai degraba, Fiecare clasa isi gestioneaza starile ei, si mai apoi, eventual 
 
 ### Basic UI elements
 
-### Little objects that are used freely by the 3 main Windows
+Little objects that are used freely by the 3 main Windows
 
 0. [UBasicElement](docs/)
 
@@ -93,13 +93,6 @@ Ci mai degraba, Fiecare clasa isi gestioneaza starile ei, si mai apoi, eventual 
     Class that handles the current set of songs played. Do you play asong from an album, a playlist, or from the entire gallery?
 
     *__Sugestie__*: Aici folosim [observer](https://refactoring.guru/design-patterns/observer) peste comenzi, pentru a afla cum se schimba track-ul
-
-1.  ~~[PMusicFinder](docs/p_music_finder.md)~~ Obsolete
-
-    ~~Class able to look (ideally asyncroniously) through the documents to find playable files.~~
-
-    Good ideea, but this is more like a subclass of commands.
-
 
 ## Command-associated classes
 
