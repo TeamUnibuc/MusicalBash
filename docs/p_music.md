@@ -11,5 +11,26 @@
 ## List of methods:
 
 ```c++
-    // TODO
+    /// constructor
+    PMusic();
+
+    /// creates a new music file 
+    void Create(std::string PATH);
+
+    /// converts the content of the class to a string
+    std::string Zip() const;
+
+    /// restores the content of the class from the zip string
+    void Restore(std::string zipped);
+
+    /// returns the title of the song (the name)
+    std::string getTitle() const;
+
+    /// returns nr of times it was played
+    int getPlayedCount() const;
+
+    /// adds 1 to the played count
+    void addPlayedCount();
+
+
 ```

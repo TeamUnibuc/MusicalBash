@@ -41,7 +41,7 @@ Behavioral: Command, State, Observer
 
     Folosim __*[Command](https://refactoring.guru/design-patterns/command)*__ __Design Pattern__
 
-1. [Index](docs/index.md)
+1. [PIndex](docs/p_index.md)
 
     Class that:
         
@@ -102,6 +102,14 @@ Folosim __*[Builder](https://refactoring.guru/design-patterns/builder)*__ __Desi
 
 ## Player-associated classes
 
+As Palbum, PPlaylist and PTrack are basically doing the exact same thing, I created Track and the two others shoud inherit from it without changing anything (or almost).
+
+1. [PTrack](docs/p_track.md)
+
+    Class that handles the current set of songs played. Do you play asong from an album, a playlist, or from the entire gallery?
+
+    Folosim __*[Observer](https://refactoring.guru/design-patterns/observer)*__ __Design Pattern__ peste comenzi, pentru a afla cum se schimba track-ul
+    
 1. [PAlbum](docs/p_album.md)
 
     Class maintaining a list of musics from a list of files.
@@ -123,12 +131,6 @@ Folosim __*[Builder](https://refactoring.guru/design-patterns/builder)*__ __Desi
     (The Previous sound_player class)
 
     Folosim __*[Facade](https://refactoring.guru/design-patterns/facade)*__ __Design Pattern__, intrucat tratam separat fisierele mp3
-
-1. [PTrack](docs/p_track.md)
-
-    Class that handles the current set of songs played. Do you play asong from an album, a playlist, or from the entire gallery?
-
-    Folosim __*[Observer](https://refactoring.guru/design-patterns/observer)*__ __Design Pattern__ peste comenzi, pentru a afla cum se schimba track-ul
 
 ------------
 
