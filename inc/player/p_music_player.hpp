@@ -1,18 +1,20 @@
-#ifndef INC_SOUND_PLAYER_
-#define INC_SOUND_PLAYER_
+#ifndef INC_P_MUSIC_PLAYER_
+#define INC_P_MUSIC_PLAYER_
 
 #include <SFML/Audio.hpp>
-#include "mp3_sound_stream.hpp"
+#include "p_mp3_sound_stream.hpp"
 
-class SoundPlayer
+/// Documentation in docs/sound_player.md
+
+class PMusicPlayer
 {
 protected:
     const std::unique_ptr<sfe::Mp3> p_mp3;
     const std::unique_ptr<sf::Music> p_music;
     
 public:
-    SoundPlayer();
-    SoundPlayer(const std::string & source);
+    PMusicPlayer();
+    PMusicPlayer(const std::string & source);
 
     void Play();
     void Pause();
@@ -22,4 +24,4 @@ private:
     std::string getExtensionLC(const std::string& str);
 };
 
-#endif // INC_SOUND_
+#endif // INC_P_MUSIC_PLAYER_

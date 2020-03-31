@@ -4,9 +4,13 @@
 
 The curent (Beta) looks are [here](https://awwapp.com/b/umkwbgwje/).
 
+-------------
+
 ## SFML Documentation
 
 * [SFML/Music](https://www.sfml-dev.org/documentation/2.5.1/classsf_1_1Music.php) 
+
+-------------
 
 ## MusicalBash Documentation
 
@@ -15,7 +19,7 @@ Creational: Builder, Singleton\
 Structural: Facade, Flyweight\
 Behavioral: Command, State, Observer
 
-----------------
+-------------
 
 ## Core
 

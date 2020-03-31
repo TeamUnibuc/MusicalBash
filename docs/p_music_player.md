@@ -1,6 +1,11 @@
-# SoundPlayer
+# PMusicPlayer
 
 ### Class able to play sound using the `SFML/Sound` engine.
+
+### Implementation:
+
+1. [p_music_player.hpp](/inc/player/p_music_player.hpp)
+1. [p_music_player.cpp](/src/player/p_music_player.cpp)
 
 ## List of methods:
 

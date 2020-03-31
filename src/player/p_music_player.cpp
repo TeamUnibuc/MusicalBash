@@ -1,8 +1,8 @@
-#include "sound_player.hpp"
+#include "p_music_player.hpp"
 
-SoundPlayer::SoundPlayer() { }
+PMusicPlayer::PMusicPlayer() { }
 
-SoundPlayer::SoundPlayer(const std::string & source) :
+PMusicPlayer::PMusicPlayer(const std::string & source) :
     p_mp3(getExtensionLC(source) == ".mp3" ? std::make_unique<sfe::Mp3>() : nullptr),
     p_music(p_mp3 ? nullptr : std::make_unique<sf::Music>())
 {
@@ -12,7 +12,7 @@ SoundPlayer::SoundPlayer(const std::string & source) :
         p_music->openFromFile(source);
 }
 
-void SoundPlayer::Play()
+void PMusicPlayer::Play()
 {
     if (p_mp3)
         p_mp3->play();
@@ -20,7 +20,7 @@ void SoundPlayer::Play()
         p_music->play();
 }
 
-void SoundPlayer::Pause()
+void PMusicPlayer::Pause()
 {
     if (p_mp3)
         p_mp3->pause();
@@ -28,7 +28,7 @@ void SoundPlayer::Pause()
         p_music->pause();
 }
 
-bool SoundPlayer::IsPlaying() const
+bool PMusicPlayer::IsPlaying() const
 {
     if (p_mp3)
         return p_mp3->getStatus() == p_mp3->Playing;
@@ -36,7 +36,7 @@ bool SoundPlayer::IsPlaying() const
         return p_music->getStatus() == p_music->Playing;
 }
 
-void SoundPlayer::SetVolume(float volume)
+void PMusicPlayer::SetVolume(float volume)
 {
     if (p_mp3)
         p_mp3->setVolume(volume);
@@ -44,7 +44,7 @@ void SoundPlayer::SetVolume(float volume)
         p_music->setVolume(volume);
 }
 
-std::string SoundPlayer::getExtensionLC(const std::string& filePath)
+std::string PMusicPlayer::getExtensionLC(const std::string& filePath)
 {
     size_t pos = filePath.rfind('.');
     if (pos == std::string::npos)
