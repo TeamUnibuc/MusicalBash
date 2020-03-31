@@ -2,6 +2,7 @@
 
 #include <random>
 #include <ctime>
+#include <sstream>
 
 namespace {
     std::mt19937 rnd(time(0));    
@@ -21,14 +22,23 @@ void PTrack::Push(std::shared_ptr<PMusic> music)
 
 std::string PTrack::Zip() const
 {
-    /// TODO: Find a way to encode info
-    return "";
+    std::string enc;
+
+    for (auto i : content_)
+        enc += i->getFullPath() + "\n";
+    
+    return enc;
 }
 
 void PTrack::Restore(std::string zipped)
 {
-    /// TODO: see above
-    zipped += "";
+    std::stringstream buff(zipped);
+    std::string name;
+
+    while (getline(buff, name)) {
+        /// name este una dintre melodiile lui PTrack.
+        /// Cum fac sa imi scot inapoi shared_ptr-ul?
+    }
 }
 
 int PTrack::Size() const

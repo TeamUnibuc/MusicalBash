@@ -1,16 +1,27 @@
 #include "tests/wrapper.hpp"
 #include "c_file_select.hpp"
+#include "p_music.hpp"
+
 #include <string>
+#include <iostream>
 
 int main()
 {
     //unit_tests::RunAllTests();
 
-    CFileSelect cfs;
+    PMusic music;
+    music.Create("idk path.txt");
 
-    std::string ans = cfs.RequestFile();
+    music.addPlayedCount();
 
-    std::cerr << "Selected file " << ans << '\n';
+    std::cout << "Music is " << music.getTitle() << std::endl;
+
+    std::cout << "Encoding is " << music.Zip() << ".\n";
+
+    std::string enc = music.Zip();
+
+    PMusic music2;
+    music2.Restore(enc);
 
     return 0;
 }

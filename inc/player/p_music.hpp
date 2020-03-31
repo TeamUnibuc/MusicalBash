@@ -31,6 +31,9 @@ public:
     /// returns the title of the song (the name)
     std::string getTitle() const;
 
+    /// returns full path of the song
+    std::string getFullPath() const;
+
     /// returns nr of times it was played
     int getPlayedCount() const;
 

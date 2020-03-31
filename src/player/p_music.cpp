@@ -1,6 +1,7 @@
 #include "p_music.hpp"
 
 #include <stdexcept>
+#include <sstream>
 
 PMusic::PMusic() : played_count_(0), path_("") { }
 
@@ -18,25 +19,34 @@ std::string PMusic::Zip() const
     if (path_.empty())
         throw std::runtime_error("Tried to zip an empty PMusic object!");
 
-    return path_ + "\0" + std::to_string(played_count_);
+    std::string data = std::to_string(played_count_) + "\n" + path_ + "\n";
+    return data;
 }
 
 void PMusic::Restore(std::string zipped)
 {
-    auto separation = zipped.find("\0");
-    if (separation == std::string::npos)
-        throw std::runtime_error("Tried to restore an invalid string!");
+    if (zipped.empty())
+        throw std::runtime_error("Tried to unzip an empty string!");
+    
+    std::stringstream parser(zipped);
+    parser >> played_count_;
+    
+    parser.get();
+    getline(parser, path_);
 
-    path_ = zipped.substr(0, separation);
-    played_count_ = std::stoi(zipped.substr(separation + 1));
-
-    if (path_.empty() || played_count_ < 0)
-        throw std::runtime_error("Invalid restore!");
+    parser.get();
+    if (!parser.eof())
+        throw std::runtime_error("Finished parsing but buffer is not empty!");
 }
 
 std::string PMusic::getTitle() const
 {
     /// maybe we sould ignore path and extension?
+    return path_;
+}
+
+std::string PMusic::getFullPath() const
+{
     return path_;
 }
 
