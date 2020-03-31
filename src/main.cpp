@@ -2,6 +2,9 @@
 
 int main()
 {
+    char filename[1024];
+    FILE *f = popen("zenity --file-selection", "r");
+    fgets(filename, 1024, f);
     // SoundPlayer soundp("data/IWillSurvive.wav");
     // soundp.Play();
     // sf::SoundFileFactory::registerReader<audio::SoundFileReaderMp3>();
