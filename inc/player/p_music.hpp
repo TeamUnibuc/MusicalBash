@@ -4,8 +4,7 @@
 #include <string>
 
 /**
- * For additional informations please
- * check the documentation at docs/p_music.md
+ * Class storing the information about a single track.
  */
 
 class PMusic

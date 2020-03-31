@@ -4,7 +4,9 @@
 #include <SFML/Audio.hpp>
 #include "p_mp3_sound_stream.hpp"
 
-/// Documentation in docs/sound_player.md
+/**
+ * Class able to play sound using the `SFML/Sound` engine.
+ */
 
 class PMusicPlayer
 {

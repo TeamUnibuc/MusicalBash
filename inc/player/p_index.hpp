@@ -1,16 +1,12 @@
-# PIndex
+#ifndef INC_P_INDEX_
+#define INC_P_INDEX_
 
-### Class storing the information about all the albums, playlists and musics.
-
-### Implementation:
-
-1. [p_index.hpp](/inc/player/p_index.hpp)
-1. [p_index.cpp](/src/player/p_index.cpp)
+/**
+ *  Class storing the information about all the albums, playlists and musics.
+ */
 
 
-## List of methods:
-
-```c++
+/*
     /// constructor
     PIndex();
 
@@ -20,4 +16,5 @@
     /// restores the content of the class from the zip string
     void Restore(std::string zipped);
 
-```
+*/
+#endif // INC_P_INDEX_

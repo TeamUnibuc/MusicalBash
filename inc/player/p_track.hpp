@@ -7,6 +7,12 @@
 #include <string>
 #include <memory>
 
+/**
+ * Class storing the information about a playlist
+ * / album / list of musics or whatever you want
+ * to call it.
+ */
+
 class PTrack
 {
     std::vector <std::shared_ptr<PMusic>> content_;

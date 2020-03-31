@@ -41,7 +41,7 @@ Behavioral: Command, State, Observer
 
     Folosim __*[Command](https://refactoring.guru/design-patterns/command)*__ __Design Pattern__
 
-1. [PIndex](docs/p_index.md)
+1. [PIndex](inc/player/p_index.md)
 
     Class that:
         
@@ -104,28 +104,28 @@ Folosim __*[Builder](https://refactoring.guru/design-patterns/builder)*__ __Desi
 
 As Palbum, PPlaylist and PTrack are basically doing the exact same thing, I created Track and the two others shoud inherit from it without changing anything (or almost).
 
-1. [PTrack](docs/p_track.md)
+1. [PTrack](inc/player/p_track.md)
 
     Class that handles the current set of songs played. Do you play asong from an album, a playlist, or from the entire gallery?
 
     Folosim __*[Observer](https://refactoring.guru/design-patterns/observer)*__ __Design Pattern__ peste comenzi, pentru a afla cum se schimba track-ul
-    
-1. [PAlbum](docs/p_album.md)
+
+1. [PAlbum](inc/player/p_album.md)
 
     Class maintaining a list of musics from a list of files.
 
-2. [PPlaylist](docs/p_playlist.md)
+2. [PPlaylist](inc/player/p_playlist.md)
 
     Class that maintains a hand picked list of files.
 
-3. [PMusic](docs/p_music.md)
+3. [PMusic](inc/player/p_music.md)
 
     Class that holds information about a single music / song.
     The hash (id) of a music is exactly: path/to/file/song_name.ext
 
     Folosim __*[Flyweight](https://refactoring.guru/design-patterns/flyweight)*__ __Design Pattern__ pentru a optimiza memoria (Clasele PPlaylist, PAlbum, Index o sa foloseasca pointeri catre acest Flyweight)
 
-3. [PMusicPlayer](docs/p_music_player.md)
+3. [PMusicPlayer](inc/player/p_music_player.md)
 
     Class handeling playing the music from a file.
     (The Previous sound_player class)
@@ -136,28 +136,28 @@ As Palbum, PPlaylist and PTrack are basically doing the exact same thing, I crea
 
 ## Command-associated classes
 
-1. [CStartMusic](docs/c_start_music.md)
+1. [CStartMusic](inc/command/c_start_music.md)
 
     Class requesting a music to start playing.
 
-1. [CPauseMusic](docs/c_pause_music.md)
+1. [CPauseMusic](inc/command/c_pause_music.md)
 
     class requesting a music to pause.
 
-1. [CNextMusic](docs/c_next_music.md)
+1. [CNextMusic](inc/command/c_next_music.md)
 
     class requesting a music to pause.
 
-1. [CPreviousMusic](docs/c_previous_music.md)
+1. [CPreviousMusic](inc/command/c_previous_music.md)
 
     class requesting a music to pause.
 
-1. [CClose](docs/c_exit.md)
+1. [CClose](inc/command/c_exit.md)
 
     class that handles what happens when the app is exiting
 
-1. [CFileSelect](docs/c_file_select.md)
+1. [CFileSelect](inc/command/c_file_select.md)
 
     class selecting a file from filesistem
 
-1. [CFolderSelect](docs/c_folder_select.md)
+1. [CFolderSelect](inc/command/c_folder_select.md)

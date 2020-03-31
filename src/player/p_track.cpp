@@ -22,11 +22,13 @@ void PTrack::Push(std::shared_ptr<PMusic> music)
 std::string PTrack::Zip() const
 {
     /// TODO: Find a way to encode info
+    return "";
 }
 
 void PTrack::Restore(std::string zipped)
 {
     /// TODO: see above
+    zipped += "";
 }
 
 int PTrack::Size() const
