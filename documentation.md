@@ -145,3 +145,9 @@ Folosim __*[Builder](https://refactoring.guru/design-patterns/builder)*__ __Desi
 1. [CClose](docs/c_exit.md)
 
     class that handles what happens when the app is exiting
+
+1. [CFileSelect](docs/c_file_select.md)
+
+    class selecting a file from filesistem
+
+1. [CFolderSelect](docs/c_folder_select.md)
