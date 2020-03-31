@@ -11,7 +11,8 @@
 ## List of methods:
 
 ```c++
-    /// constructor
+    /* constructor. I don't think we shoud overload it as it will
+    created confusions between the Create function and the Resore one */
     PMusic();
 
     /// creates a new music file 
