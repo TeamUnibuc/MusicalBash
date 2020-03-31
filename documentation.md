@@ -6,9 +6,9 @@
 
 ## MusicalBash Documentation
 
-The design of the project is based on the design patterns descibed [here](https://refactoring.guru/design-patterns).
-Creational: Builder, Singleton
-Structural: Facade, Flyweight
+The design of the project is based on the design patterns descibed [here](https://refactoring.guru/design-patterns).\
+Creational: Builder, Singleton\
+Structural: Facade, Flyweight\
 Behavioral: Command, State, Observer
 
 ----------------
