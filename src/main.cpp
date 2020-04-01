@@ -1,6 +1,7 @@
 #include "tests/wrapper.hpp"
 #include "c_file_select.hpp"
-#include "p_music.hpp"
+#include "p_index.hpp"
+#include "p_track.hpp"
 
 #include <string>
 #include <iostream>
@@ -9,19 +10,19 @@ int main()
 {
     //unit_tests::RunAllTests();
 
-    PMusic music;
-    music.Create("idk path.txt");
+    PTrack track;
+    std::string music = " I will survive.mp3";
+    track.Push(music);
+    track.Push("123");
 
-    music.addPlayedCount();
+    std::string enc = track.Zip();
 
-    std::cout << "Music is " << music.getTitle() << std::endl;
+    std::cerr << "Encoding for treack is \"" << enc << "\"\n";
 
-    std::cout << "Encoding is " << music.Zip() << ".\n";
+    PTrack track2;
+    track2.Restore(enc);
 
-    std::string enc = music.Zip();
-
-    PMusic music2;
-    music2.Restore(enc);
+    std::cerr << "Encoding for track2 = \"" << track2.Zip() << "\"";
 
     return 0;
 }

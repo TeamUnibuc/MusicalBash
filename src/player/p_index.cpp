@@ -7,43 +7,42 @@ PIndex::PIndex() { }
 
 std::string PIndex::Zip() const
 {
-    /* first line contains the number of musics
-    next each line starts with size of zip of music
-    followed by the music zip */
-    std::string enc = std::to_string(pmusic_.size()) + "\n";
-    
-    for (auto i : pmusic_) {
-        std::string zip_music = i.second->Zip();
-        enc += std::to_string(zip_music.size()) + "\n" + zip_music;
-    }
-
-    return enc;
+    /* first line contains the number of albums
+    next each line starts with size of zip of album
+    followed by the album zip. Then the same for the playlists*/
+    /// TODO:
 }
 
 void PIndex::Restore(std::string zipped)
 {
-    std::stringstream buff(zipped);
-    int count;
-    buff >> count;
+    /// TODO:
 
-    for (int i = 0; i < count; i++) {
-        int dim;
-        buff >> dim;
-        std::string enc;
-        while (dim--)
-            enc.push_back(buff.get());
-        
-        std::shared_ptr<PMusic> music(new PMusic);
-        music->Restore(enc);
-        pmusic_[music->getFullPath()] = music; /// TODO: IDK if this works because of how shared_ptr is saved
-    }
 }
 
-
-std::shared_ptr<PMusic> PIndex::getMusicFromPath(std::string path) const
+void PIndex::addAlbumToIndex(std::string path)
 {
-    if (pmusic_.find(path) == pmusic_.end())
-        throw std::runtime_error("Music searched in the index does not exist!");
+    if (palbum_.find(path) != palbum_.end())
+        throw std::runtime_error("Existing album is added again!");
+    palbum_[path] = std::shared_ptr<PAlbum> (new PAlbum);
+
+    palbum_[path]->Create(path);
+
+    for (auto music : palbum_[path]->content_)
+        music_.insert(music);
+}
+
+void PIndex::addPlaylistToIndex(std::string name)
+{
+    if (pplaylist_.find(name) != pplaylist_.end())
+        throw std::runtime_error("Tried to create an existing playlist!");
     
-    return pmusic_.at(path);
+    pplaylist_[name] = std::shared_ptr<PTrack> (new PTrack);
+    pplaylist_[name]->setName(name);
+}
+
+void PIndex::addSongToPlaylist(std::string song, std::string playlist)
+{
+    if (pplaylist_.find(playlist) == pplaylist_.end())
+        throw std::runtime_error("Tried to add a song to a non-existing playlist!");
+    pplaylist_[song]->Push(song);
 }

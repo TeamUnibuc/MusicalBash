@@ -10,22 +10,32 @@ namespace {
 
 PTrack::PTrack() { }
 
-void PTrack::Create(std::vector <std::shared_ptr<PMusic>> content)
+void PTrack::Create(std::vector <std::string> content)
 {
     content_ = content;
 }
 
-void PTrack::Push(std::shared_ptr<PMusic> music)
+void PTrack::setName(std::string name)
+{
+    name_ = name;
+}
+
+std::string PTrack::getName() const
+{
+    return name_;
+}
+
+void PTrack::Push(std::string music)
 {
     content_.push_back(music);
 }
 
 std::string PTrack::Zip() const
 {
-    std::string enc;
+    std::string enc = name_ + "\n";
 
     for (auto i : content_)
-        enc += i->getFullPath() + "\n";
+        enc += i + "\n";
     
     return enc;
 }
@@ -34,11 +44,10 @@ void PTrack::Restore(std::string zipped)
 {
     std::stringstream buff(zipped);
     std::string name;
+    getline(buff, name_);
 
-    while (getline(buff, name)) {
-        /// name este una dintre melodiile lui PTrack.
-        /// Cum fac sa imi scot inapoi shared_ptr-ul?
-    }
+    while (getline(buff, name))
+        content_.push_back(name);
 }
 
 int PTrack::Size() const
@@ -46,7 +55,7 @@ int PTrack::Size() const
     return content_.size();
 }
 
-std::shared_ptr<PMusic> PTrack::FirstMusic(bool remove)
+std::string PTrack::FirstMusic(bool remove)
 {
     if (content_.empty())
         throw std::runtime_error("Tried to get music out of an empty track!");
@@ -58,7 +67,7 @@ std::shared_ptr<PMusic> PTrack::FirstMusic(bool remove)
     return rez;
 }
 
-std::shared_ptr<PMusic> PTrack::RandomMusic(bool remove)
+std::string PTrack::RandomMusic(bool remove)
 {
     if (content_.empty())
         throw std::runtime_error("Tried to get music out of an empty track!");
@@ -70,4 +79,11 @@ std::shared_ptr<PMusic> PTrack::RandomMusic(bool remove)
         content_.erase(content_.begin() + where);
 
     return rez;
+}
+
+std::shared_ptr<PTrack> PTrack::toPTrack()
+{
+    std::shared_ptr<PTrack> ptrack(new PTrack);
+    (*ptrack) = (*this);
+    return ptrack;
 }
