@@ -21,7 +21,11 @@ public:
     void Play();
     void Pause();
     bool IsPlaying() const;
+    bool IsPaused() const;
     void SetVolume(float volume);
+    double getDuration() const;
+    double getPlayingOffset() const;
+
 private:
     std::string getExtensionLC(const std::string& str);
 };

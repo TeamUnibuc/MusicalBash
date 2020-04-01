@@ -21,7 +21,13 @@ public:
     PPlaylist(std::string name);
 
     /// adds a title to the track
-    void addMusic(std::shared_ptr<PMusic> music);
+    void addMusic(std::string music);
+
+    /// converts the content of the class to a string
+    std::string Zip() const;
+
+    /// restores the content of the class from the zip string
+    void Unzip(std::string zipped);
 
     friend class PIndex;
 };

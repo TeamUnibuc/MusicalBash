@@ -27,7 +27,7 @@ public:
     std::string Zip() const;
 
     /// restores the content of the class from the zip string
-    void Restore(std::string zipped);
+    void Unzip(std::string zipped);
 
     /// adds a new album to the index
     void CreateAlbum(std::string path);

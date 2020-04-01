@@ -27,7 +27,7 @@ class Player
     std::shared_ptr <PIndex> index_;
     std::shared_ptr <PMusicQueue> music_queue_;
     std::shared_ptr <PMusicPlayer> music_player_;
-
+    
 public:
 
     /// default constructor

@@ -14,30 +14,18 @@
 class PTrack
 {
 protected:
-    std::vector <std::shared_ptr<PMusic>> content_;
+    std::vector <std::string> content_;
     std::string name_;
 
 public:
     /// default contructor
     PTrack();
 
-    /// constructor with name and data
-    PTrack(std::string name, std::vector <std::shared_ptr<PMusic>> content);
-
-    /// sets the name of the track
-    void setName(std::string name);
+    /// constructor with name and vector of songs
+    PTrack(std::string name, std::vector <std::string> content);
 
     /// returns the name of the track
     std::string getName() const;
-
-    /// adds a title to the track
-    void addMusic(std::shared_ptr<PMusic> music);
-
-    /// converts the content of the class to a string
-    std::string Zip() const;
-
-    /// restores the content of the class from the zip string
-    void Unzip(std::string zipped);
 
     /// returns number of elements in the track
     int Size() const;

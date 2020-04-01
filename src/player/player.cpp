@@ -6,14 +6,12 @@ Player::Player() : index_(new PIndex),
 
 std::string Player::Zip() const
 {
-    /// TODO:
-    return "";
+    return index_->Zip();
 }
 
 void Player::Unzip(const std::string& zipped)
 {
-    /// TODO:
-    zipped[0];
+    index_->Unzip(zipped);
 }
 
 void Player::CreateAlbum(const std::string& path)
@@ -38,10 +36,9 @@ void Player::DeletePlaylist(const std::string& name)
 
 void Player::addMusicToPlaylist(const std::string& playlist, const std::string& music)
 {
-    std::shared_ptr <PMusic> music_ptr = index_->getMusicPtr(music);
     std::shared_ptr <PPlaylist> playlist_ptr = index_->getPlaylistPtr(playlist);
 
-    playlist_ptr->addMusic(music_ptr);
+    playlist_ptr->addMusic(music);
 }
 
 std::vector <std::string> Player::getAllMusic()
@@ -71,8 +68,7 @@ std::vector <std::string> Player::getMusicFromPlaylist(const std::string& playli
 
 void Player::addMusicToQueue(const std::string& music)
 {
-    std::shared_ptr<PMusic> ptr = index_->getMusicPtr(music);
-    (*music_queue_) += ptr;
+    (*music_queue_) += music;
 }
 
 void Player::addAlbumToQueue(const std::string& name)
@@ -89,15 +85,22 @@ void Player::addPlaylistToQueue(const std::string& name)
 
 void Player::PlayMusic()
 {
-    /// TODO:
+    /// TODO: should see if melody ended
+    if (music_player_->IsPlaying() || music_queue_->Size() == 0)
+        return;
+    
+    std::string music = music_queue_->FirstMusic(true);
+    music_player_.reset(new PMusicPlayer(music));
+    music_player_->Play();
 }
 
 void Player::PauseMusic()
 {
-    /// TODO:
+    if (music_player_->IsPlaying())
+        music_player_->Pause();
 }
 
 void Player::StopMusic()
 {
-    /// TODO:
+    music_player_.reset(new PMusicPlayer);
 }

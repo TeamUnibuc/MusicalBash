@@ -36,6 +36,14 @@ bool PMusicPlayer::IsPlaying() const
         return p_music->getStatus() == p_music->Playing;
 }
 
+bool PMusicPlayer::IsPaused() const
+{
+    if (p_mp3)
+        return p_mp3->getStatus() == p_mp3->Paused;
+    else
+        return p_music->getStatus() == p_music->Paused;
+}
+
 void PMusicPlayer::SetVolume(float volume)
 {
     if (p_mp3)
@@ -43,6 +51,24 @@ void PMusicPlayer::SetVolume(float volume)
     else
         p_music->setVolume(volume);
 }
+
+double PMusicPlayer::getDuration() const
+{
+    if (p_mp3)
+        return -1;
+    else
+        return p_music->getDuration().asSeconds();
+}
+
+double PMusicPlayer::getPlayingOffset() const
+{
+    if (p_mp3)
+        return p_mp3->getPlayingOffset().asSeconds();
+    else
+        return p_music->getPlayingOffset().asSeconds();
+}
+
+
 
 std::string PMusicPlayer::getExtensionLC(const std::string& filePath)
 {
