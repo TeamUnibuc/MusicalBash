@@ -118,10 +118,11 @@ As Palbum, PPlaylist and PTrack are basically doing the exact same thing, I crea
 
     Class that maintains a hand picked list of files.
 
-3. [PMusic](inc/player/p_music.hpp)
+3. ~~[PMusic](inc/player/p_music.hpp)~~
 
-    Class that holds information about a single music / song.
-    The hash (id) of a music is exactly: path/to/file/song_name.ext
+    ~~Class that holds information about a single music / song.
+    The hash (id) of a music is exactly: path/to/file/song_name.ext~~
+    __NOT needed, as we only have to remember the path, which is stored by default in all albums / tracks__ 
 
     Folosim __*[Flyweight](https://refactoring.guru/design-patterns/flyweight)*__ __Design Pattern__ pentru a optimiza memoria (Clasele PPlaylist, PAlbum, Index o sa foloseasca pointeri catre acest Flyweight)
 

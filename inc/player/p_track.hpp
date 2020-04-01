@@ -8,39 +8,41 @@
 #include <memory>
 
 /**
- * Class storing the information about a playlist
- * / album / list of musics or whatever you want
- * to call it.
+ * Base class for playlists, albums and waiting-queue.
+ * I basically just stores pointers to music.
  */
-
 class PTrack
 {
+protected:
     std::vector <std::shared_ptr<PMusic>> content_;
+    std::string name_;
 
 public:
-    /// constructor
+    /// default contructor
     PTrack();
 
-    /// creates a track based on the files in content
-    void Create(std::vector <std::shared_ptr<PMusic>> content);
+    /// constructor with name and data
+    PTrack(std::string name, std::vector <std::shared_ptr<PMusic>> content);
+
+    /// sets the name of the track
+    void setName(std::string name);
+
+    /// returns the name of the track
+    std::string getName() const;
 
     /// adds a title to the track
-    void Push(std::shared_ptr<PMusic> music);
+    void addMusic(std::shared_ptr<PMusic> music);
 
     /// converts the content of the class to a string
     std::string Zip() const;
 
     /// restores the content of the class from the zip string
-    void Restore(std::string zipped);
+    void Unzip(std::string zipped);
 
     /// returns number of elements in the track
     int Size() const;
 
-    /// returns first element of track
-    std::shared_ptr<PMusic> FirstMusic(bool remove = false);
-
-    /// returns random element of track
-    std::shared_ptr<PMusic> RandomMusic(bool remove = false);
-
+    friend class PMusicQueue;
 };
+
 #endif // INC_P_TRACK_

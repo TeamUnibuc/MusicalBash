@@ -1,18 +1,10 @@
+ 
 #include "p_music.hpp"
 
 #include <stdexcept>
 #include <sstream>
 
-PMusic::PMusic() : played_count_(0), path_("") { }
-
-void PMusic::Create(std::string path)
-{
-    if (path.empty())
-        throw std::runtime_error("Tried to create a music with an empty path!");
-    if (!path_.empty())
-        throw std::runtime_error("Tried to overrite an existing music!");
-    path_ = path;
-}
+PMusic::PMusic(std::string path) : played_count_(0), path_(path) { }
 
 std::string PMusic::Zip() const
 {
@@ -23,7 +15,7 @@ std::string PMusic::Zip() const
     return data;
 }
 
-void PMusic::Restore(std::string zipped)
+void PMusic::Unzip(std::string zipped)
 {
     if (zipped.empty())
         throw std::runtime_error("Tried to unzip an empty string!");
@@ -39,14 +31,14 @@ void PMusic::Restore(std::string zipped)
         throw std::runtime_error("Finished parsing but buffer is not empty!");
 }
 
-std::string PMusic::getTitle() const
+std::string PMusic::getFullPath() const
 {
-    /// maybe we sould ignore path and extension?
     return path_;
 }
 
-std::string PMusic::getFullPath() const
+std::string PMusic::getName() const
 {
+    /// TODO: return name without extension
     return path_;
 }
 

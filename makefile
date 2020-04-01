@@ -24,4 +24,7 @@ fast: $(sources)
 # removes a.out file
 clean:
 	rm $(PROGRAM_NAME).out
-	
+
+run: $(sources)
+	g++ $(flags_all) $(INC_PARAMS) $(SCR_PARAMS) $(LIB_PARAMS) -o $(PROGRAM_NAME).out
+	./musicalbash.out
