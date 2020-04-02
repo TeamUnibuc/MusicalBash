@@ -13,7 +13,7 @@ void CMp3FileDuration::Execute()
     const int BUFF_SIZE = 256;
     char buffer[BUFF_SIZE + 1];
     string output;
-    string command = "mp3info -p \"%S\" " + std::any_cast<string>(filePath);
+    string command = "mp3info -p \"%S\" \"" + filePath + "\"";
 
     auto pstream = popen(command.c_str(), "r");
 
