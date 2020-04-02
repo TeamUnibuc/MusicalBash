@@ -14,8 +14,8 @@ std::any CFileSelect::execute(std::any /* obj */)
         throw std::runtime_error("User returned no file!");
     
     std::string res(filename);
-    // if (res.size() > 0)
-    //     res.pop_back();
+    if (res.size() > 0)
+        res.pop_back();
 
     return res;
 }
