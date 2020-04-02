@@ -17,7 +17,23 @@ namespace unit_tests
         cout << std::unitbuf;
 
         cout << "\033[1;34mRunning all tests\n";
+
+        RunSingleTest(TestFileSelect, "File select");
+        RunSingleTest(TestDirectorySelect, "Directory select");
         RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
+
+        cout << std::nounitbuf;
+    }
+
+    void RunSpecificTests()
+    {
+        cout << std::unitbuf;
+
+        cout << "\033[1;34mRunning SPECIFIC tests\n";
+
+        // RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
+        RunSingleTest(TestFileSelect, "File select");
+        RunSingleTest(TestDirectorySelect, "Directory select");
 
         cout << std::nounitbuf;
     }

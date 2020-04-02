@@ -1,4 +1,4 @@
-#include "tests/file_select_t.hpp"
+#include "tests/wrapper.hpp"
 #include "c_file_select.hpp"
 #include "p_index.hpp"
 #include "p_track.hpp"
@@ -8,7 +8,8 @@
 
 int main()
 {
-    unit_tests::TestFileSelect();
+    // unit_tests::RunAllTests();
+    unit_tests::RunSpecificTests();
 
 
     return 0;
