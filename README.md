@@ -12,6 +12,10 @@ You can install both with the commands:
 sudo apt install libsfml-dev
 
 sudo apt install libmpg123-dev
+
+sudo apt install zenity
+
+sudo apt install mp3info
 ```
 
 ## SFML

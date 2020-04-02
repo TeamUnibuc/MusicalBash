@@ -13,13 +13,13 @@ PMusicQueue::PMusicQueue()
     name_ = "Music Queue";
 }
 
-PMusicQueue& PMusicQueue::operator+=(std::string music)
+PMusicQueue& PMusicQueue::operator += (std::string music)
 {
     content_.push_back(music);
     return *this;
 }
 
-PMusicQueue& PMusicQueue::operator+=(std::shared_ptr<PTrack> track)
+PMusicQueue& PMusicQueue::operator += (std::shared_ptr<PTrack> track)
 {
     for (auto i : track->content_)
         content_.push_back(i);

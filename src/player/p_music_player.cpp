@@ -74,8 +74,9 @@ double PMusicPlayer::GetVolume() const
 
 double PMusicPlayer::GetDuration() const
 {
-    if (p_mp3)
-        return -1;
+    if (p_mp3) {
+        
+    }
     else if (p_music)
         return p_music->getDuration().asSeconds();
     return 0;
