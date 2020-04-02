@@ -104,3 +104,28 @@ void Player::StopMusic()
 {
     music_player_.reset(new PMusicPlayer);
 }
+
+double Player::getActiveSongDuration() const
+{
+    return music_player_->GetDuration();
+}
+
+double Player::getActiveSongPlayingOffset() const
+{
+    return music_player_->GetPlayingOffset();
+}
+
+void Player::setActiveSongPlayingOffset(double offset)
+{
+    music_player_->SetPlayingOffset(offset);
+}
+
+int Player::getPlayingStatus() const
+{
+    if (music_player_->IsPaused())
+        return 1;
+    if (music_player_->IsPlaying())
+        return 0;
+    return -1;
+
+}

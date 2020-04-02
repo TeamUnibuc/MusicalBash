@@ -21,6 +21,8 @@
  * 2. The playing track
  * 
  * It is able to basically receive any command from the UI
+ * WARNING: ALL names are given with full path / extension
+ * and player expects to get them back in the same way
  */
 class Player 
 {
@@ -87,6 +89,29 @@ public:
 
     /// stops the music
     void StopMusic();
+
+    /// returns the curent volume
+    double getVolume() const;
+
+    /// sets the curent volume
+    void setVolume(double volume);
+
+    /// returns length of active song.
+    double getActiveSongDuration() const;
+
+    /// returns curently played of active song
+    double getActiveSongPlayingOffset() const;
+
+    /// sets where the cursor is
+    void setActiveSongPlayingOffset(double offset);
+
+    /**
+     *  returns the curent status.
+     *  -1 for stopped
+     *  0 for playing
+     *  1 for paused
+     */
+    int getPlayingStatus() const;
 };
 
 #endif // INC_PLAYER_

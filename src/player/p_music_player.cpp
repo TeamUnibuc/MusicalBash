@@ -8,7 +8,7 @@ PMusicPlayer::PMusicPlayer(const std::string & source) :
 {
     if (p_mp3)
         p_mp3->openFromFile(source);
-    else
+    else if (p_music)
         p_music->openFromFile(source);
 }
 
@@ -16,7 +16,7 @@ void PMusicPlayer::Play()
 {
     if (p_mp3)
         p_mp3->play();
-    else
+    else if (p_music)
         p_music->play();
 }
 
@@ -24,7 +24,7 @@ void PMusicPlayer::Pause()
 {
     if (p_mp3)
         p_mp3->pause();
-    else
+    else if (p_music)
         p_music->pause();
 }
 
@@ -32,43 +32,71 @@ bool PMusicPlayer::IsPlaying() const
 {
     if (p_mp3)
         return p_mp3->getStatus() == p_mp3->Playing;
-    else
+    else if (p_music)
         return p_music->getStatus() == p_music->Playing;
+    return false;
 }
 
 bool PMusicPlayer::IsPaused() const
 {
     if (p_mp3)
         return p_mp3->getStatus() == p_mp3->Paused;
-    else
+    else if (p_music)
         return p_music->getStatus() == p_music->Paused;
+    return false;
 }
 
-void PMusicPlayer::SetVolume(float volume)
+bool PMusicPlayer::IsStopped() const
+{
+    if (p_mp3)
+        return p_mp3->getStatus() == p_mp3->Stopped;
+    else if (p_music)
+        return p_music->getStatus() == p_music->Stopped;
+    return true;
+}
+
+void PMusicPlayer::SetVolume(double volume)
 {
     if (p_mp3)
         p_mp3->setVolume(volume);
-    else
+    else if (p_music)
         p_music->setVolume(volume);
 }
 
-double PMusicPlayer::getDuration() const
+double PMusicPlayer::GetVolume() const
+{
+    if (p_mp3)
+        return p_mp3->getVolume();
+    else if (p_music)
+        return p_music->getVolume();
+    return 0;
+}
+
+double PMusicPlayer::GetDuration() const
 {
     if (p_mp3)
         return -1;
-    else
+    else if (p_music)
         return p_music->getDuration().asSeconds();
+    return 0;
 }
 
-double PMusicPlayer::getPlayingOffset() const
+double PMusicPlayer::GetPlayingOffset() const
 {
     if (p_mp3)
         return p_mp3->getPlayingOffset().asSeconds();
-    else
+    else if (p_music)
         return p_music->getPlayingOffset().asSeconds();
+    return 0;
 }
 
-
+void PMusicPlayer::SetPlayingOffset(double offset)
+{
+    if (p_mp3)
+        p_mp3->setPlayingOffset(sf::seconds(offset));
+    else if (p_music)
+        p_music->setPlayingOffset(sf::seconds(offset));
+}
 
 std::string PMusicPlayer::getExtensionLC(const std::string& filePath)
 {
