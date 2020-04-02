@@ -18,10 +18,39 @@ public:
     PMusicPlayer();
     PMusicPlayer(const std::string & source);
 
+    /// makes the music play
     void Play();
+
+    /// makes the music pause
     void Pause();
+
+    /// makes the music stop
+    void Stop();
+
+    /// returns true if the music is playing
     bool IsPlaying() const;
-    void SetVolume(float volume);
+
+    /// returns true if the music is paused
+    bool IsPaused() const;
+
+    /// returns true if the music is stopped
+    bool IsStopped() const;
+
+    /// sets the volume (a number between 0 - 100)
+    void SetVolume(double volume);
+
+    /// returns curent volume (between 0 - 100)
+    double GetVolume() const;
+
+    /// returns track duration in seconds
+    double GetDuration() const;
+
+    /// returns where the cursor got (time played so far) in seconds
+    double GetPlayingOffset() const;
+
+    /// sets the cursor at a given position in seconds
+    void SetPlayingOffset(double offset);
+
 private:
     std::string getExtensionLC(const std::string& str);
 };
