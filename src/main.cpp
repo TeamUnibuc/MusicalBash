@@ -10,6 +10,5 @@ int main()
 {
     unit_tests::RunAllTests();
 
-
     return 0;
 }

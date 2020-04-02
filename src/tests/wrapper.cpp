@@ -17,7 +17,8 @@ namespace unit_tests
         cout << std::unitbuf;
 
         cout << "\033[1;34mRunning all tests\n";
-        RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
+        // RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
+        RunSingleTest(TestBasicFunctionalityUI, "Basic Graphical Window");
 
         cout << std::nounitbuf;
     }
