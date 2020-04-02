@@ -8,9 +8,7 @@
 #include "p_playlist.hpp"
 #include "p_music_queue.hpp"
 
-#include <stdexcept>
 #include <vector>
-#include <map>
 #include <string>
 #include <memory>
 

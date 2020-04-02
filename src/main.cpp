@@ -1,15 +1,12 @@
-#include "tests/wrapper.hpp"
-#include "c_file_select.hpp"
-#include "p_index.hpp"
-#include "p_track.hpp"
+#include <bits/stdc++.h>
+using namespace std;
 
-#include <string>
-#include <iostream>
+#include "tests/wrapper.hpp"
+#include "player.hpp"
 
 int main()
 {
     unit_tests::RunAllTests();
-
 
     return 0;
 }

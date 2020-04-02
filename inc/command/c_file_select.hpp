@@ -1,7 +1,7 @@
 #ifndef INC_C_FILE_SELECT_
 #define INC_C_FILE_SELECT_
 
-#include "c_command.hpp"
+#include "command.hpp"
 
 #include <string>
 
