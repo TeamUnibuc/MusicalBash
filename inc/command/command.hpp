@@ -1,5 +1,5 @@
-#ifndef INC_C_COMMAND_
-#define INC_C_COMMAND_
+#ifndef INC_COMMAND_
+#define INC_COMMAND_
 
 #include <any>
 #include <stdexcept>
@@ -13,4 +13,4 @@ public:
     virtual void Execute() = 0;
 };
 
-#endif // INC_C_COMMAND_
+#endif // INC_COMMAND_

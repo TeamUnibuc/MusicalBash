@@ -5,7 +5,6 @@
 
 #include <vector>
 #include <string>
-#include <memory>
 
 /**
  * Base class for playlists, albums and waiting-queue.

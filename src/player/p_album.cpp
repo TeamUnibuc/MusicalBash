@@ -1,14 +1,13 @@
 #include "p_album.hpp"
-
-#include <random>
-#include <ctime>
-#include <sstream>
-
+#include "c_file_system.hpp"
 
 PAlbum::PAlbum() { }
 
 PAlbum::PAlbum(std::string album_path) 
 {
     name_ = album_path;
-    /// TODO: Insert content via a command
+    CFileSystem filesys(name_);
+    filesys.Execute();
+
+    content_ = filesys.GetResult();
 }

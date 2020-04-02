@@ -21,7 +21,8 @@ namespace unit_tests
         RunSingleTest(TestFileSelect, "File select");
         RunSingleTest(TestDirectorySelect, "Directory select");
         RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
-
+        RunSingleTest(TestBasicFunctionalityPlayer, "Basic Player");
+        
         cout << std::nounitbuf;
     }
 

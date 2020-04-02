@@ -1,7 +1,7 @@
 #ifndef INC_COMMAND_MP3_FILE_DURATION_
 #define INC_COMMAND_MP3_FILE_DURATION_
 
-#include "c_command.hpp"
+#include "command.hpp"
 
 #include <string>
 
