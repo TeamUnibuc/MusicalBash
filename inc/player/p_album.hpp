@@ -4,7 +4,7 @@
 #include "p_track.hpp"
 
 #include <vector>
-#include <memory>
+#include <string>
 
 /**
  *  Class storing the information about an album.
