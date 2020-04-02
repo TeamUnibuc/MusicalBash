@@ -7,12 +7,8 @@ namespace unit_tests
         using std::cout;
         { // unnamed scope, so that PMusicPlayer variables gets destroyed, 
 
-            std::string res;
-
             auto commPtr = CFileSelect();
-            commPtr.execute(&res);
-
-            res.pop_back();
+            std::string res = std::any_cast<std::string>(commPtr.execute());
 
             std::cout << "File: " << res;
         }

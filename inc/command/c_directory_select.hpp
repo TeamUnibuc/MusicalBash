@@ -15,7 +15,7 @@ class CDirectorySelect : public Command
 {
 public:
     /// requests the user for a file in a blocking way 
-    void execute(std::any outObject);
+    std::any execute(std::any obj = nill_obj);
 };
 
 #endif // INC_C_DIRECTORY_SELECT_

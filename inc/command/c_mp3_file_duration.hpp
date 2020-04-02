@@ -12,8 +12,8 @@
 class CMp3FileDuration : public Command
 {
 public:
-    /// requests the user for a file in a blocking way 
-    void execute(std::any& outObject);
+    /// returns the lengths of an mp3 file
+    std::any execute(std::any obj = nill_obj);
 };
 
 #endif // INC_COMMAND_MP3_FILE_DURATION_

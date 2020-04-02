@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-void CFileSelect::execute(std::any obj)
+std::any CFileSelect::execute(std::any /* obj */)
 {
     char filename[1024];
     filename[0] = 0;
@@ -17,5 +17,5 @@ void CFileSelect::execute(std::any obj)
     // if (res.size() > 0)
     //     res.pop_back();
 
-    *std::any_cast<std::string*>(obj) = res;
+    return res;
 }

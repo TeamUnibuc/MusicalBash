@@ -1,6 +1,6 @@
 #include "c_directory_select.hpp"
 
-void CDirectorySelect::execute(std::any obj)
+std::any CDirectorySelect::execute(std::any /* obj */)
 {
     char filename[1024];
     filename[0] = 0;
@@ -15,5 +15,5 @@ void CDirectorySelect::execute(std::any obj)
     if (res.size() > 0)
         res.pop_back();
 
-    *std::any_cast<std::string*>(obj) = res;
+    return res;
 }
