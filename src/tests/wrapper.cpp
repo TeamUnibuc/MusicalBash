@@ -32,8 +32,9 @@ namespace unit_tests
         cout << "\033[1;34mRunning SPECIFIC tests\n";
 
         // RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
-        RunSingleTest(TestFileSelect, "File select");
-        RunSingleTest(TestDirectorySelect, "Directory select");
+        // RunSingleTest(TestFileSelect, "File select");
+        // RunSingleTest(TestDirectorySelect, "Directory select");
+        RunSingleTest(TestGetFileDuration, "Mp3 Duration");
 
         cout << std::nounitbuf;
     }

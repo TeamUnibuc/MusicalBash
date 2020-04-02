@@ -2,7 +2,9 @@
 
 #include <stdexcept>
 
-std::any CFileSelect::execute(std::any /* obj */)
+CFileSelect::CFileSelect() { }
+
+void CFileSelect::Execute()
 {
     char filename[1024];
     filename[0] = 0;
@@ -13,9 +15,12 @@ std::any CFileSelect::execute(std::any /* obj */)
     if (filename[0] == 0)
         throw std::runtime_error("User returned no file!");
     
-    std::string res(filename);
-    if (res.size() > 0)
-        res.pop_back();
+    selected_file_ = std::string(filename);
+    if (selected_file_.size() > 0)
+        selected_file_.pop_back();
+}
 
-    return res;
+std::string CFileSelect::GetResult()
+{
+    return selected_file_;
 }

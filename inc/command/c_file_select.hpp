@@ -11,11 +11,19 @@
  * [This](https://stackoverflow.com/questions/18948783/c-simple-open-file-dialog-in-linux).
  * I am not sure if the function does not add random junk at the end of the strings (should be checked)
  */
-class CFileSelect : public Command
+class CFileSelect final : public Command
 {
+private:
+    std::string selected_file_;
+
 public:
+    CFileSelect();
+
     /// requests the user for a file in a blocking way 
-    std::any execute(std::any obj = nill_obj);
+    void Execute();
+
+    /// Returns the path of the selected file
+    std::string GetResult();
 };
 
 

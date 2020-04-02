@@ -7,6 +7,7 @@
 #include "tests/sound_player_t.hpp"
 #include "tests/file_select_t.hpp"
 #include "tests/directory_select_t.hpp"
+#include "tests/mp3_file_duration_t.hpp"
 
 namespace unit_tests
 {

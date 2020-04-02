@@ -1,6 +1,8 @@
 #include "c_directory_select.hpp"
 
-std::any CDirectorySelect::execute(std::any /* obj */)
+CDirectorySelect::CDirectorySelect() { }
+
+void CDirectorySelect::Execute()
 {
     char filename[1024];
     filename[0] = 0;
@@ -11,9 +13,12 @@ std::any CDirectorySelect::execute(std::any /* obj */)
     if (filename[0] == 0)
         throw std::runtime_error("User returned no file!");
     
-    std::string res(filename);
-    if (res.size() > 0)
-        res.pop_back();
+    std::string selected_directory_(filename);
+    if (selected_directory_.size() > 0)
+        selected_directory_.pop_back();
+}
 
-    return res;
+std::string CDirectorySelect::GetResult()
+{
+    return selected_directory_;
 }
