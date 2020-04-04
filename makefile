@@ -1,5 +1,5 @@
 # Project Name (executable)
-PROJECT = yolo
+PROJECT = musicalbash.out
 # Compiler
 CXX = g++-8
 CSTD = c++17
@@ -16,14 +16,17 @@ HEADERS = -Iinc/ -Iinc/player/ -Iinc/command/ -Iinc/application -Iinc/index -Iin
 LIBS = -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio -lmpg123
 
 # Dependency options
-DEPENDENCY_OPTIONS = -MM $(HEADERS) $()
+DEPENDENCY_OPTIONS = -MM $(HEADERS) $(COMPILE_OPTIONS)
 
 #-- Do not edit below this line --
 
 # Subdirs to search for additional source files
-SUBDIRS := $(shell ls -F | grep "\/" )
-DIRS := ./ $(SUBDIRS)
-SOURCE_FILES := $(foreach d, $(DIRS), $(wildcard src/**/*.cpp) )
+SUBDIRS := $(shell find src -type d )
+DIRS := $(SUBDIRS)
+SOURCE_FILES := $(foreach d, $(DIRS), $(wildcard $(d)/*.cpp) )
+
+$(info DIRS = $(DIRS))
+$(info SRC = $(SOURCE_FILES))
 
 # Create an object file of every cpp file
 OBJECTS = $(patsubst %.cpp, %.o, $(SOURCE_FILES))
@@ -41,6 +44,8 @@ all: $(DEPENDENCIES) $(PROJECT)
 $(PROJECT): $(OBJECTS)
 	$(CXX) -o $(PROJECT) $(OBJECTS) $(LIBS)
 
+$(info Before INCLUDE)
+
 # Include dependencies (if there are any)
 ifneq "$(strip $(DEPENDENCIES))" ""
 	-include $(DEPENDENCIES)
@@ -48,7 +53,7 @@ endif
 
 # Compile every cpp file to an object
 %.o: %.cpp
-	$(CXX) -c $(COMPILE_OPTIONS) -o $@ $< $(HEADERS)
+	$(CXX) -c $(COMPILE_OPTIONS) $(HEADERS) -o $@ $< 
 
 # Build & Run Project
 run: $(PROJECT)
