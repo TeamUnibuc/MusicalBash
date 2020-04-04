@@ -1,12 +1,18 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <iostream>
 
 #include "tests/wrapper.hpp"
-#include "player.hpp"
+#include "player.hpp" 
+#include "p_music.hpp"
+
+using namespace std;
+/// #include "tests/sound_player_t.hpp"
 
 int main()
-{
-    unit_tests::RunAllTests();
+{ 
+    std::cout << "hey\n";
+    PMusic someMusic("data/music_samples/IWillSurvive.wav");
+
+    /// unit_tests::RunAllTests();
 
     return 0;
 }
