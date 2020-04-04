@@ -1,8 +1,12 @@
 # Project Name (executable)
 PROJECT = musicalbash.out
 # Compiler
+CPP = cpp
 CXX = g++-8
 CSTD = c++17
+
+# Project options
+SRC_FO = src
 
 # Run Options       
 COMMANDLINE_OPTIONS = 
@@ -18,46 +22,67 @@ LIBS = -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -ls
 # Dependency options
 DEPENDENCY_OPTIONS = -MM $(HEADERS) $(COMPILE_OPTIONS)
 
+# Creating stats folder
+# Stats part, kinda useless but hey
+# Print how many files recalculated dependencies and how many recompiled
+RESET_COMPILE = mkdir -p .stats; rm -f .stats/bash_count.txt; touch .stats/bash_count.txt
+ADD_COMPILE = echo "X" >> .stats/bash_count.txt
+SHOW_COMPILE = echo ""; echo Recompiled: $$(cat .stats/bash_count.txt)  ---  \
+$$(cat .stats/bash_count.txt | wc -l)
+
+SHELL_OUT := $(shell $(RESET_COMPILE))
+
 #-- Do not edit below this line --
 
 # Subdirs to search for additional source files
-SUBDIRS := $(shell find src -type d )
+SUBDIRS := $(shell find $(SRC_FO) -type d )
 DIRS := $(SUBDIRS)
-SOURCE_FILES := $(foreach d, $(DIRS), $(wildcard $(d)/*.cpp) )
+SOURCE_FILES := $(foreach d, $(DIRS), $(wildcard $(d)/*.cpp))
 
-$(info DIRS = $(DIRS))
-$(info SRC = $(SOURCE_FILES))
+# $(info DIRS = $(DIRS))
+# $(info SRC = $(SOURCE_FILES))
+# $(info SHOW = $(SHOW_HOW_MANY))
 
 # Create an object file of every cpp file
-OBJECTS = $(patsubst %.cpp, %.o, $(SOURCE_FILES))
+OBJECTS = $(patsubst $(SRC_FO)/%.cpp, .dep/%.o, $(SOURCE_FILES))
 
 # Dependencies
-DEPENDENCIES = $(patsubst %.cpp, %.d, $(SOURCE_FILES))
+DEPENDENCIES = $(patsubst $(SRC_FO)/%.cpp, .dep/%.d, $(SOURCE_FILES))
 
 # Create .d files
-%.d: %.cpp
-	$(CXX) $(DEPENDENCY_OPTIONS) $< -MT "$*.o $*.d" -MF $*.d
+.dep/%.d: $(SRC_FO)/%.cpp | createDepFolder
+	@echo Preprocess: $@
+	@$(CPP) $(DEPENDENCY_OPTIONS) $< -MT ".dep/$*.o .dep/$*.d" -MF .dep/$*.d
 
 # Make $(PROJECT) the default target
 all: $(DEPENDENCIES) $(PROJECT)
 
 $(PROJECT): $(OBJECTS)
-	$(CXX) -o $(PROJECT) $(OBJECTS) $(LIBS)
+	@printf "\nLinking $(PROJECT)\n"
+	@$(CXX) -o $(PROJECT) $(OBJECTS) $(LIBS)
+	@$(SHOW_COMPILE)
 
-$(info Before INCLUDE)
+# $(info Before INCLUDE)
 
 # Include dependencies (if there are any)
 ifneq "$(strip $(DEPENDENCIES))" ""
-	-include $(DEPENDENCIES)
+ -include $(DEPENDENCIES)
 endif
 
 # Compile every cpp file to an object
-%.o: %.cpp
-	$(CXX) -c $(COMPILE_OPTIONS) $(HEADERS) -o $@ $< 
+.dep/%.o: $(SRC_FO)/%.cpp | createDepFolder # | resetCompile
+	@echo Compile: $<
+	@$(CXX) -c $(COMPILE_OPTIONS) $(HEADERS) -o $@ $< 
+	@$(ADD_COMPILE)
 
 # Build & Run Project
 run: $(PROJECT)
 	./$(PROJECT) $(COMMANDLINE_OPTIONS)
+
+createDepFolder:
+#	@echo Creating dependency folders
+	@$(foreach folder,$(patsubst src/%,.dep/%,$(SOURCE_FILES)),\
+ mkdir -p $(dir $(folder));)
 
 # Clean & Debug
 .PHONY: makefile-debug
@@ -72,6 +97,17 @@ depclean:
 	rm -f $(DEPENDENCIES)
 
 clean-all: clean depclean
+
+
+.PHONY: resetCompile addCompile showCompile
+resetCompile:
+	$(RESET_COMPILE)
+
+addCompile:
+	$(ADD_COMPILE)
+
+showCompile:
+	@$(SHOW_COMPILE)
 
 # MakeFile - Linux
 # Needs working g++, if not on path rename CC variable
