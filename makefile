@@ -1,41 +1,74 @@
+# MakeFile - Linux
+# Needs working g++, if not on path rename CC variable
+
+$(info - - - - - - - - - - - - - -)
+# DO NOT Comment inline, like below
+# some makefile instruction  # some comment
+
 # Project Name (executable)
 PROJECT = musicalbash.out
 # Compiler
 CPP = cpp
-CXX = g++-8
+CXX = g++
 CSTD = c++17
 
 # Project options
-SRC_FO = src
-
-# Run Options       
-COMMANDLINE_OPTIONS = 
-
-# Compiler options during compilation
-COMPILE_OPTIONS = -std=$(CSTD) -g -O0 -Wall -Wextra
+# recursively search for cpp files
+SRC_FO += src
+# where the *.d and *.o files will be stored
+DEP_FO += .dep
+# used for useful information storage
+STAT_FO += .stats
 
 #Header include directories
-HEADERS = -Iinc/ -Iinc/player/ -Iinc/command/ -Iinc/application -Iinc/index -Iinc/ui
+HEADERS += -Iinc/ -Iinc/player/ -Iinc/command/ -Iinc/application \
+          -Iinc/index -Iinc/ui
 #Libraries for linking
-LIBS = -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio -lmpg123
+LIBS += -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system \
+       -lsfml-network -lsfml-audio -lmpg123
+# we use <filesystem> which is a new thing, oh well
+ifneq ($(filter $(shell g++ -dumpversion),1 2 3 4 5 6 7),)
+	CXX = g++-8
+	LIBS += -lstdc++fs
+else ifeq ($(shell g++ -dumpversion),8)
+	LIBS += -lstdc++fs
+endif
+# Sanitizer options
+SANITIZER += -fsanitize=address,undefined,signed-integer-overflow
+
+# Run Options       
+COMMANDLINE_OPTIONS += 
+
+# Always use this at compile / linking
+GLOBAL_FLAGS += -std=$(CSTD) -g -O0 -Wall -Wextra
+
+# Compiler options during compilation
+COMPILE_OPTIONS += $(GLOBAL_FLAGS) $(SANITIZER) $(HEADERS) 
+
+# Compiler options during linking the whole project
+LINKING_OPTIONS += $(GLOBAL_FLAGS) $(SANITIZER) $(LIBS)
 
 # Dependency options
-DEPENDENCY_OPTIONS = -MM $(HEADERS) $(COMPILE_OPTIONS)
+DEPENDENCY_OPTIONS += -MM $(HEADERS)
+
 
 # Creating stats folder
 # Stats part, kinda useless but hey
 # Print how many files recalculated dependencies and how many recompiled
-RESET_COMPILE = mkdir -p .stats; rm -f .stats/bash_count.txt; touch .stats/bash_count.txt
-ADD_COMPILE = echo "X" >> .stats/bash_count.txt
-SHOW_COMPILE = echo ""; echo Recompiled: $$(cat .stats/bash_count.txt)  ---  \
-$$(cat .stats/bash_count.txt | wc -l)
+RESET_COMPILE_CNT = mkdir -p $(STAT_FO); \
+    rm -f $(STAT_FO)/bash_count.txt; \
+	touch $(STAT_FO)/bash_count.txt
+ADD_COMPILE_CNT = echo "X" >> $(STAT_FO)/bash_count.txt
+SHOW_COMPILE_CNT = echo ""; echo Recompiled: \
+	$$(cat $(STAT_FO)/bash_count.txt)  ---  \
+	$$(cat $(STAT_FO)/bash_count.txt | wc -l)
 
-SHELL_OUT := $(shell $(RESET_COMPILE))
+SHELL_OUT := $(shell $(RESET_COMPILE_CNT))
 
 #-- Do not edit below this line --
 
 # Subdirs to search for additional source files
-SUBDIRS := $(shell find $(SRC_FO) -type d )
+SUBDIRS := $(shell find $(SRC_FO) -type d)
 DIRS := $(SUBDIRS)
 SOURCE_FILES := $(foreach d, $(DIRS), $(wildcard $(d)/*.cpp))
 
@@ -44,25 +77,25 @@ SOURCE_FILES := $(foreach d, $(DIRS), $(wildcard $(d)/*.cpp))
 # $(info SHOW = $(SHOW_HOW_MANY))
 
 # Create an object file of every cpp file
-OBJECTS = $(patsubst $(SRC_FO)/%.cpp, .dep/%.o, $(SOURCE_FILES))
+OBJECTS = $(patsubst $(SRC_FO)/%.cpp, $(DEP_FO)/%.o, $(SOURCE_FILES))
 
 # Dependencies
-DEPENDENCIES = $(patsubst $(SRC_FO)/%.cpp, .dep/%.d, $(SOURCE_FILES))
+DEPENDENCIES = $(patsubst $(SRC_FO)/%.cpp, $(DEP_FO)/%.d, $(SOURCE_FILES))
 
 # Create .d files
-.dep/%.d: $(SRC_FO)/%.cpp | createDepFolder
+$(DEP_FO)/%.d: $(SRC_FO)/%.cpp | createDepFolder
 	@echo Preprocess: $@
-	@$(CPP) $(DEPENDENCY_OPTIONS) $< -MT ".dep/$*.o .dep/$*.d" -MF .dep/$*.d
+	@$(CPP) $(DEPENDENCY_OPTIONS) $< -MT "$(DEP_FO)/$*.o $(DEP_FO)/$*.d" -MF $(DEP_FO)/$*.d
 
 # Make $(PROJECT) the default target
 all: $(DEPENDENCIES) $(PROJECT)
 
 $(PROJECT): $(OBJECTS)
 	@printf "\nLinking $(PROJECT)\n"
-	@$(CXX) -o $(PROJECT) $(OBJECTS) $(LIBS)
-	@$(SHOW_COMPILE)
+	@$(CXX) -o $(PROJECT) $(OBJECTS) $(LINKING_OPTIONS)
+	@$(SHOW_COMPILE_CNT)
 
-# $(info Before INCLUDE)
+
 
 # Include dependencies (if there are any)
 ifneq "$(strip $(DEPENDENCIES))" ""
@@ -70,10 +103,10 @@ ifneq "$(strip $(DEPENDENCIES))" ""
 endif
 
 # Compile every cpp file to an object
-.dep/%.o: $(SRC_FO)/%.cpp | createDepFolder # | resetCompile
+$(DEP_FO)/%.o: $(SRC_FO)/%.cpp | createDepFolder # | resetCompile
 	@echo Compile: $<
-	@$(CXX) -c $(COMPILE_OPTIONS) $(HEADERS) -o $@ $< 
-	@$(ADD_COMPILE)
+	@$(CXX) -c $(COMPILE_OPTIONS) -o $@ $< 
+	@$(ADD_COMPILE_CNT)
 
 # Build & Run Project
 run: $(PROJECT)
@@ -81,7 +114,7 @@ run: $(PROJECT)
 
 createDepFolder:
 #	@echo Creating dependency folders
-	@$(foreach folder,$(patsubst src/%,.dep/%,$(SOURCE_FILES)),\
+	@$(foreach folder,$(patsubst src/%,$(DEP_FO)/%,$(SOURCE_FILES)),\
  mkdir -p $(dir $(folder));)
 
 # Clean & Debug
@@ -101,16 +134,15 @@ clean-all: clean depclean
 
 .PHONY: resetCompile addCompile showCompile
 resetCompile:
-	$(RESET_COMPILE)
+	$(RESET_COMPILE_CNT)
 
 addCompile:
-	$(ADD_COMPILE)
+	$(ADD_COMPILE_CNT)
 
 showCompile:
-	@$(SHOW_COMPILE)
+	@$(SHOW_COMPILE_CNT)
 
-# MakeFile - Linux
-# Needs working g++, if not on path rename CC variable
+
 
 # PROGRAM_NAME = musicalbash.out
 
