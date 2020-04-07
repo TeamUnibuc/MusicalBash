@@ -1,7 +1,10 @@
 #include "tests/ui_test.hpp"
 
+template < class T > T smin(T &a,T b) {if (a > b) a = b; return a;}
+template < class T > T smax(T &a,T b) {if (a < b) a = b; return a;}
+
 namespace unit_tests
-{   
+{ 
     bool TestBasicFunctionalityUI()
     {   
 
@@ -31,15 +34,28 @@ namespace unit_tests
         // unsigned current_style = sf::Style::Close | sf::Style::Resize;
         // sf::RenderWindow window(sf::VideoMode(512, 512), "Test Window", current_style);
 
-        sf::RenderWindow window(sf::VideoMode(512, 512), "Test Window");
+        sf::RenderWindow window(sf::VideoMode(800, 800), "Test Window");
         // sf::CircleShape shape(100.f);
         // shape.setFillColor(sf::Color::Green);
+
+        sf::Texture playButtonT;
+        playButtonT.loadFromFile("data/img/play_button.png");
+
+        sf::Sprite playButtonS(playButtonT);
+
+        // sf::Image img;
+        // if (!img.loadFromFile("data/img/play_button.png"))
+            // return 0;
 
         while (window.isOpen()){
             sf::Event event;
             while (window.pollEvent(event)){
-                if (event.type == sf::Event::Closed)
+                if (event.type == sf::Event::Closed){
                     window.close();
+                }
+
+
+                /*
                 else if (event.type == sf::Event::Resized){
                     cout << "New window size: ";
                     // a special class in SFML, basically a pair
@@ -47,10 +63,25 @@ namespace unit_tests
                     auto sz = window.getSize();
                     cout << sz.x << ' ' << sz.y << '\n';
                 }
+                */
             }
 
             window.clear();
             // window.draw(shape);
+            // playButtonS.setPosition(100, 100);
+            auto sz = window.getSize();
+            auto minDimension = smin(sz.x, sz.y);
+            if (minDimension <= 200){
+                playButtonS.setScale(0.1, 0.1);
+            } else if (minDimension <= 400){
+                playButtonS.setScale(0.15, 0.15);
+            } else if (minDimension <= 600){
+                playButtonS.setScale(0.17, 0.17);
+            } else if (minDimension <= 800){
+                playButtonS.setScale(0.2, 0.2);
+            }
+            window.draw(playButtonS);
+
             window.display();
         }
 
