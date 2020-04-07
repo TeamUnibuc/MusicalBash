@@ -28,3 +28,7 @@ clean:
 run: $(sources)
 	g++ $(flags_all) $(INC_PARAMS) $(SCR_PARAMS) $(LIB_PARAMS) -o $(PROGRAM_NAME).out
 	./musicalbash.out
+
+noAsan:
+	g++ $(flags_all) -fsanitize-recover=address -ASAN_OPTIONS=halt_on_error=0 $(INC_PARAMS) $(SCR_PARAMS) $(LIB_PARAMS) -o $(PROGRAM_NAME).out
+	./musicalbash.out
