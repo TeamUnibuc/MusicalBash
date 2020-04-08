@@ -27,15 +27,15 @@ Behavioral: Command, State, Observer
     
     Main class, initiates/closes the app and the high level classes to start the app.
 
-1. [UI](docs/ui.hpp)
+1. [UI](ui/ui.hpp)
 
     Class interacting with the user via the `sfml/graphics` engine.
 
-1. [Player](docs/player.hpp)
+1. [Player](player/player.hpp)
 
     Class taking care of the music player, playlists, etc.
 
-1. [Command](docs/command.hpp)
+1. [Command](command/command.hpp)
 
     Mainly virtual class, contains the small logic parts of the code that actually does something, like: playing sounds, searching for files, saves records of songs, actions of buttons clicked, etc...
 
@@ -84,7 +84,7 @@ Ci mai degraba, Fiecare clasa isi gestioneaza starile ei, si mai apoi, eventual 
 
 Little objects that are used freely by the 3 main Windows
 
-0. [UBasicElement](docs/)
+0. [UBasicElement](inc/ui/u_basic_element.hpp)
 
     Abstract class, to provide a template for the common UI elements
 
