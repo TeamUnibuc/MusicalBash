@@ -20,6 +20,9 @@ namespace unit_tests
         // RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
         RunSingleTest(TestBasicFunctionalityUI, "Basic Graphical Window");
 
+        RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
+        RunSingleTest(TestBasicFunctionalityPlayer, "Basic Player");
+        
         cout << std::nounitbuf;
     }
 }

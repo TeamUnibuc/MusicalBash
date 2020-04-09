@@ -5,7 +5,6 @@
 
 #include <vector>
 #include <string>
-#include <memory>
 
 /**
  * Class storing a playlist, inherited from PTrack
