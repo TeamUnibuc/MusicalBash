@@ -25,3 +25,8 @@ void Sprite::Render(sf::RenderWindow& rendWindow, int offset_x)
     sprite_.setPosition(pos_x + offset_x, pos_y);
     rendWindow.draw(sprite_);
 }
+
+void Sprite::SetScale(float x, float y)
+{
+    sprite_.setScale(x, y);
+}

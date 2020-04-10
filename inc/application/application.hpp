@@ -24,6 +24,8 @@ private:
     int offset_main_;
     int offset_status_;
 
+    void InitializingScript();
+
 public:
     Application();
 

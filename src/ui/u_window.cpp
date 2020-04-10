@@ -3,9 +3,10 @@
 namespace Musical
 {
 
-Window::Window(int sz_x, int sz_y) :
+Window::Window(int sz_x, int sz_y, const std::vector<Constants::State>& pos_states) :
     size_x(sz_x),
-    size_y(sz_y)
+    size_y(sz_y),
+    possible_states(pos_states)
 {}
 
 int Window::GetWidth() const
