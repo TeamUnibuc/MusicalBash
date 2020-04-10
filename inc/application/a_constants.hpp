@@ -4,11 +4,16 @@
 #include <vector>
 #include <string>
 
-class Constants
+namespace Constants
 {
-public:
+    /// width and height of thw Window (that holds every part of the UI))
+    extern const int kWidth, kHeight;
+
+    /// Name of the application
+    extern const std::string kApplicationName;
+
     /// holds a list of accepted extensions by the application
-    static const std::vector<std::string> kMusicExtensions;
+    extern const std::vector<std::string> kMusicExtensions;
 };
 
 #endif // INC_APPLICATION_CONSTANTS_
