@@ -11,14 +11,12 @@
  * Class able to navigate through the filesistem.
  * Curently it knows to get a folder and return all the music in that single folder (excluding subfolders)
  */
-class CFileSystem : Command
+class CFileSystem : public Command
 {
+private:
     std::string path_;
 
 public:
-    /// default constructor
-    CFileSystem();
-
     /// constructor with path
     CFileSystem(std::string path);
 

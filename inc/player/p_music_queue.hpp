@@ -18,10 +18,10 @@ public:
     PMusicQueue();
 
     /// adds a title to the track
-    PMusicQueue& operator+=(std::string music);
+    PMusicQueue& operator +=(std::string music);
 
     /// adds the content of an PTrack to the list
-    PMusicQueue& operator+=(std::shared_ptr<PTrack> track);
+    PMusicQueue& operator +=(std::shared_ptr<PTrack> track);
 
     /// returns first element of track
     std::string FirstMusic(bool remove = false);
