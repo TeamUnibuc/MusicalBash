@@ -49,6 +49,7 @@ int Application::Run()
         power_btn_ptr->SetPosition(0, 0);
 
         w_main_.AddSampleUiElement(power_btn_ptr);
+        w_side_bar_.AddSampleUiElement(power_btn_ptr);
     }
 
     
