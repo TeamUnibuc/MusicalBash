@@ -28,25 +28,29 @@ Application::Application() :
               State::Status_Playing})
 {}
 
-int Application::Run()
+void Application::InitializingScript()
 {
-    using std::cout;
-
-    // w_side_bar_.SetWatchOver(0, 0, w_side_bar_.GetWidth(), w_side_bar_.GetHeight());
-    // w_main_.SetWatchOver(0, 0, w_main_.GetWidth(), w_main_.GetHeight());
-    // w_status_.SetWatchOver(0, 0, w_status_.GetWidth(), w_status_.GetHeight());
+    w_side_bar_.ClearAllElements();
+    w_main_.ClearAllElements();
+    w_status_.ClearAllElements();
 
     w_side_bar_.setViewPort(sf::FloatRect(0, 0, 0.25, 1));
     w_main_.setViewPort(sf::FloatRect(0.25, 0, 0.75, 0.666));
     w_status_.setViewPort(sf::FloatRect(0.25, 0.666, 0.75, 0.333));
     
     window_.setFramerateLimit(Constants::kFrameLimit);
+}
+
+int Application::Run()
+{
+    using std::cout;
 
     sf::Clock my_clock;
 
     InitializingScript();
 
-        {
+    /// scope for testing
+    {
         auto power_btn_ptr = std::make_shared<PngSprite>("data/img/power_button.png");
         power_btn_ptr->SetSize(25, 25);
         power_btn_ptr->SetPosition(0, 0);
@@ -54,7 +58,7 @@ int Application::Run()
         w_main_.AddSampleUiElement(power_btn_ptr);
         w_side_bar_.AddSampleUiElement(power_btn_ptr);
     }
-
+    /// should delete the scope above
 
     while (window_.isOpen()){
 
@@ -71,36 +75,19 @@ int Application::Run()
 
                 case sf::Event::MouseButtonPressed:
                 {
-                    cout << "Mouyse button pressed at: " << event.mouseButton.x << ' ' << event.mouseButton.y << '\n';
-                    int tx = window_.getSize().x;
-                    int ty = window_.getSize().y;
-                    tx = 1.0 * event.mouseButton.x / tx * Constants::kWidth;
-                    ty = 1.0 * event.mouseButton.y / ty * Constants::kHeight; 
-                    cout << "Transformed location: " << tx << ' ' << ty << '\n';
+                    cout << "Mouse button pressed at: " 
+                         << event.mouseButton.x << ' ' << event.mouseButton.y << '\n';
+                    EventHandler::ClickAtPosition(event.mouseButton.x, event.mouseButton.y);             
                 }
                 default:
                 {
                     break;
                 }
-            }
-            // if (flag)
-            //     playerWindow.getWindow().setSize(sf::Vector2u(MIN_WIDTH, MIN_HEIGHT));
-            
+            }            
         }
 
-        // double secondsNow = my_clock.getElapsedTime().asSeconds();
+        window_.clear(sf::Color::Cyan);
 
-        // if (secondsNow > 10 && secondsNow < 10.2) {
-        //     w_main_.ClearAllElements();
-        // }
-        // if (secondsNow > 10) {
-        //     cout << "No more button!!\n";
-        // }
-
-        window_.clear(sf::Color::White);
-
-        // if (flag)
-        //     playerWindow.getWindow().setSize(sf::Vector2u(MIN_WIDTH, MIN_HEIGHT));
         w_side_bar_.Redraw(window_);
         w_status_.Redraw(window_);
         w_main_.Redraw(window_);
@@ -111,11 +98,3 @@ int Application::Run()
     return 0;
 }
 
-void Application::InitializingScript()
-{
-    w_side_bar_.ClearAllElements();
-    w_main_.ClearAllElements();
-    w_status_.ClearAllElements();
-
-
-}

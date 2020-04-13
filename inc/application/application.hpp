@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 
 #include "a_constants.hpp"
+#include "a_event_handler.hpp"
 #include "u_window.hpp"
 #include "u_png_sprite.hpp"
 
