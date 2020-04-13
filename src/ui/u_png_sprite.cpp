@@ -11,8 +11,8 @@ PngSprite::PngSprite(const std::string& path)
     sprite_.setTexture(texture_);
 }
 
-// void PngSprite::Render(sf::RenderWindow & rendWindow, int offset_x)
-// {
-//     sprite_.setPosition(pos_x + offset_x, pos_y);
-//     rendWindow.draw(sprite_);
-// }
+void PngSprite::Render(sf::RenderWindow & rendWindow, int offset_x)
+{
+    sprite_.setPosition(pos_x + offset_x, pos_y);
+    rendWindow.draw(sprite_);
+}

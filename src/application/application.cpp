@@ -42,8 +42,14 @@ int Application::Run()
     w_side_bar_.setViewPort(sf::FloatRect(0, 0, 0.25, 1));
     w_main_.setViewPort(sf::FloatRect(0.25, 0, 0.75, 0.666));
     w_status_.setViewPort(sf::FloatRect(0.25, 0.666, 0.75, 0.333));
+    
+    window_.setFramerateLimit(Constants::kFrameLimit);
 
-    {
+    sf::Clock my_clock;
+
+    InitializingScript();
+
+        {
         auto power_btn_ptr = std::make_shared<PngSprite>("data/img/power_button.png");
         power_btn_ptr->SetSize(25, 25);
         power_btn_ptr->SetPosition(0, 0);
@@ -52,12 +58,6 @@ int Application::Run()
         w_side_bar_.AddSampleUiElement(power_btn_ptr);
     }
 
-    
-    window_.setFramerateLimit(Constants::kFrameLimit);
-
-    sf::Clock my_clock;
-
-    InitializingScript();
 
     while (window_.isOpen()){
 
@@ -100,7 +100,7 @@ int Application::Run()
         //     cout << "No more button!!\n";
         // }
 
-        // window_.clear(sf::Color::White);
+        window_.clear(sf::Color::White);
 
         // if (flag)
         //     playerWindow.getWindow().setSize(sf::Vector2u(MIN_WIDTH, MIN_HEIGHT));

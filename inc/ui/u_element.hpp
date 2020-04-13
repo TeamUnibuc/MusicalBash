@@ -7,10 +7,13 @@ class UiElement
 {
 private:
 protected:
-    /// to od maybe pox_x, pos_y
+
+    int pos_x, pos_y;
 
 public:
     UiElement();
+
+    UiElement(int pos_x, int pos_y);
 
     virtual void Render(sf::RenderWindow& rendWindow, int offset_x) = 0;
 };

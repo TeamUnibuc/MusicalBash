@@ -3,19 +3,19 @@
 Sprite::~Sprite() 
 {}
 
-Sprite::Sprite() : pos_x(0), pos_y(0) 
+Sprite::Sprite() : UiElement(0, 0) 
 {}
 
-Sprite::Sprite(int x, int y) : pos_x(x), pos_y(y)
+Sprite::Sprite(int x, int y) : UiElement(x, y)
 {}
 
-void Sprite::SetPosition(float x, float y)
+void Sprite::SetPosition(int x, int y)
 {
     pos_x = x;
     pos_y = y;
 }
 
-void Sprite::Move(float x, float y)
+void Sprite::Move(int x, int y)
 {
     sprite_.move(sf::Vector2f(x, y));
 }
@@ -26,12 +26,12 @@ void Sprite::Render(sf::RenderWindow& rendWindow, int offset_x)
     rendWindow.draw(sprite_);
 }
 
-void Sprite::SetSize(float x, float y)
+void Sprite::SetSize(int x, int y)
 {
     auto size = sprite_.getTexture()->getSize();
-    float sx = size.x, sy = size.y;
+    int sx = size.x, sy = size.y;
 
-    sprite_.setScale(x / sx, y / sy);
+    sprite_.setScale(1.0 * x / sx, 1.0 * y / sy);
 
 }
 

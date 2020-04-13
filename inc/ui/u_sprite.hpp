@@ -8,8 +8,6 @@ class Sprite : public UiElement
 private:
 
 protected:
-    int pos_x, pos_y;
-
     sf::Sprite sprite_;
 public:
     Sprite();
@@ -18,15 +16,16 @@ public:
 
     virtual ~Sprite();
 
-    void SetPosition(float px, float py);
+    void SetPosition(int px, int py);
 
-    void Move(float x, float y);
+    void Move(int x, int y);
 
+    /// Not recommended!! Use SetSize instead
     void SetScale(float x, float y);
 
-    void SetSize(float x, float y);
+    void SetSize(int x, int y);
 
-    virtual void Render(sf::RenderWindow & rendWindow, int offset_x);
+    virtual void Render(sf::RenderWindow & rendWindow, int offset_x) = 0;
 };
 
 #endif  // INC_UI_SPRITE_
