@@ -8,6 +8,7 @@ class Sprite : public UiElement
 private:
 
 protected:
+    sf::Texture texture_;
     sf::Sprite sprite_;
 public:
     Sprite();

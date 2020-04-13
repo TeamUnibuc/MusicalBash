@@ -11,7 +11,6 @@ private:
     PngSprite() = delete;
 
 protected:
-    sf::Texture texture_;
 
 public:
     PngSprite(const std::string& path);

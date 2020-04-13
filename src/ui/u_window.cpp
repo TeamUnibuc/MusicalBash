@@ -3,11 +3,15 @@
 namespace Musical
 {
 
-Window::Window(int sz_x, int sz_y, const std::vector<Constants::State>& pos_states) :
+Window::Window(int sz_x, int sz_y, int offset_x,
+               const std::vector<Constants::State>& pos_states) :
     size_x(sz_x),
     size_y(sz_y),
+    offset_x(offset_x),
     possible_states(pos_states)
-{}
+{
+    w_view_.reset(sf::FloatRect(offset_x, 0, size_x, size_y));
+}
 
 int Window::GetWidth() const
 {
@@ -19,17 +23,12 @@ int Window::GetHeight() const
     return size_y;
 } 
 
-void Window::SetWatchOver(float vLeft, float vTop, float vWidth, float vHeight)
-{
-    w_view_.reset(sf::FloatRect(vLeft, vTop, vWidth, vHeight));
-}
-
 void Window::setViewPort(const sf::FloatRect& viewRect)
 {
     w_view_.setViewport(viewRect);
 }
 
-void Window::Redraw(sf::RenderWindow& rw, int offset_x)
+void Window::Redraw(sf::RenderWindow& rw)
 {
     for (auto ptr_el : element_list) {
         ptr_el->Render(rw, offset_x);

@@ -20,9 +20,9 @@ private:
     Musical::Window w_main_;
     Musical::Window w_status_;
 
-    int offset_side_bar_;
-    int offset_main_;
-    int offset_status_;
+    // int offset_side_bar_;
+    // int offset_main_;
+    // int offset_status_;
 
     void InitializingScript();
 
