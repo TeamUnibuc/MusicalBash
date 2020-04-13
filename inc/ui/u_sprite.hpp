@@ -24,6 +24,8 @@ public:
 
     void SetScale(float x, float y);
 
+    void SetSize(float x, float y);
+
     virtual void Render(sf::RenderWindow & rendWindow, int offset_x);
 };
 

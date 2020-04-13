@@ -45,7 +45,8 @@ int Application::Run()
 
     {
         auto power_btn_ptr = std::make_shared<PngSprite>("data/img/power_button.png");
-        power_btn_ptr->SetScale(0.1, 0.1);
+        power_btn_ptr->SetSize(25, 25);
+        power_btn_ptr->SetPosition(0, 0);
 
         w_main_.AddSampleUiElement(power_btn_ptr);
     }
@@ -98,13 +99,13 @@ int Application::Run()
         //     cout << "No more button!!\n";
         // }
 
-        window_.clear(sf::Color::White);
+        // window_.clear(sf::Color::White);
 
         // if (flag)
         //     playerWindow.getWindow().setSize(sf::Vector2u(MIN_WIDTH, MIN_HEIGHT));
         w_side_bar_.Redraw(window_, offset_side_bar_);
-        w_main_.Redraw(window_, offset_main_);
         w_status_.Redraw(window_, offset_status_);
+        w_main_.Redraw(window_, offset_main_);
 
         window_.display();
     }

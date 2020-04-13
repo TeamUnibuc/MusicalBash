@@ -13,10 +13,11 @@ namespace Musical
 class Window : public UiContainer
 {
 private:
-    const std::vector <Constants::State> possible_states;
+    
     
     int      size_x, size_y;
     sf::View w_view_;
+    const std::vector <Constants::State> possible_states;
 
 public:
     Window(int sz_x, int sz_y, const std::vector <Constants::State>& pos_vec);

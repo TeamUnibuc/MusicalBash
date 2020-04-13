@@ -7,6 +7,8 @@ class UiElement
 {
 private:
 protected:
+    /// to od maybe pox_x, pos_y
+
 public:
     UiElement();
 

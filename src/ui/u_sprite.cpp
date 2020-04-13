@@ -26,6 +26,15 @@ void Sprite::Render(sf::RenderWindow& rendWindow, int offset_x)
     rendWindow.draw(sprite_);
 }
 
+void Sprite::SetSize(float x, float y)
+{
+    auto size = sprite_.getTexture()->getSize();
+    float sx = size.x, sy = size.y;
+
+    sprite_.setScale(x / sx, y / sy);
+
+}
+
 void Sprite::SetScale(float x, float y)
 {
     sprite_.setScale(x, y);
