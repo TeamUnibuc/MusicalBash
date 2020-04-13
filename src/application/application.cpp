@@ -10,22 +10,13 @@ Application::Application() :
             sf::Style::Close | sf::Style::Titlebar),
 
     w_side_bar_(Constants::kWidth * 1 / 4, Constants::kHeight, 
-                0,
-               {State::Side_Normal}),
+                0),
 
     w_main_(Constants::kWidth * 3 / 4, Constants::kHeight * 2 / 3,
-            w_side_bar_.GetWidth() + 20,
-           {State::Main_Albums, 
-            State::Main_AllSongs, 
-            State::Main_Home, 
-            State::Main_ManageSongs, 
-            State::Main_Playlists}),
+            w_side_bar_.GetWidth() + 20),
             
     w_status_(Constants::kWidth * 3 / 4, Constants::kHeight * 1 / 3,
-              w_side_bar_.GetWidth() + 20 + w_main_.GetWidth() + 20,
-             {State::Status_Nothing, 
-              State::Status_NotPlaying, 
-              State::Status_Playing})
+              w_side_bar_.GetWidth() + 20 + w_main_.GetWidth() + 20)
 {}
 
 void Application::InitializingScript()
@@ -57,6 +48,8 @@ int Application::Run()
 
         w_main_.AddSampleUiElement(power_btn_ptr);
         w_side_bar_.AddSampleUiElement(power_btn_ptr);
+
+        power_btn_ptr->SetColor(sf::Color::Green);
     }
     /// should delete the scope above
 

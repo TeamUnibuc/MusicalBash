@@ -39,3 +39,8 @@ void Sprite::SetScale(float x, float y)
 {
     sprite_.setScale(x, y);
 }
+
+void Sprite::SetColor(sf::Color color)
+{
+    sprite_.setColor(color);
+}

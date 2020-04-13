@@ -15,15 +15,11 @@ class Application
     
 private:
     sf::RenderWindow window_;
-    /// Sizes for views in pixels, relative to the optimal size of the app
+    
     /// App will anyway scale how it should on resize
     Musical::Window w_side_bar_;
     Musical::Window w_main_;
     Musical::Window w_status_;
-
-    // int offset_side_bar_;
-    // int offset_main_;
-    // int offset_status_;
 
     void InitializingScript();
 

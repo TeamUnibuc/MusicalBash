@@ -7,7 +7,6 @@ class UiElement
 {
 private:
 protected:
-
     int pos_x, pos_y;
 
 public:

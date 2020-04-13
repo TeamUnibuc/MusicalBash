@@ -2,8 +2,6 @@
 
 #include <stdexcept>
 
-CFileSystem::CFileSystem() { }
-
 CFileSystem::CFileSystem(std::string path) : path_(path) { }
 
 std::vector <std::string> CFileSystem::RecursiveGetMusic()

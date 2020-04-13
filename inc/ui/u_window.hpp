@@ -13,27 +13,30 @@ namespace Musical
 class Window : public UiContainer
 {
 private:
-    int      size_x, size_y;
-    int      offset_x;
-    sf::View w_view_;
-    const std::vector <Constants::State> possible_states;
+    const int      size_x_, size_y_;
+    const int      offset_x_;
+    sf::View       w_view_;
 
 public:
-    Window(int sz_x, int sz_y, int offset_x, const std::vector <Constants::State>& pos_vec);
+    /// Height of the window, Height of the window, the horizontal offset of the window
+    Window(int sz_x, int sz_y, int offset_x);
 
     /// Utility stuff
     int GetWidth() const;
 
+    /// Get width and Height of the Window (view)
     int GetHeight() const;
 
-    // void SetWatchOver(float vLeft, float vTop, float vWidth, float vHeight);
-
+    /// Set on which part of the screen the view will be shown
     void setViewPort(const sf::FloatRect& viewRect);
 
+    /// Redraw all the Window's UiElements
     void Redraw(sf::RenderWindow& renderWindow);
 
+    /// Add some UiElement to the Window
     void AddSampleUiElement(std::shared_ptr<UiElement> ptr);
 
+    /// Deletes all the UiElement from the Window
     void ClearAllElements();
 };
 

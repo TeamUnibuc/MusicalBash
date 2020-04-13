@@ -11,7 +11,6 @@
  * [This](https://stackoverflow.com/questions/18948783/c-simple-open-file-dialog-in-linux).
  * I am not sure if the function does not add random junk at the end of the strings (should be checked)
  */
-
 class CFileSelect : public Command
 {
 public:

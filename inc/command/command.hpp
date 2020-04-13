@@ -3,7 +3,7 @@
 
 class Command
 {
-    public:
+protected:
     Command();
 };
 
