@@ -42,8 +42,8 @@ int Application::Run()
 
     /// scope for testing
     {
-        auto power_btn_ptr = std::make_shared<PngSprite>("data/img/power_button.png");
-        power_btn_ptr->SetSize(25, 25);
+        auto power_btn_ptr = std::make_shared<PngSprite>("data/img/play_button.png");
+        power_btn_ptr->SetSize(100, 100);
         power_btn_ptr->SetPosition(0, 0);
 
         w_main_.AddSampleUiElement(power_btn_ptr);
@@ -79,7 +79,7 @@ int Application::Run()
             }            
         }
 
-        window_.clear(sf::Color::Cyan);
+        window_.clear(sf::Color::White);
 
         w_side_bar_.Redraw(window_);
         w_status_.Redraw(window_);
