@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 
 /**
  * Base class for playlists, albums and waiting-queue.
@@ -13,21 +14,21 @@
 class PTrack
 {
 protected:
-    std::vector <std::string> content_;
+    std::vector <std::shared_ptr<PMusic>> content_;
     std::string name_;
 
 public:
     /// default contructor
     PTrack();
 
-    /// constructor with name and vector of songs
-    PTrack(std::string name, std::vector <std::string> content);
-
     /// returns the name of the track
-    std::string getName() const;
+    std::string GetName() const;
 
     /// returns number of elements in the track
     int Size() const;
+
+    /// returns smart_ptrs to the music content of the track
+    std::vector <std::shared_ptr<PMusic>> GetMusic() const;
 
     friend class PMusicQueue;
 };

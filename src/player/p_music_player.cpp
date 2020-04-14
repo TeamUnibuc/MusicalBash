@@ -2,14 +2,15 @@
 
 PMusicPlayer::PMusicPlayer() { }
 
-PMusicPlayer::PMusicPlayer(const std::string & source) :
-    p_mp3(getExtensionLC(source) == ".mp3" ? std::make_unique<sfe::Mp3>() : nullptr),
-    p_music(p_mp3 ? nullptr : std::make_unique<sf::Music>())
+PMusicPlayer::PMusicPlayer(std::shared_ptr<PMusic> music) :
+    p_mp3(getExtensionLC(music->getName()) == ".mp3" ? std::make_unique<sfe::Mp3>() : nullptr),
+    p_music(p_mp3 ? nullptr : std::make_unique<sf::Music>()),
+    music_playing(music)
 {
     if (p_mp3)
-        p_mp3->openFromFile(source);
+        p_mp3->openFromFile(music->getName());
     else if (p_music)
-        p_music->openFromFile(source);
+        p_music->openFromFile(music->getName());
 }
 
 void PMusicPlayer::Play()
@@ -74,11 +75,8 @@ double PMusicPlayer::GetVolume() const
 
 double PMusicPlayer::GetDuration() const
 {
-    if (p_mp3) {
-        
-    }
-    else if (p_music)
-        return p_music->getDuration().asSeconds();
+    if (p_mp3 || p_music)
+        return music_playing->getDuration();
     return 0;
 }
 
@@ -97,6 +95,11 @@ void PMusicPlayer::SetPlayingOffset(double offset)
         p_mp3->setPlayingOffset(sf::seconds(offset));
     else if (p_music)
         p_music->setPlayingOffset(sf::seconds(offset));
+}
+
+std::shared_ptr<PMusic> PMusicPlayer::GetPlayingMusic() const
+{
+    return music_playing;
 }
 
 std::string PMusicPlayer::getExtensionLC(const std::string& filePath)
