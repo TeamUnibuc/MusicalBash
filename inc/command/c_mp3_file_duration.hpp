@@ -15,9 +15,9 @@ private:
     std::string filePath;
     int duration_seconds_;
 
-public:
     CMp3FileDuration() = delete;
 
+public:
     /// Ctor, filePath is the path to the mp3 file
     CMp3FileDuration(const std::string& filePath);
 

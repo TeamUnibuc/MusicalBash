@@ -11,15 +11,15 @@
  * Class able to navigate through the filesistem.
  * Curently it knows to get a folder and return all the music in that single folder (excluding subfolders)
  */
-class CFileSystem final : Command
+class CFileSystem final : public Command
 {
 private:
     std::string path_;
     std::vector <std::string> ret_val_;
 
-public:
     CFileSystem() = delete;
 
+public:
     /// constructor with path
     CFileSystem(std::string path);
 
