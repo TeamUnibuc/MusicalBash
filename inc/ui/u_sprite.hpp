@@ -32,6 +32,10 @@ public:
     /// Sets the size of the Sprite in Pixels
     void SetSize(int x, int y);
 
+    virtual int GetHeight() const;
+
+    virtual int GetWidth() const;
+
     /// Sets color of Sprite
     void SetColor(sf::Color color);
 
