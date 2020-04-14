@@ -20,7 +20,7 @@ PMusicQueue& PMusicQueue::operator += (std::shared_ptr<PMusic> music)
 
 PMusicQueue& PMusicQueue::operator += (std::shared_ptr<PTrack> track)
 {
-    for (auto i : track->content_)
+    for (auto i : track->GetMusic())
         content_.push_back(i);
     return *this;
 }

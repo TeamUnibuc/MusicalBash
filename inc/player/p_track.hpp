@@ -29,8 +29,6 @@ public:
 
     /// returns smart_ptrs to the music content of the track
     std::vector <std::shared_ptr<PMusic>> GetMusic() const;
-
-    friend class PMusicQueue;
 };
 
 #endif // INC_P_TRACK_
