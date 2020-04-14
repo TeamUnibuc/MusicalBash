@@ -4,7 +4,7 @@
 
 CFileSystem::CFileSystem(std::string path) : path_(path) { }
 
-std::vector <std::string> CFileSystem::RecursiveGetMusic()
+void CFileSystem::Execute()
 {
     if (path_.empty())
         throw std::runtime_error("Tried to get files from invalid path");
@@ -24,5 +24,10 @@ std::vector <std::string> CFileSystem::RecursiveGetMusic()
         }       
     }
 
-    return ans;
+    ret_val_ = ans;
+}
+
+std::vector <std::string> CFileSystem::GetResult()
+{
+    return ret_val_;
 }

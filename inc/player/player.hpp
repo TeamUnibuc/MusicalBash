@@ -40,44 +40,35 @@ public:
     void Unzip(const std::string& zipped);
 
     /// adds an album to the index
-    void CreateAlbum(const std::string& path);
+    std::shared_ptr<PAlbum> CreateAlbum(const std::string& path);
 
     /* creates a new playlist with a given name.
     Will launch an exception if name is taken */
-    void CreatePlaylist(const std::string& name);
+    std::shared_ptr<PPlaylist> CreatePlaylist(const std::string& name);
 
     /// removes an album from index
-    void DeleteAlbum(const std::string& path);
+    void DeleteAlbum(const std::shared_ptr<PAlbum> album);
 
     /// deletes a playlist
-    void DeletePlaylist(const std::string& name);
-
-    /// adds a music to a playlist
-    void addMusicToPlaylist(const std::string& playlist, const std::string& music);
+    void DeletePlaylist(const std::shared_ptr<PPlaylist> playlist);
 
     /// returns all the music
-    std::vector <std::string> getAllMusic();
+    std::vector <std::shared_ptr<PMusic>> getAllMusic();
 
     /// returns a list with all the available albums
-    std::vector <std::string> getAlbums();
+    std::vector <std::shared_ptr<PAlbum>> getAlbums();
 
     /// returns a lsit with all the available playlists
-    std::vector <std::string> getPlaylists();
-
-    /// returns all the music from an album
-    std::vector <std::string> getMusicFromAlbum(const std::string& album);
-
-    /// returns all the music from a playlist
-    std::vector <std::string> getMusicFromPlaylist(const std::string& playlist);
+    std::vector <std::shared_ptr<PPlaylist>> getPlaylists();
 
     /// adds a music to the playing queue
-    void addMusicToQueue(const std::string& music);
+    void addMusicToQueue(const std::shared_ptr<PMusic> music);
     
     /// adds an album to the playing queue
-    void addAlbumToQueue(const std::string& name);
+    void addAlbumToQueue(const std::shared_ptr<PAlbum> album);
 
     /// adds a playlist to the playing queue
-    void addPlaylistToQueue(const std::string& name);
+    void addPlaylistToQueue(const std::shared_ptr<PPlaylist> playlist);
 
     /// starts to play to play the music
     void PlayMusic();
@@ -85,14 +76,20 @@ public:
     /// pauses the music
     void PauseMusic();
 
-    /// stops the music
+    /// stops the music and CLEARS the queue
     void StopMusic();
+
+    /// if music is stoped but there are elements in the queue it starts playing
+    void Step();
 
     /// returns the curent volume
     double getVolume() const;
 
     /// sets the curent volume
     void setVolume(double volume);
+
+    /// returns curently playing music
+    std::shared_ptr<PMusic> getActiveSong() const;
 
     /// returns length of active song.
     double getActiveSongDuration() const;
