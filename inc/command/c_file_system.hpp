@@ -13,6 +13,7 @@
  */
 class CFileSystem final : Command
 {
+private:
     std::string path_;
     std::vector <std::string> ret_val_;
 
