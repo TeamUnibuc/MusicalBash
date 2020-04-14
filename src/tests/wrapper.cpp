@@ -18,10 +18,10 @@ namespace unit_tests
 
         cout << "\033[1;34mRunning all tests\n";
 
-        RunSingleTest(TestFileSelect, "File select");
-        RunSingleTest(TestDirectorySelect, "Directory select");
-        RunSingleTest(TestGetFileDuration, "Mp3 Duration");
-        RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
+        // RunSingleTest(TestFileSelect, "File select");
+        // RunSingleTest(TestDirectorySelect, "Directory select");
+        // RunSingleTest(TestGetFileDuration, "Mp3 Duration");
+        // RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
         RunSingleTest(TestBasicFunctionalityPlayer, "Basic Player");
         
         cout << std::nounitbuf;

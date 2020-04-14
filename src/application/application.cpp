@@ -86,6 +86,9 @@ int Application::Run()
         w_main_.Redraw(window_);
 
         window_.display();
+
+        auto position = sf::Mouse::getPosition();
+        cout << "Mouse hovering at: " << position.x << ' ' << position.y << '\n';
     }
 
     return 0;

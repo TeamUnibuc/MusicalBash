@@ -30,10 +30,7 @@ public:
     /// restores the content of the class from the zip string
     void Unzip(std::string zipped);
 
-    /// returns full path of the song
-    std::string getFullPath() const;
-
-    /// returns name of the song
+    /// returns name and path of the song
     std::string getName() const;
 
     /// returns nr of times it was played

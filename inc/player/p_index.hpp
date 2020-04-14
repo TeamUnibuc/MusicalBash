@@ -9,14 +9,15 @@
 #include <set>
 #include <memory>
 #include <string>
+#include <vector>
 
 /**
  *  Class storing the information about all the albums, playlists and musics.
  */
 class PIndex
 {
-    std::map <std::string, std::shared_ptr<PPlaylist>> pplaylist_;
-    std::map <std::string, std::shared_ptr<PAlbum>> palbum_;
+    std::vector <std::shared_ptr<PPlaylist>> pplaylist_;
+    std::vector <std::shared_ptr<PAlbum>> palbum_;
     std::map <std::string, std::shared_ptr<PMusic>> pmusic_;
 
 public:
@@ -30,40 +31,28 @@ public:
     void Unzip(std::string zipped);
 
     /// adds a new album to the index
-    void CreateAlbum(std::string path);
+    std::shared_ptr<PAlbum> CreateAlbum(std::string path);
 
     /// creates a new playlist
-    void CreatePlaylist(std::string name);
+    std::shared_ptr<PPlaylist> CreatePlaylist(std::string name);
 
     /// returns list of albums
-    std::vector <std::string> getAlbums() const;
+    std::vector <std::shared_ptr<PAlbum>> getAlbums() const;
 
     /// returns list of playlists
-    std::vector <std::string> getPlaylists() const;
+    std::vector <std::shared_ptr<PPlaylist>> getPlaylists() const;
     
     /// returns all the music
-    std::vector <std::string> getAllMusic() const;
+    std::vector <std::shared_ptr<PMusic>> getAllMusic() const;
     
-    /// returns all the music from a playlist
-    std::vector <std::string> getMusicFromPlaylist(const std::string& name) const;
-    
-    /// returns all the music from an album
-    std::vector <std::string> getMusicFromAlbum(const std::string& name) const;
-
     /// returns shared_ptr with given music
     std::shared_ptr<PMusic> getMusicPtr(const std::string& name) const;
 
-    /// returns shared_ptr with given album
-    std::shared_ptr<PAlbum> getAlbumPtr(const std::string& name) const;
-
-    /// returns shared_ptr with given playlist
-    std::shared_ptr<PPlaylist> getPlaylistPtr(const std::string& name) const;
-
     /// deletes an album. Throw error if it does not exist
-    void DeleteAlbum(const std::string& name);
+    void DeleteAlbum(const std::shared_ptr<PAlbum> album);
 
     /// deletes a playlist. Throws error if is does not exist
-    void DeletePlaylist(const std::string& name);
+    void DeletePlaylist(const std::shared_ptr<PPlaylist> playlist);
 };
 
 #endif // INC_P_INDEX_
