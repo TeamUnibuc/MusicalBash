@@ -35,6 +35,20 @@ void Sprite::SetSize(int x, int y)
 
 }
 
+int Sprite::GetHeight() const
+{
+    int text_height = sprite_.getTexture()->getSize().x;
+    float scale = sprite_.getScale().x;
+    return 1.0 * text_height * scale;
+}
+
+int Sprite::GetWidth() const
+{
+    int text_width = sprite_.getTexture()->getSize().y;
+    float scale = sprite_.getScale().y;
+    return 1.0 * text_width * scale;
+}
+
 void Sprite::SetScale(float x, float y)
 {
     sprite_.setScale(x, y);

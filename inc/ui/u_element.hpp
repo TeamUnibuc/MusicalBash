@@ -15,6 +15,12 @@ public:
     UiElement(int pos_x, int pos_y);
 
     virtual void Render(sf::RenderWindow& rendWindow, int offset_x) = 0;
+
+    /// Watch out to properly override this!!
+    virtual int GetHeight() const = 0;
+
+    /// Watch out to properly override this!!
+    virtual int GetWidth() const = 0;
 };
 
 #endif // INC_UI_ELEMENT_
