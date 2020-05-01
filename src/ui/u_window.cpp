@@ -3,12 +3,13 @@
 namespace Musical
 {
 
-Window::Window(int sz_x, int sz_y, int offset_x) :
+Window::Window(int sz_x, int sz_y, int off_x, int off_y) :
     size_x_(sz_x),
     size_y_(sz_y),
-    offset_x_(offset_x)
+    off_y_(off_y),
+    off_x_(off_x)
 {
-    w_view_.reset(sf::FloatRect(offset_x, 0, size_x_, size_y_));
+    w_view_.reset(sf::FloatRect(off_x, off_y, size_x_, size_y_));
 }
 
 int Window::GetWidth() const
@@ -26,10 +27,21 @@ void Window::setViewPort(const sf::FloatRect& viewRect)
     w_view_.setViewport(viewRect);
 }
 
-void Window::Redraw(sf::RenderWindow& rw)
+void Window::Render(sf::RenderWindow& rw, int off_x, int off_y)
 {
+    off_x += off_x_;
+    off_y += off_y_;
     for (auto ptr_el : element_list) {
-        ptr_el->Render(rw, offset_x_);
+        ptr_el->Render(rw, off_x, off_y);
+    }
+}
+
+void Window::Update(int off_x, int off_y)
+{
+    off_x += off_x_;
+    off_y += off_y_;
+    for (auto ptr_el : element_list) {
+        ptr_el->Update(off_x, off_y);
     }
 }
 

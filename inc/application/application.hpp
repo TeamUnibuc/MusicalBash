@@ -5,12 +5,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
+#include "u_element.hpp"
 #include "a_constants.hpp"
 #include "a_event_handler.hpp"
 #include "u_window.hpp"
 #include "u_png_sprite.hpp"
 
-class Application
+class Application : public UiElement
 {
     
 private:
@@ -22,6 +23,14 @@ private:
     Musical::Window w_status_;
 
     void InitializingScript();
+
+    void Render(sf::RenderWindow& rendWindow, int off_x, int off_y) override;
+
+    void Update(int off_x, int off_y) override;
+
+    int GetHeight() const override;
+
+    int GetWidth() const override;
 
 public:
     Application();

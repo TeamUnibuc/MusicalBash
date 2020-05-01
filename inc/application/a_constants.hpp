@@ -10,15 +10,11 @@ namespace Constants
     /// Also used to see if we need to rebuild the structure of the Music::Window
     enum State
     {
-        Side_Normal,
-        Main_Home,
-        Main_Playlists,
-        Main_Albums,
-        Main_AllSongs,
-        Main_ManageSongs,
-        Status_Playing,
-        Status_NotPlaying,
-        Status_Nothing
+        kHome,
+        kPlaylists,
+        kAlbums,
+        kAllSongs,
+        kManageSongs
     };
 
     /// width and height of thw Window (that holds every part of the UI))

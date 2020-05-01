@@ -11,17 +11,23 @@
  * Class able to navigate through the filesistem.
  * Curently it knows to get a folder and return all the music in that single folder (excluding subfolders)
  */
-class CFileSystem : public Command
+class CFileSystem final : public Command
 {
 private:
     std::string path_;
+    std::vector <std::string> ret_val_;
+
+    CFileSystem() = delete;
 
 public:
     /// constructor with path
     CFileSystem(std::string path);
 
     /// returns a list with all the music (including subfolders)
-    std::vector <std::string> RecursiveGetMusic();
+    void Execute();
+
+    /// returns the list with all the music
+    std::vector <std::string> GetResult();
 
 };
 

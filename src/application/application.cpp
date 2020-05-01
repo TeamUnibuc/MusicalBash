@@ -10,13 +10,13 @@ Application::Application() :
             sf::Style::Close | sf::Style::Titlebar),
 
     w_side_bar_(Constants::kWidth * 1 / 4, Constants::kHeight, 
-                0),
+                0, 0),
 
     w_main_(Constants::kWidth * 3 / 4, Constants::kHeight * 2 / 3,
-            w_side_bar_.GetWidth() + 20),
+            w_side_bar_.GetWidth(), 0),
             
     w_status_(Constants::kWidth * 3 / 4, Constants::kHeight * 1 / 3,
-              w_side_bar_.GetWidth() + 20 + w_main_.GetWidth() + 20)
+              w_side_bar_.GetWidth(), w_main_.GetHeight())
 {}
 
 void Application::InitializingScript()
@@ -30,6 +30,20 @@ void Application::InitializingScript()
     w_status_.setViewPort(sf::FloatRect(0.25, 0.666, 0.75, 0.333));
     
     window_.setFramerateLimit(Constants::kFrameLimit);
+}
+
+void Application::Render(sf::RenderWindow& rendWindow, int off_x, int off_y)
+{
+    w_side_bar_.Render(rendWindow, 0, 0);
+    w_status_.Render(rendWindow, 0, 0);
+    w_main_.Render(rendWindow, 0, 0);
+}
+
+void Application::Update(int off_x, int off_y)
+{
+    w_side_bar_.Update(0, 0);
+    w_status_.Update(0, 0);
+    w_main_.Update(0, 0);
 }
 
 int Application::Run()
@@ -76,16 +90,15 @@ int Application::Run()
                 {
                     break;
                 }
-            }            
+            }
+            this->Update(0, 0);            
         }
 
         window_.clear(sf::Color::White);
 
-        w_side_bar_.Redraw(window_);
-        w_status_.Redraw(window_);
-        w_main_.Redraw(window_);
-
         window_.display();
+
+        this->Render(window_, 0, 0);
 
         auto position = sf::Mouse::getPosition();
         auto window_pos = window_.getPosition();
@@ -95,3 +108,12 @@ int Application::Run()
     return 0;
 }
 
+int Application::GetHeight() const
+{
+    return Constants::kHeight;
+}
+
+int Application::GetWidth() const
+{
+    return Constants::kWidth;
+}

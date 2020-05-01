@@ -17,7 +17,9 @@ public:
 
     virtual ~PngSprite();
 
-    virtual void Render(sf::RenderWindow& rendWindow, int offset_x);
+    virtual void Render(sf::RenderWindow& rendWindow, int off_x, int off_y);
+
+    virtual void Update(int off_x, int off_y);
 };
 
 #endif  // INC_UI_PNG_SPRITE_
