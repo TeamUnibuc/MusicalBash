@@ -5,7 +5,7 @@ using Constants::State;
 Application::Application() :
     /// Sizes for views in pixels, relative to the optimal size of the app
     /// App will anyway scale how it should on resize
-    window_(sf::VideoMode(Constants::kWidth, Constants::kHeight), 
+    rend_window_(sf::VideoMode(Constants::kWidth, Constants::kHeight), 
             Constants::kApplicationName,
             sf::Style::Close | sf::Style::Titlebar),
 
@@ -29,14 +29,14 @@ void Application::InitializingScript()
     w_main_.setViewPort(sf::FloatRect(0.25, 0, 0.75, 0.666));
     w_status_.setViewPort(sf::FloatRect(0.25, 0.666, 0.75, 0.333));
     
-    window_.setFramerateLimit(Constants::kFrameLimit);
+    rend_window_.setFramerateLimit(Constants::kFrameLimit);
 }
 
 void Application::Render()
 {
-    w_side_bar_.Render(window_, 0, 0);
-    w_status_.Render(window_, 0, 0);
-    w_main_.Render(window_, 0, 0);
+    w_side_bar_.Render(rend_window_, 0, 0);
+    w_status_.Render(rend_window_, 0, 0);
+    w_main_.Render(rend_window_, 0, 0);
 }
 
 void Application::Update()
@@ -70,15 +70,15 @@ int Application::Run()
     }
     /// should delete the scope above
 
-    while (window_.isOpen()){
+    while (rend_window_.isOpen()){
 
         sf::Event event;
-        while (window_.pollEvent(event)){
+        while (rend_window_.pollEvent(event)){
             switch (event.type)
             {
                 case sf::Event::Closed:
                 {
-                    window_.close();
+                    rend_window_.close();
                     cout << "The window was closed\n";
                     break;
                 }
@@ -97,35 +97,37 @@ int Application::Run()
             this->Update();            
         }
 
+        rend_window_.clear(sf::Color::White);
 
-        window_.clear(sf::Color::White);
-
-        _DebugBackGroundRectangles();
+        _Debug_BackGroundRectangles();
 
         this->Render();
-        window_.display();
-
-        auto position = sf::Mouse::getPosition();
-        auto window_pos = window_.getPosition();
-        // std::cerr << "Mouse hovering at: " << position.x - window_pos.x << ' ' << position.y - window_pos.y << '\n';
+        rend_window_.display();        
     }
 
     return 0;
 }
 
-void Application::_DebugBackGroundRectangles()
+void Application::_Debug_PrintMousePosition()
+{
+    auto position = sf::Mouse::getPosition();
+    auto window_pos = rend_window_.getPosition();
+    std::cerr << "Mouse hovering at: " << position.x - window_pos.x << ' ' << position.y - window_pos.y << '\n';
+}
+
+void Application::_Debug_BackGroundRectangles()
 {
     auto rect = sf::RectangleShape({(float)w_side_bar_.GetWidth(), (float)w_side_bar_.GetHeight()});
     rect.setFillColor(sf::Color(191, 191, 63, 0.41 * 255));
-    window_.draw(rect);
+    rend_window_.draw(rect);
 
     rect.setFillColor(sf::Color(28, 156, 236, 0.38 * 255));
-    rect.setPosition({w_main_.off_x_, w_main_.off_y_});
-    rect.setSize({w_main_.GetWidth(), w_main_.GetHeight()});
-    window_.draw(rect);
+    rect.setPosition(sf::Vector2f(w_main_.off_x, w_main_.off_y));
+    rect.setSize(sf::Vector2f(w_main_.GetWidth(), w_main_.GetHeight()));
+    rend_window_.draw(rect);
 
     rect.setFillColor(sf::Color(236, 28, 32, 0.38 * 255));
-    rect.setPosition({w_status_.off_x_, w_status_.off_y_});
-    rect.setSize({w_status_.GetWidth(), w_status_.GetHeight()});
-    window_.draw(rect);
+    rect.setPosition(sf::Vector2f(w_status_.off_x, w_status_.off_y));
+    rect.setSize(sf::Vector2f(w_status_.GetWidth(), w_status_.GetHeight()));
+    rend_window_.draw(rect);
 }

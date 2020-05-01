@@ -14,8 +14,8 @@ namespace Musical
 class Window : public UiElement, public UiContainer
 {
 public:
-    const int      size_x_, size_y_;
-    const int      off_x_,  off_y_;
+    const int      size_x, size_y;
+    const int      off_x,  off_y;
 
 private:
     sf::View       w_view_;
@@ -34,10 +34,10 @@ public:
     void setViewPort(const sf::FloatRect& viewRect);
 
     /// Render all the Window's UiElements
-    void Render(sf::RenderWindow& renderWindow, int off_x, int off_y);
+    void Render(sf::RenderWindow& renderWindow, int offX, int offY);
 
     /// Update Window
-    void Update(int off_x, int off_y);
+    void Update(int offX, int offY);
 
     /// Add some UiElement to the Window
     void AddSampleUiElement(std::shared_ptr<UiElement> ptr);
