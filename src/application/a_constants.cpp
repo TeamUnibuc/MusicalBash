@@ -5,6 +5,7 @@ namespace Constants
 
 const int kWidth = 1200;
 const int kHeight = 750;
+const int kTopBarSize = 40;
 
 const int kFrameLimit = 75;
 

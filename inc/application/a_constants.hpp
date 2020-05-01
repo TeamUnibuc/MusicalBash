@@ -22,7 +22,7 @@ namespace Constants
     };
 
     /// width and height of thw Window (that holds every part of the UI))
-    extern const int kWidth, kHeight;
+    extern const int kWidth, kHeight, kTopBarSize;
 
     /// Maximum framerate
     extern const int kFrameLimit;
