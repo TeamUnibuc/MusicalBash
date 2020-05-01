@@ -13,9 +13,11 @@ namespace Musical
 
 class Window : public UiElement, public UiContainer
 {
-private:
+public:
     const int      size_x_, size_y_;
     const int      off_x_,  off_y_;
+
+private:
     sf::View       w_view_;
 
 public:

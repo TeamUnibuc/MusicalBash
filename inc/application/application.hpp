@@ -5,13 +5,12 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
-#include "u_element.hpp"
 #include "a_constants.hpp"
 #include "a_event_handler.hpp"
 #include "u_window.hpp"
 #include "u_png_sprite.hpp"
 
-class Application : public UiElement
+class Application
 {
     
 private:
@@ -24,14 +23,12 @@ private:
 
     void InitializingScript();
 
-    void Render(sf::RenderWindow& rendWindow, int off_x, int off_y) override;
+    void Render();
 
-    void Update(int off_x, int off_y) override;
+    void Update();
 
-    int GetHeight() const override;
-
-    int GetWidth() const override;
-
+    void _DebugBackGroundRectangles();
+    
 public:
     Application();
 
