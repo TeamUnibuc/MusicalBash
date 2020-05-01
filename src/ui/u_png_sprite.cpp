@@ -18,7 +18,7 @@ void PngSprite::Render(sf::RenderWindow & rendWindow, int off_x, int off_y)
     rendWindow.draw(sprite_);
 }
 
-void PngSprite::Update(int off_x, int off_y)
+void PngSprite::Update(int /* off_x */, int /* off_y */)
 {
-    
+
 }

@@ -6,8 +6,8 @@ namespace Musical
 Window::Window(int sz_x, int sz_y, int off_x, int off_y) :
     size_x_(sz_x),
     size_y_(sz_y),
-    off_y_(off_y),
-    off_x_(off_x)
+    off_x_(off_x),
+    off_y_(off_y)
 {
     w_view_.reset(sf::FloatRect(off_x, off_y, size_x_, size_y_));
 }

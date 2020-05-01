@@ -26,7 +26,7 @@ void Sprite::Render(sf::RenderWindow& rendWindow, int off_x, int off_y)
     rendWindow.draw(sprite_);
 }
 
-void Sprite::Update(int off_x, int off_y)
+void Sprite::Update(int /* off_x */, int /* off_y */)
 {
     /// Doesn't really does anythin
 }

@@ -62,6 +62,7 @@ int Application::Run()
 
         w_main_.AddSampleUiElement(power_btn_ptr);
         w_side_bar_.AddSampleUiElement(power_btn_ptr);
+        w_status_.AddSampleUiElement(power_btn_ptr);
 
         power_btn_ptr->SetColor(sf::Color::Green);
     }
@@ -95,10 +96,8 @@ int Application::Run()
         }
 
         window_.clear(sf::Color::White);
-
-        window_.display();
-
         this->Render(window_, 0, 0);
+        window_.display();
 
         auto position = sf::Mouse::getPosition();
         auto window_pos = window_.getPosition();
