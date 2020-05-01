@@ -7,7 +7,7 @@ using namespace std;
 namespace {
     Player player;
 
-    void make_tick()
+    [[maybe_unused]] void make_tick()
     {
         while (true)
             player.Step();

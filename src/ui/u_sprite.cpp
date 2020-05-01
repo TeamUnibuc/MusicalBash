@@ -20,10 +20,15 @@ void Sprite::Move(int x, int y)
     sprite_.move(sf::Vector2f(x, y));
 }
 
-void Sprite::Render(sf::RenderWindow& rendWindow, int offset_x)
+void Sprite::Render(sf::RenderWindow& rendWindow, int off_x, int off_y)
 {
-    sprite_.setPosition(pos_x + offset_x, pos_y);
+    sprite_.setPosition(off_x + pos_x, off_y + pos_y);
     rendWindow.draw(sprite_);
+}
+
+void Sprite::Update(int /* off_x */, int /* off_y */)
+{
+    /// Doesn't really does anythin
 }
 
 void Sprite::SetSize(int x, int y)

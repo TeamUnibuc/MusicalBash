@@ -14,7 +14,7 @@ class Application
 {
     
 private:
-    sf::RenderWindow window_;
+    sf::RenderWindow rend_window_;
     
     /// App will anyway scale how it should on resize
     Musical::Window w_side_bar_;
@@ -23,6 +23,15 @@ private:
 
     void InitializingScript();
 
+    void Render();
+
+    void Update();
+
+    /// Debug functions
+    void _Debug_BackGroundRectangles();
+
+    void _Debug_PrintMousePosition();
+    
 public:
     Application();
 

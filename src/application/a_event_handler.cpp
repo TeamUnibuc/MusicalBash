@@ -3,6 +3,6 @@
 /// TO DO
 void EventHandler::ClickAtPosition(int clickX, int clickY)
 {
-    std::cout << "Click at position: " << clickX << ' ' << clickY << '\n';
+    std::cerr << "Click at position: " << clickX << ' ' << clickY << '\n';
     /// Something with knowledge
 }
