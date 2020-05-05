@@ -13,7 +13,8 @@ void CDirectorySelect::Execute()
     if (filename[0] == 0)
         throw std::runtime_error("User returned no file!");
     
-    std::string selected_directory_(filename);
+    selected_directory_ = std::string(filename);
+
     if (selected_directory_.size() > 0)
         selected_directory_.pop_back();
 }
