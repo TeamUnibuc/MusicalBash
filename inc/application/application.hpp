@@ -9,6 +9,9 @@
 #include "a_event_handler.hpp"
 #include "u_window.hpp"
 #include "u_png_sprite.hpp"
+#include "u_scrollable_list.hpp"
+
+#include "u_dummy.hpp"
 
 class Application
 {
@@ -26,6 +29,8 @@ private:
     void Render();
 
     void Update();
+
+    void SetKnowledgeMousePosition();
 
     /// Debug functions
     void _Debug_BackGroundRectangles();

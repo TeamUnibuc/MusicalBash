@@ -46,6 +46,13 @@ void Application::Update()
     w_main_.Update(0, 0);
 }
 
+void Application::SetKnowledgeMousePosition()
+{
+    auto position = sf::Mouse::getPosition();
+    auto window_pos = rend_window_.getPosition();
+    EventHandler::SetMousePoz({position.x - window_pos.x, position.y - window_pos.y});
+}
+
 int Application::Run()
 {
     using std::cout;
@@ -62,11 +69,22 @@ int Application::Run()
         power_btn_ptr->SetPosition(20, 50);
         play_btn_ptr->SetSize(80, 80);
 
-        w_main_.AddSampleUiElement(power_btn_ptr);
+        // w_main_.AddSampleUiElement(power_btn_ptr);
         w_side_bar_.AddSampleUiElement(play_btn_ptr);
         w_status_.AddSampleUiElement(power_btn_ptr);
 
         power_btn_ptr->SetColor(sf::Color::Green);
+
+        /// Lets add some list of objects!!
+        const std::string play_str = "data/img/play_button.png";
+        const std::string power_str = "data/img/power_button.png";
+        SharedPtr<ScrollableList> my_scroll_list(new ScrollableList(550, 470));
+        for (int i = 0;  i < 40;  ++i) {
+            SharedPtr<DummyUI> someDummy(new DummyUI(400 + rand() % 100, 10 + rand() % 20));
+            my_scroll_list->AddUiElement(someDummy);
+        }
+
+        w_main_.AddSampleUiElement(my_scroll_list);
     }
     /// should delete the scope above
 
@@ -74,6 +92,9 @@ int Application::Run()
 
         sf::Event event;
         while (rend_window_.pollEvent(event)){
+            EventHandler::ResetKnowledge();
+            SetKnowledgeMousePosition();
+
             switch (event.type)
             {
                 case sf::Event::Closed:
@@ -87,7 +108,13 @@ int Application::Run()
                 {
                     // cout << "Mouse button pressed at: " 
                     //      << event.mouseButton.x << ' ' << event.mouseButton.y << '\n';
-                    EventHandler::ClickAtPosition(event.mouseButton.x, event.mouseButton.y);             
+                    EventHandler::ClickAtPosition(event.mouseButton.x, event.mouseButton.y);  
+                    break;           
+                }
+                case sf::Event::MouseWheelScrolled:
+                {
+                    EventHandler::MouseWheelScrolled(event);
+                    break;
                 }
                 default:
                 {

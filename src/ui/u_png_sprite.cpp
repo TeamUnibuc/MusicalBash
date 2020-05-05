@@ -3,7 +3,7 @@
 PngSprite::~PngSprite()
 {}
 
-PngSprite::PngSprite(const std::string& path)
+PngSprite::PngSprite(const std::string& path) : Sprite()
 {
     if (!texture_.loadFromFile(path)) {
         throw std::runtime_error("SFML Failed to load texture from file: " + path);

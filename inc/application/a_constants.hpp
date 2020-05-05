@@ -3,6 +3,11 @@
 
 #include <vector>
 #include <string>
+#include <memory>
+
+// Useful typedefs we will use throughout the code
+template <typename T>
+using SharedPtr = std::shared_ptr<T>;
 
 namespace Constants
 {
