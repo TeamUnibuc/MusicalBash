@@ -18,9 +18,18 @@ public:
      * Logger `<<` operator implemented inline for not
      * having issues with un-applied template argument
      */
-    template <class T>
+    template <typename T>
     Logger& operator << (const T & elem) {
         std::cerr << elem;
+        return *this;
+    }
+
+    typedef std::ostream& (*SEL)(std::ostream&);
+
+    Logger& operator << (SEL manipulator)
+    {
+        manipulator(std::cerr);
+
         return *this;
     }
 };

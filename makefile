@@ -8,8 +8,11 @@ $(info - - - - - - - - - - - - - -)
 
 # Do you want make to run in parralel?
 # if not, just comment the MAKEFLAGS line
+# redoRun command invokes make recursively, we have to put the flag only on the parent process
 NPROCS = $(shell grep -c 'processor' /proc/cpuinfo)
-MAKEFLAGS += -j$(NPROCS)
+ifeq (,$(findstring redoRun,$(MAKECMDGOALS)))
+	MAKEFLAGS += -j$(NPROCS)
+endif
 
 # Project Name (executable)
 PROJECT = musicalbash.out
@@ -135,6 +138,10 @@ $(DEP_FO)/%.o: $(SRC_FO)/%.cpp | createDepFolder # | resetCompile
 # Build & Run Project
 run: $(PROJECT)
 	./$(PROJECT) $(COMMANDLINE_OPTIONS)
+redoRun:
+	@$(MAKE) cleanAll
+	@$(MAKE) run
+
 
 createDepFolder:
 #	@echo Creating dependency folders

@@ -33,7 +33,7 @@ public:
         rendWindow.draw(rect_);
     }
 
-    virtual void Update(int off_x, int off_y) {
+    virtual void Update(int /*off_x*/, int /*off_y*/) {
         color_.b = (color_.b + rand() % 2) % 255;
         color_.r = (color_.r + rand() % 3) % 255;
         color_.g = (color_.g + rand() % 5) % 255;

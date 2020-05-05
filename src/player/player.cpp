@@ -52,7 +52,7 @@ std::vector <std::shared_ptr<PPlaylist>> Player::getPlaylists()
 void Player::addMusicToQueue(const std::shared_ptr<PMusic> music)
 {
     (*music_queue_) += music;
-}
+}  
 
 void Player::addAlbumToQueue(const std::shared_ptr<PAlbum> album)
 {

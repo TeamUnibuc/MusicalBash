@@ -1,54 +1,29 @@
 #include "a_event_handler.hpp"
 
+#include "a_knowledge.hpp"
+#include "a_logger.hpp"
+
 namespace EventHandler
 {
-/// Global but in a namespace variables
-sf::Event           event_;
-std::pair<int, int> mouse_poz_;
 
-void ResetKnowledge()
+void Click(const sf::Event& ev)
 {
-    sf::Event mockEvent;
-    mockEvent.type = sf::Event::JoystickConnected;
-    event_ = mockEvent;
+    Logger::Get() << "Click at position: " << ev.mouseButton.x << ' ' << ev.mouseButton.y << '\n';
+
+    Knowledge::SetEvent(ev);
 }
 
-/// Functions so we can use those global variables!
-void SetMousePoz(const std::pair<int, int>& where)
+void MouseWheelScrolled(const sf::Event& event)
 {
-    mouse_poz_ = where;
-}
-
-std::pair<int,int> GetMousePoz()
-{
-    return mouse_poz_;
-}
-
-sf::Event GetEvent()
-{
-    return event_;
-}
-
-/// TO DO
-void ClickAtPosition(int clickX, int clickY)
-{
-    std::cerr << "Click at position: " << clickX << ' ' << clickY << '\n';
-    /// Something with knowledge
-}
-
-void MouseWheelScrolled(sf::Event event)
-{
-    event_ = event;
-
     if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel)
-        std::cout << "wheel type: vertical" << std::endl;
+        Logger::Get() << "wheel type: vertical" << std::endl;
     else if (event.mouseWheelScroll.wheel == sf::Mouse::HorizontalWheel)
-        std::cout << "wheel type: horizontal" << std::endl;
+        Logger::Get() << "wheel type: horizontal" << std::endl;
     else
-        std::cout << "wheel type: unknown" << std::endl;
-    std::cout << "wheel movement: " << event.mouseWheelScroll.delta << std::endl;
-    std::cout << "mouse x: " << event.mouseWheelScroll.x << std::endl;
-    std::cout << "mouse y: " << event.mouseWheelScroll.y << std::endl;
+        Logger::Get() << "wheel type: unknown" << std::endl;
+    Logger::Get() << "wheel movement: " << event.mouseWheelScroll.delta << std::endl;
+    Logger::Get() << "mouse x: " << event.mouseWheelScroll.x << std::endl;
+    Logger::Get() << "mouse y: " << event.mouseWheelScroll.y << std::endl;
 }
 
 }
