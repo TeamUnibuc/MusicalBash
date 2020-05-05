@@ -5,6 +5,11 @@
 
 #include "u_sprite.hpp"
 
+/**
+ * Class inherinting from Sprite.
+ * The class contructs with the path of a png file which will
+ * then be displayed by the Render function.
+ */
 class PngSprite : public Sprite
 {
 private:

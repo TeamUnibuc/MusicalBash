@@ -3,6 +3,11 @@
 
 #include "u_element.hpp"
 
+/**
+ * Sprite class, inheriting from UIelement.
+ * The Sprite class contains both a `sf::texture` and a `sf::sprite`.
+ * However this class is only made to inherit from (e.g. PngSprite).
+ */
 class Sprite : public UiElement
 {
 private:
