@@ -11,6 +11,8 @@
 #include "u_png_sprite.hpp"
 #include "u_scrollable_list.hpp"
 
+#include "u_dummy.hpp"
+
 class Application
 {
     
