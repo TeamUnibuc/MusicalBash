@@ -8,6 +8,7 @@
 #include "u_element.hpp"
 #include "u_container.hpp"
 
+/// Don't use nested ScrollableLists!! The child Lists WILL NOT scroll
 class ScrollableList : public UiElement, public UiContainer
 {
 private:

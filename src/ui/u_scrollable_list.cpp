@@ -40,10 +40,18 @@ void ScrollableList::Update(int off_x, int off_y)
             int delta = ev.mouseWheelScroll.delta;
             std::cerr << "Scrollable List detected to be scrolled!\n";
             std::cerr << "Delta: " << delta << '\n';
-            if (delta > 0)
+            if (delta < 0)
                 start_index_ = std::min((int)element_list.size() - 1, start_index_ + 1);
-            else if (delta < 0 )
+            else if (delta > 0 )
                 start_index_ = std::max(0, start_index_ - 1);
+        }
+    }
+    else {
+        int used_vertical = 0, index = start_index_;
+        while (index < (int)element_list.size() && element_list[index]->GetHeight() + used_vertical <= sizeY_) {
+            element_list[index]->Update(off_x + pos_x, off_y + pos_y + used_vertical);
+            used_vertical += element_list[index]->GetHeight();
+            ++index;
         }
     }
 }

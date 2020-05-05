@@ -78,17 +78,15 @@ int Application::Run()
         /// Lets add some list of objects!!
         const std::string play_str = "data/img/play_button.png";
         const std::string power_str = "data/img/power_button.png";
-        SharedPtr<ScrollableList> my_scroll_list(new ScrollableList(60, 450));
+        SharedPtr<ScrollableList> my_scroll_list(new ScrollableList(550, 470));
         for (int i = 0;  i < 14;  ++i) {
             SharedPtr<PngSprite> currentSprite(new PngSprite(i % 2 ? play_str : power_str));
-            currentSprite->SetSize(60, 60);
+            currentSprite->SetSize(40 + rand() % 500, 40 + rand() % 50);
             currentSprite->SetColor(sf::Color(rand() % 240, rand() % 251, rand() % 256, rand() % 255));
-            if (i % 2 == 0) {
+            if (i % 2 == 0) 
                 my_scroll_list->AddUiElement(currentSprite);
-            }
-            else {
+            else 
                 my_scroll_list->AddUiElement(currentSprite);
-            }
         }
 
         w_main_.AddSampleUiElement(my_scroll_list);
