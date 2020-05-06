@@ -9,7 +9,8 @@ class Logger
 {
 private:
     Logger();
-    static Logger * ptr_to_logger;
+    Logger(const Logger & oth) = delete;
+    Logger & operator=(const Logger & oth) = delete;
 
 public:
     static Logger & Get();
