@@ -46,11 +46,11 @@ void Application::Update()
     w_main_.Update(0, 0);
 }
 
-void Application::SetKnowledgeMousePosition()
+void Application::SetKnowledge_MousePosition()
 {
     auto position = sf::Mouse::getPosition();
     auto window_pos = rend_window_.getPosition();
-    EventHandler::SetMousePoz({position.x - window_pos.x, position.y - window_pos.y});
+    Knowledge::SetMousePoz({position.x - window_pos.x, position.y - window_pos.y});
 }
 
 int Application::Run()
@@ -92,23 +92,22 @@ int Application::Run()
 
         sf::Event event;
         while (rend_window_.pollEvent(event)){
-            EventHandler::ResetKnowledge();
-            SetKnowledgeMousePosition();
+            Knowledge::Reset();
+            Knowledge::SetEvent(event);
+            SetKnowledge_MousePosition();
 
             switch (event.type)
             {
                 case sf::Event::Closed:
                 {
                     rend_window_.close();
-                    cout << "The window was closed\n";
+                    Logger::Get() << "The window was closed\n";
                     break;
-                }
+                }  
 
                 case sf::Event::MouseButtonPressed:
                 {
-                    // cout << "Mouse button pressed at: " 
-                    //      << event.mouseButton.x << ' ' << event.mouseButton.y << '\n';
-                    EventHandler::ClickAtPosition(event.mouseButton.x, event.mouseButton.y);  
+                    EventHandler::Click(event);  
                     break;           
                 }
                 case sf::Event::MouseWheelScrolled:
@@ -139,7 +138,7 @@ void Application::_Debug_PrintMousePosition()
 {
     auto position = sf::Mouse::getPosition();
     auto window_pos = rend_window_.getPosition();
-    std::cerr << "Mouse hovering at: " << position.x - window_pos.x << ' ' << position.y - window_pos.y << '\n';
+    Logger::Get() << "Mouse hovering at: " << position.x - window_pos.x << ' ' << position.y - window_pos.y << '\n';
 }
 
 void Application::_Debug_BackGroundRectangles()

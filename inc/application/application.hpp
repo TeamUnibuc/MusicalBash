@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 
 #include "a_constants.hpp"
+#include "a_logger.hpp"
 #include "a_event_handler.hpp"
 #include "u_window.hpp"
 #include "u_png_sprite.hpp"
@@ -30,7 +31,7 @@ private:
 
     void Update();
 
-    void SetKnowledgeMousePosition();
+    void SetKnowledge_MousePosition();
 
     /// Debug functions
     void _Debug_BackGroundRectangles();

@@ -1,7 +1,7 @@
 #include "a_logger.hpp"
 
 #include <iostream>
-
+  
 Logger * Logger::ptr_to_logger = nullptr;
 
 Logger::Logger() { }

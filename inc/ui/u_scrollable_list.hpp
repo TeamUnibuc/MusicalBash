@@ -3,7 +3,9 @@
 
 #include <iostream>
 
+#include "a_logger.hpp"
 #include "a_constants.hpp"
+#include "a_knowledge.hpp"
 #include "a_event_handler.hpp"
 #include "u_element.hpp"
 #include "u_container.hpp"
@@ -25,15 +27,15 @@ public:
 
     void SetStartIndex(int index);
 
-    void Render(sf::RenderWindow& rendWindow, int off_x, int off_y);
+    void Render(sf::RenderWindow& rw, int off_x, int off_y) override;
 
-    void Update(int off_x, int off_y);
-
-    /// Watch out to properly override this!!
-    int GetHeight() const;
+    void Update(int off_x, int off_y) override;
 
     /// Watch out to properly override this!!
-    int GetWidth() const;
+    int GetHeight() const override;
+
+    /// Watch out to properly override this!!
+    int GetWidth() const override;
 
 };
 
