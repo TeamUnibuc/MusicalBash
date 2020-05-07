@@ -6,6 +6,9 @@
 #include <memory>
 #include "SFML/Graphics.hpp"
 
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+
 // Useful typedefs we will use throughout the code
 template <typename T>
 using SharedPtr = std::shared_ptr<T>;
@@ -25,6 +28,11 @@ namespace Constants
 
     /// width and height of thw Window (that holds every part of the UI))
     extern const int kWidth, kHeight, kTopBarSize;
+
+    /// Space between Main windows
+    extern const int kGap;
+
+    extern const sf::Color kWindowBackground;
 
     /// Maximum framerate
     extern const int kFrameLimit;
