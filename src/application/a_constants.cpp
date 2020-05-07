@@ -21,4 +21,6 @@ const std::vector<std::string> kMusicExtensions = {
     ".wav"
 };
 
+sf::Font kFont;
+
 }

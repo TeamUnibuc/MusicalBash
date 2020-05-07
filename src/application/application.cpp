@@ -31,6 +31,15 @@ void Application::InitializingScript()
     w_status_.setViewPort(sf::FloatRect(0.25, 0.666, 0.75, 0.333));
     
     rend_window_.setFramerateLimit(Constants::kFrameLimit);
+
+    const std::string kFontPath = "data/fonts/UbuntuMono-R.ttf";
+    if (!Constants::kFont.loadFromFile(kFontPath))
+        throw std::runtime_error("SFML failed to load font from file: " + kFontPath);
+    else
+        Logger::Get() << "Successfully loaded the global font" << '\n';
+    
+
+
 }
 
 void Application::Render()
@@ -80,12 +89,54 @@ int Application::Run()
         const std::string play_str = "data/img/play_button.png";
         const std::string power_str = "data/img/power_button.png";
         SharedPtr<ScrollableList> my_scroll_list(new ScrollableList(550, 470));
-        for (int i = 0;  i < 40;  ++i) {
-            SharedPtr<DummyUI> someDummy(new DummyUI(400 + rand() % 100, 10 + rand() % 20));
+        for (int i = 0;  i < 20;  ++i) {
+            // SharedPtr<DummyUI> someDummy(new DummyUI(400 + rand() % 100, 10 + rand() % 20));
+            SharedPtr<TextBox> someDummy(new TextBox(0, 0, 550, 40, 0, "Musical Bash"));
+            if (i % 3 == 0){
+                someDummy->SetColor(sf::Color::Blue);
+                someDummy->SetAlignment(i % 3);
+            }
+            else if (i % 3 == 1) {
+                someDummy->SetColor(sf::Color::Yellow);
+                someDummy->SetAlignment(i % 3);
+            }
+            else {
+                someDummy->SetColor(sf::Color::Red);
+                someDummy->SetAlignment(i % 3);
+            }
+            
+            my_scroll_list->AddUiElement(someDummy);
+        }
+        for (int i = 20; i < 40; ++i){
+            SharedPtr<TextBox> someDummy(new TextBox(0, 0, 550, 40, 0, "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop."));
+            if (i % 3 == 0){
+                someDummy->SetColor(sf::Color::Blue);
+                
+            }
+            else if (i % 3 == 1){
+                someDummy->SetColor(sf::Color::Yellow);
+                someDummy->SetAlignment(i % 3);
+            }
+            else{
+                someDummy->SetColor(sf::Color::Red);
+                someDummy->SetAlignment(i % 3);
+            }
+            
             my_scroll_list->AddUiElement(someDummy);
         }
 
+
         w_main_.AddSampleUiElement(my_scroll_list);
+
+        SharedPtr<TextBox> my_text_box(new TextBox(0, 0, 550, 50, 0, "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop. "));
+        SharedPtr<TextBox> my_text_box2(new TextBox(0, 50, 550, 50, 0, "Musical Bash"));
+        SharedPtr<TextBox> my_text_box3(new TextBox(0, 100, 550, 50, 1, "Musical Bash"));
+        SharedPtr<TextBox> my_text_box4(new TextBox(0, 150, 550, 50, 2, "Musical Bash"));
+
+        // w_main_.AddSampleUiElement(my_text_box);
+        // w_main_.AddSampleUiElement(my_text_box2);
+        // w_main_.AddSampleUiElement(my_text_box3);
+        // w_main_.AddSampleUiElement(my_text_box4);
     }
     /// should delete the scope above
 
