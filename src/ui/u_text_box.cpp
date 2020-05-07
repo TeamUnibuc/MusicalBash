@@ -9,10 +9,10 @@ TextBox::TextBox(int posX, int posY, int sizeX, int sizeY, int alignment, std::s
         alignment_ = alignment; 
 
     /// Viewing the bounding rectangle
-    border.setSize(sf::Vector2f(sizeX, sizeY));
-    border.setOutlineColor(sf::Color::Blue);
-    border.setFillColor(sf::Color::Transparent);
-    border.setOutlineThickness(-1);
+    // border.setSize(sf::Vector2f(sizeX, sizeY));
+    // border.setOutlineColor(sf::Color::Blue);
+    // border.setFillColor(sf::Color::Transparent);
+    // border.setOutlineThickness(-1);
 
     text_.setFont(Constants::kFont);
     this->SetText(textInput);
@@ -40,8 +40,8 @@ void TextBox::SetText(std::string textInput)
 void TextBox::Render(sf::RenderWindow& rw, int off_x, int off_y)
 {
     /// Only for testing purposes
-    border.setPosition(off_x + pos_x, off_y + pos_y);
-    rw.draw(border);
+    // border.setPosition(off_x + pos_x, off_y + pos_y);
+    // rw.draw(border);
 
     sf::FloatRect textBounds = text_.getLocalBounds();
     int alignment_offset = 0.01 * sizeX_;

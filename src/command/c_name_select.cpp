@@ -11,7 +11,7 @@ void CNameSelect::Execute()
     fgets(filename, 1024, f);
 
     if (filename[0] == 0)
-        throw std::runtime_error("User wrote no output!");
+        throw player_runtime_error("User wrote no output!");
     
     choosen_name_ = std::string(filename);
     // if (choo_.size() > 0)

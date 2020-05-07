@@ -3,6 +3,7 @@
 
 #include <any>
 #include <stdexcept>
+#include "a_exceptions.hpp"
 
 #include "a_logger.hpp"
 
