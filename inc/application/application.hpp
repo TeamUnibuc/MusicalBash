@@ -11,6 +11,7 @@
 #include "u_window.hpp"
 #include "u_png_sprite.hpp"
 #include "u_scrollable_list.hpp"
+#include "u_text_box.hpp"
 
 #include "u_dummy.hpp"
 

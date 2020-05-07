@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include "SFML/Graphics.hpp"
 
 // Useful typedefs we will use throughout the code
 template <typename T>
@@ -33,6 +34,10 @@ namespace Constants
 
     /// holds a list of accepted extensions by the application
     extern const std::vector<std::string> kMusicExtensions;
+
+    /// holds the font used by the application
+    extern sf::Font kFont;
+
 };
 
 #endif // INC_APPLICATION_CONSTANTS_
