@@ -1,22 +1,23 @@
 #include "application.hpp"
 
 using Constants::State;
-
+using Constants::kGap, Constants::kWidth, Constants::kHeight;
+ 
 Application::Application() :
     /// Sizes for views in pixels, relative to the optimal size of the app
     /// App will anyway scale how it should on resize
-    rend_window_(sf::VideoMode(Constants::kWidth, Constants::kHeight), 
+    rend_window_(sf::VideoMode(kWidth, kHeight), 
             Constants::kApplicationName,
             sf::Style::Close | sf::Style::Titlebar),
 
-    w_side_bar_(Constants::kWidth * 1 / 4, Constants::kHeight, 
-                0, 0),
+    w_side_bar_(kWidth * 1/4 - kGap, kHeight - kGap, 
+                kGap * 1/2, kGap * 1/2),
 
-    w_main_(Constants::kWidth * 3 / 4, Constants::kHeight * 2 / 3,
-            w_side_bar_.GetWidth(), 0),
+    w_main_(kWidth * 3/4 - kGap, kHeight * 2/3 - kGap,
+            w_side_bar_.GetWidth() + kGap * 3/2, kGap * 1/2),
             
-    w_status_(Constants::kWidth * 3 / 4, Constants::kHeight * 1 / 3,
-              w_side_bar_.GetWidth(), w_main_.GetHeight())
+    w_status_(kWidth * 3/4 - kGap, kHeight * 1/3 - kGap,
+              w_side_bar_.GetWidth() + kGap * 3/2, w_main_.GetHeight() + kGap * 3/2)
 {}
 
 void Application::InitializingScript()
@@ -143,16 +144,19 @@ void Application::_Debug_PrintMousePosition()
 
 void Application::_Debug_BackGroundRectangles()
 {
-    auto rect = sf::RectangleShape({(float)w_side_bar_.GetWidth(), (float)w_side_bar_.GetHeight()});
-    rect.setFillColor(sf::Color(191, 191, 63, 0.41 * 255));
+    auto rect = sf::RectangleShape();
+
+    rect.setFillColor(Constants::kWindowBackground);
+    rect.setPosition(sf::Vector2f(w_side_bar_.off_x, w_side_bar_.off_y));
+    rect.setSize(sf::Vector2f(w_side_bar_.GetWidth(), w_side_bar_.GetHeight()));
     rend_window_.draw(rect);
 
-    rect.setFillColor(sf::Color(28, 156, 236, 0.38 * 255));
+    rect.setFillColor(Constants::kWindowBackground);
     rect.setPosition(sf::Vector2f(w_main_.off_x, w_main_.off_y));
     rect.setSize(sf::Vector2f(w_main_.GetWidth(), w_main_.GetHeight()));
     rend_window_.draw(rect);
 
-    rect.setFillColor(sf::Color(236, 28, 32, 0.38 * 255));
+    rect.setFillColor(Constants::kWindowBackground);
     rect.setPosition(sf::Vector2f(w_status_.off_x, w_status_.off_y));
     rect.setSize(sf::Vector2f(w_status_.GetWidth(), w_status_.GetHeight()));
     rend_window_.draw(rect);
