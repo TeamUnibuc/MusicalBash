@@ -33,11 +33,10 @@ void Application::InitializingScript()
 
     const std::string kFontPath = "data/fonts/UbuntuMono-R.ttf";
     if (!Constants::kFont.loadFromFile(kFontPath))
-        throw std::runtime_error("SFML failed to load font from file: " + kFontPath);
+        throw loading_error(kFontPath);
     else
         Logger::Get() << "Successfully loaded the global font" << '\n';
     
-
 
 }
 

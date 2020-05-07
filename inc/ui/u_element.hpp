@@ -2,6 +2,7 @@
 #define INC_UI_ELEMENT_
 
 #include <SFML/Graphics.hpp>
+#include "a_exceptions.hpp"
 
 /**
  * UIElement class, representing a drawable element.
