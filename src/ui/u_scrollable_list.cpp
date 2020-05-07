@@ -42,8 +42,10 @@ void ScrollableList::Update(int off_x, int off_y)
             int delta = ev.mouseWheelScroll.delta;
             Logger::Get() << "Scroll with Delta: " << delta << '\n';
 
-            if (delta < 0)
-                start_index_ = std::min((int)element_list.size() - 1, start_index_ + 1);
+            if (delta < 0) {
+                if (not LastElementIsVisible(start_index_))
+                    start_index_ = std::min((int)element_list.size() - 1, start_index_ + 1);
+            }
             else if (delta > 0 )
                 start_index_ = std::max(0, start_index_ - 1);
         }
@@ -57,6 +59,16 @@ void ScrollableList::Update(int off_x, int off_y)
             ++index;
         }
     }
+}
+
+bool ScrollableList::LastElementIsVisible(int start) const
+{
+    int used_vertical = 0;
+    while (start < (int)element_list.size() && element_list[start]->GetHeight() + used_vertical <= sizeY_) {        
+        used_vertical += element_list[start]->GetHeight();
+        ++start;
+    }
+    return start == (int)element_list.size();
 }
 
 /// Watch out to properly override this!!
