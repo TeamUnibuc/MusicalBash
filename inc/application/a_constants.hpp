@@ -32,6 +32,7 @@ namespace Constants
     extern const int kGap;
 
     extern const sf::Color kWindowBackground;
+    extern const sf::Color kAppBackground;
 
     /// Maximum framerate
     extern const int kFrameLimit;

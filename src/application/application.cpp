@@ -124,7 +124,7 @@ int Application::Run()
             this->Update();            
         }
 
-        rend_window_.clear(sf::Color::White);
+        rend_window_.clear(Constants::kAppBackground);
 
         _Debug_BackGroundRectangles();
 
