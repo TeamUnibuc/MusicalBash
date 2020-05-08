@@ -27,7 +27,8 @@ class Player
     std::shared_ptr <PIndex> index_;
     std::shared_ptr <PMusicQueue> music_queue_;
     std::shared_ptr <PMusicPlayer> music_player_;
-    
+    double music_volume_;
+
 public:
 
     /// default constructor
@@ -107,6 +108,12 @@ public:
      *  1 for paused
      */
     int getPlayingStatus() const;
+
+    /// increases volume by 1
+    Player& operator++();
+
+    /// decreases volume by 1
+    Player& operator--();
 };
 
 #endif // INC_PLAYER_
