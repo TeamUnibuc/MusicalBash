@@ -66,7 +66,7 @@ std::shared_ptr<PAlbum> PIndex::CreateAlbum(std::string path)
 {
     for (auto i : palbum_)
         if (i->GetName() == path)
-            throw std::runtime_error("Existing album is added again!");
+            throw player_runtime_error("Existing album is added again!");
 
     palbum_.push_back(std::shared_ptr<PAlbum> (new PAlbum(path, pmusic_)));
     return palbum_.back();
@@ -100,14 +100,14 @@ std::vector <std::shared_ptr<PMusic>> PIndex::getAllMusic() const
 std::shared_ptr<PMusic> PIndex::getMusicPtr(const std::string& name) const
 {
     if (pmusic_.find(name) == pmusic_.end())
-        throw std::runtime_error("Tried to get pointer to an inexistent music!");
+        throw player_runtime_error("Tried to get pointer to an inexistent music!");
     return pmusic_.at(name);
 }
 
 void PIndex::DeleteAlbum(const std::shared_ptr<PAlbum> album)
 {
     if (find(palbum_.begin(), palbum_.end(), album) == palbum_.end())
-        throw std::runtime_error("Tried to delete an album that does not exist!");
+        throw player_runtime_error("Tried to delete an album that does not exist!");
 
     palbum_.erase(find(palbum_.begin(), palbum_.end(), album));
 }
@@ -115,7 +115,7 @@ void PIndex::DeleteAlbum(const std::shared_ptr<PAlbum> album)
 void PIndex::DeletePlaylist(const std::shared_ptr<PPlaylist> playlist)
 {
     if (find(pplaylist_.begin(), pplaylist_.end(), playlist) == pplaylist_.end())
-        throw std::runtime_error("Tried to delete an album that does not exist!");
+        throw player_runtime_error("Tried to delete an album that does not exist!");
 
     pplaylist_.erase(find(pplaylist_.begin(), pplaylist_.end(), playlist));
 }

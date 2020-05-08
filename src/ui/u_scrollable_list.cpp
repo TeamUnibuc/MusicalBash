@@ -8,14 +8,14 @@ ScrollableList::ScrollableList(int sizeX, int sizeY) :
 void ScrollableList::AddUiElement(SharedPtr<UiElement> ptr)
 {
     if (ptr->GetWidth() > sizeX_ || ptr->GetHeight() > sizeY_)
-        throw std::runtime_error("Trying to add UiElement bigger than allocated space for father ScrollableList");
+        throw out_of_bounds_error("Trying to add UiElement bigger than allocated space for father ScrollableList");
     element_list.push_back(ptr);
 }
 
 void ScrollableList::SetStartIndex(int index)
 {
     if (index < 0)
-        throw std::runtime_error("Trying to set negative start index to scrolable list Ui Element");
+        throw out_of_bounds_error("Trying to set negative start index to scrolable list Ui Element");
     start_index_ = index;
 }
 
