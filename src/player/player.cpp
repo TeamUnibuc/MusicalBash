@@ -4,14 +4,14 @@ Player::Player() : index_(new PIndex),
     music_queue_(new PMusicQueue),
     music_player_(new PMusicPlayer) { }
 
-std::string Player::Zip() const
+void Player::Zip() const
 {
-    return index_->Zip();
+    index_->Zip();
 }
 
-void Player::Unzip(const std::string& zipped)
+void Player::Unzip()
 {
-    index_->Unzip(zipped);
+    index_->Unzip();
 }
 
 std::shared_ptr<PAlbum> Player::CreateAlbum(const std::string& path)

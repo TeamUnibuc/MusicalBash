@@ -17,8 +17,8 @@ namespace {
     void print_available_functions()
     {
         cout << "Available functions:\n";
-        cout << "1. zip [file]\n    Zips the content of player in file\n";
-        cout << "2. unzip [file]\n    Unzips the content of player from file\n";
+        cout << "1. zip \n    Zips the content of player in the database\n";
+        cout << "2. unzip \n    Unzips the content of player from the database\n";
         cout << "3. list music\n    Lists all available music\n";
         cout << "4. list album\n    Lists all available albums\n";
         cout << "5. list playlist\n    Lists all available playlists\n";
@@ -62,17 +62,17 @@ void StartConsoleApp()
             cout << "Done!\n";
         }
         else if (s == "unzip") {
-            cout << "From where?\n $$ ";
-            string where;
-            cin >> where;
+            // cout << "From where?\n $$ ";
+            // string where;
+            // cin >> where;
 
-            ifstream in;
-            in.open(where);
-            stringstream strStream;
-            strStream << in.rdbuf(); //read the file
-            string str = strStream.str();
-            player = Player();
-            player.Unzip(str);
+            // ifstream in;
+            // in.open(where);
+            // stringstream strStream;
+            // strStream << in.rdbuf(); //read the file
+            // string str = strStream.str();
+            // player = Player();
+            player.Unzip();
             cout << "Done!\n";
         }
         else if (s == "list") {

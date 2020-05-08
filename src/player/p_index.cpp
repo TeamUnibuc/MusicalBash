@@ -6,8 +6,9 @@
 
 PIndex::PIndex() { }
 
-std::string PIndex::Zip() const
+void PIndex::Zip() const
 {
+
     std::string enc;
     enc += std::to_string(palbum_.size()) + "\n";
     
@@ -24,12 +25,13 @@ std::string PIndex::Zip() const
             enc += c->getName() + "\n";
     }
 
-    return enc;
+    DBHandler::StoreData(enc);
 }
 
-void PIndex::Unzip(std::string zipped)
+void PIndex::Unzip()
 {
-    std::stringstream buff(zipped);
+
+    std::stringstream buff(DBHandler::ExtractData());
     std::string s;
     getline(buff, s);
     int n = std::stoi(s);
