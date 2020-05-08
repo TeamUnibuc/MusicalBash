@@ -38,7 +38,6 @@ void Application::InitializingScript()
     else
         Logger::Get() << "Successfully loaded the global font" << '\n';
     
-
     PopulateWindows();
 }
 
@@ -48,6 +47,7 @@ void Application::PopulateWindows()
     SharedPtr<ScrollableList> left_list(new ScrollableList(250, 550));
     // sf::RectangleShape shape(sf::Vector2f(250, 550));
     // shape.setFillColor(sf::Color(40, 40, 40, 40));
+{  /// Idiot shit ton lis of a lot of Factoried buttons
     left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
     left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
     left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
@@ -108,6 +108,7 @@ void Application::PopulateWindows()
     left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
     left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
     left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+}
     /// Place buttons on wnidow
     // w_side_bar_.AddSampleUiElement(std::make_shared<DummyUI>(250, 550));
     w_side_bar_.AddSampleUiElement(left_list);
