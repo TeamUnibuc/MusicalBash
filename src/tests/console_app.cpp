@@ -217,7 +217,7 @@ void StartConsoleApp()
             int status = player.getPlayingStatus();
             if (status == -1)
                 cout << "Player is stopped\n";
-            if (status == 0)
+            else if (status == 0)
                 cout << "Player is playing\n";
             else if (status == 1)
                 cout << "Player is paused\n";

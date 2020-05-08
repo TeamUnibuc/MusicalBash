@@ -34,6 +34,8 @@ void PIndex::Unzip()
     std::stringstream buff(DBHandler::ExtractData());
     std::string s;
     getline(buff, s);
+    if (s.empty())
+        return;
     int n = std::stoi(s);
 
     while (n--) {

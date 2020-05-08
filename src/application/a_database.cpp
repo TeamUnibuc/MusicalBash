@@ -42,8 +42,9 @@ void DBHandler::executeOperation(const std::string& operation)
 
     if (db_res != SQLITE_OK)
     {
-        Logger::Get() << "SQL Error: " << zErrMsg << '\n';
-        sqlite3_free(zErrMsg);
+        throw std::runtime_error(zErrMsg);
+        // Logger::Get() << "SQL Error: " << zErrMsg << '\n';
+        // sqlite3_free(zErrMsg);
 
         /// Template from the documentation
         // fprintf(stderr, "SQL error: %s\n", zErrMsg);
