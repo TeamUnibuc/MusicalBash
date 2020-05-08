@@ -68,3 +68,20 @@ player_runtime_error::~player_runtime_error()
 {
     delete []message;
 }
+
+bad_behaviour::bad_behaviour(std::string message_)
+{
+    message = new char[message_.size() + 1];
+    std::copy(message_.begin(), message_.end(), message);
+    message[message_.size()] = '\0';
+}
+
+const char * bad_behaviour::what() const throw()
+{
+    return message;
+}
+
+bad_behaviour::~bad_behaviour()
+{
+    delete []message;
+}

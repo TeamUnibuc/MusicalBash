@@ -44,74 +44,23 @@ void Application::InitializingScript()
 void Application::PopulateWindows()
 {
     /// Left side bar
-    SharedPtr<ScrollableList> left_list(new ScrollableList(250, 550));
-    // sf::RectangleShape shape(sf::Vector2f(250, 550));
-    // shape.setFillColor(sf::Color(40, 40, 40, 40));
-{  /// Idiot shit ton lis of a lot of Factoried buttons
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
-    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
-}
-    /// Place buttons on wnidow
-    // w_side_bar_.AddSampleUiElement(std::make_shared<DummyUI>(250, 550));
-    w_side_bar_.AddSampleUiElement(left_list);
+    for (int  vertical = 20, gap = 20;
+         auto btn_type : {ButtonFactory::SideType::Home,
+                          ButtonFactory::SideType::Albums,
+                          ButtonFactory::SideType::Playlists,
+                          ButtonFactory::SideType::MusicQueue,
+                          ButtonFactory::SideType::ImportAlbum,
+                          ButtonFactory::SideType::CreatePlaylist}) {
+        auto btn_ptr = ButtonFactory::Create(btn_type);
+        btn_ptr->SetPosition({20, vertical});
+        vertical += btn_ptr->GetHeight() + gap;
+
+        w_side_bar_.AddSampleUiElement(std::move(btn_ptr));
+    }
+
+    // auto about_ptr = ButtonFactory::CreateButton(ButtonFactory::SideType::About);
+    // about_ptr->SetPosition()
+    // w_side_bar_.AddSampleUiElement(left_list);
 }
 
 void Application::Render()
