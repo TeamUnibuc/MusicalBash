@@ -6,7 +6,7 @@ ColorButton::ColorButton(int szX, int szY, UniquePtr<Command> cPtr, sf::Color no
 
 void ColorButton::Update(int off_x, int off_y)
 {
-    Logger::Get() << "Update ColBut at: " << off_x << ' ' << off_y << '\n';
+    // Logger::Get() << "Update ColBut at: " << off_x << ' ' << off_y << '\n';
     Button::Update(off_x, off_y);
 }
 
