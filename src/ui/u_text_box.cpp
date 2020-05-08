@@ -69,7 +69,7 @@ void TextBox::SetColor(sf::Color color)
     text_.setColor(color);
 }
 
-void TextBox::Update(int off_x, int off_y)
+void TextBox::Update(int /* off_x */, int /* off_y */)
 {
     return;
 }

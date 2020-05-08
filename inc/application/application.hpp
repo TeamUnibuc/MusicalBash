@@ -13,6 +13,8 @@
 #include "u_scrollable_list.hpp"
 #include "u_text_box.hpp"
 
+#include "a_button_factory.hpp"
+
 #include "u_dummy.hpp"
 
 class Application
@@ -31,6 +33,8 @@ private:
     void Render();
 
     void Update();
+
+    void PopulateWindows();
 
     void SetKnowledge_MousePosition();
 

@@ -17,6 +17,8 @@ protected:
     int pos_x, pos_y;
 
 public:
+    virtual ~UiElement();
+
     UiElement();
 
     UiElement(int pos_x, int pos_y);
