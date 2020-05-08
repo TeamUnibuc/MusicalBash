@@ -66,7 +66,7 @@ void TextBox::SetAlignment(int alignment)
 
 void TextBox::SetColor(sf::Color color)
 {
-    text_.setColor(color);
+    text_.setFillColor(color);
 }
 
 void TextBox::Update(int /* off_x */, int /* off_y */)
