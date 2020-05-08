@@ -53,3 +53,67 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::SideType type)
     }
     throw bad_behaviour("Trying to create an SideType button that doesn't exist");
 }
+
+UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
+{
+    const int szX = 50;
+    const int szY = 50;
+    const sf::Color idle_color  = sf::Color::Black;
+    const sf::Color hover_color = sf::Color::Blue;
+
+    switch (type) {
+        case PlayerType::Next : {
+            Logger::Get() << " - Created Next object\n";
+            auto ptr = std::make_unique<PngColorButton> (
+                szX, szY, std::make_unique<CPlayerNext>(), idle_color, hover_color,
+                std::make_shared<PngSprite>("data/img/skip_next_button.png")
+            );
+            return ptr;
+        }
+        case PlayerType::Stop : {
+            auto ptr = std::make_unique<PngColorButton> (
+                szX, szY, std::make_unique<CPlayerStop>(), idle_color, hover_color,
+                std::make_shared<PngSprite>("data/img/stop_button.png")
+            );
+            return ptr;
+        }
+        case PlayerType::Shuffle : {
+            auto ptr = std::make_unique<PngColorButton> (
+                szX, szY, std::make_unique<CPlayerShuffle>(), idle_color, hover_color,
+                std::make_shared<PngSprite>("data/img/round_weird_button.png")
+            );
+            return ptr;
+        }
+        case PlayerType::Play : {
+            auto ptr = std::make_unique<PngColorButton> (
+                szX, szY, std::make_unique<CPlayerPlay>(), idle_color, hover_color,
+                std::make_shared<PngSprite>("data/img/play_button.png")
+            );
+            return ptr;
+        }
+        case PlayerType::Pause : {
+            auto ptr = std::make_unique<PngColorButton> (
+                szX, szY, std::make_unique<CPlayerPause>(), idle_color, hover_color,
+                std::make_shared<PngSprite>("data/img/pause_button.png")
+            );
+            return ptr;
+        }
+        case PlayerType::VolUp : {
+            auto ptr = std::make_unique<PngColorButton> (
+                szX, szY, std::make_unique<CPlayerVolUp>(), idle_color, hover_color,
+                std::make_shared<PngSprite>("data/img/music_higher_button.png")
+            );
+            return ptr;
+        }
+        case PlayerType::VolDown : {
+            auto ptr = std::make_unique<PngColorButton> (
+                szX, szY, std::make_unique<CPlayerVolDown>(), idle_color, hover_color,
+                std::make_shared<PngSprite>("data/img/music_lower_button.png")
+            );
+            return ptr;
+        }
+        
+    }
+
+    throw bad_behaviour("Trying to create a PlayerType button that doesn't exist");
+}

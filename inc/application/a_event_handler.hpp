@@ -10,6 +10,8 @@ namespace EventHandler
     void Click(const sf::Event& event);
 
     void MouseWheelScrolled(const sf::Event& event);
+
+    void DebugKeyDown();
 };
 
 #endif // INC_APPLICATION_EVENT_HANDLER_

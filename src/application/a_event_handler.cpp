@@ -27,4 +27,10 @@ void MouseWheelScrolled(const sf::Event& event)
     Logger::Get() << " mouse y: " << event.mouseWheelScroll.y << std::endl;
 }
 
+void DebugKeyDown()
+{
+    Logger::Get() << "Curr playing offset:  " << Knowledge::Daddy_Player->getActiveSongPlayingOffset() << '\n';
+    Logger::Get() << "Curr song Length:  " << Knowledge::Daddy_Player->getActiveSongDuration() << '\n';
+}
+
 }

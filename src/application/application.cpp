@@ -75,6 +75,28 @@ void Application::PopulateWindows()
     /// TO DO, place Music player elements
     auto curr_song_txt_box = std::make_unique<SongTextBox>(0, 10, 550, 37, 1, "---");
     w_status_.AddSampleUiElement(std::move(curr_song_txt_box));
+
+    for (int horizontal = 40, vertical = 100, gap = 10;
+         auto btn_type : {ButtonFactory::PlayerType::Shuffle,
+                          ButtonFactory::PlayerType::Stop,
+                          ButtonFactory::PlayerType::Play,
+                          ButtonFactory::PlayerType::Pause,
+                          ButtonFactory::PlayerType::Next}) {
+        auto ptr = ButtonFactory::Create(btn_type);
+        ptr->SetPosition({horizontal, vertical});
+        horizontal += ptr->GetWidth() + gap;
+        w_status_.AddSampleUiElement(std::move(ptr));
+    }
+
+    for (int horizontal = 550, vertical = 100, gap = 10;
+         auto btn_type : {ButtonFactory::PlayerType::VolDown,
+                          ButtonFactory::PlayerType::VolUp}) {
+        auto ptr = ButtonFactory::Create(btn_type);
+        ptr->SetPosition({horizontal, vertical});
+        horizontal += ptr->GetWidth() + gap;
+        w_status_.AddSampleUiElement(std::move(ptr));
+    }
+
 }
 
 void Application::Render()
@@ -192,6 +214,13 @@ int Application::Run()
                     EventHandler::MouseWheelScrolled(event);
                     break;
                 }
+                /// This is mostly for debug
+                case sf::Event::KeyPressed:
+                {
+                    if (event.key.code == sf::Keyboard::LAlt)
+                        EventHandler::DebugKeyDown();
+                    break;
+                }
                 default:
                 {
                     break;
@@ -200,6 +229,11 @@ int Application::Run()
             this->Update();            
         }
 
+        /// Music Player loop
+        Knowledge::Daddy_Player->Step();
+
+        /// Game loop UI
+
         rend_window_.clear(Constants::kAppBackground);
 
         _Debug_BackGroundRectangles();
@@ -207,7 +241,7 @@ int Application::Run()
         this->Render();
         rend_window_.display();  
 
-        if(my_clock.getElapsedTime().asSeconds() > 6) {
+        if(my_clock.getElapsedTime().asSeconds() > 3) {  /// DEBUG
             if (not startedSong) {
                 startedSong = 1;
                 Logger::Get() << "Creating and playing test music.....\n";
@@ -216,9 +250,6 @@ int Application::Run()
                 music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample copy.mp3"));
                 Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
 
-                Knowledge::Daddy_Player->PlayMusic();
-            }
-            else {
                 Knowledge::Daddy_Player->PlayMusic();
             }
         }

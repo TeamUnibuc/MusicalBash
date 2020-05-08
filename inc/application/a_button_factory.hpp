@@ -3,9 +3,11 @@
 #include "a_constants.hpp"
 #include "a_exceptions.hpp"
 #include "u_element.hpp"
+#include "u_png_color_button.hpp"
 
 #include "u_text_button.hpp"
 #include "c_common_commands.hpp"
+#include "c_player.hpp"
 
 class ButtonFactory
 {
