@@ -102,7 +102,7 @@ public:
 
     /**
      *  returns the curent status.
-     *  -1 for stopped
+     *  -1 for stopped, WARNING: Pointer to MusicPlayer invalid
      *  0 for playing
      *  1 for paused
      */

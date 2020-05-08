@@ -46,7 +46,8 @@ void Application::InitializingScript()
     PopulateWindows();
 
     Logger::Get() << "Creating DaddyPlayer Instance\n";
-    Knowledge::Daddy_Player = UniquePtr<Player>();
+    Knowledge::Daddy_Player = std::make_unique<Player>();
+    Logger::Get() << Knowledge::GetActiveSongNameOrEmpty() << '\n';
     Logger::Get() << "DaddyPlayer created\n";
 }
 
@@ -72,6 +73,8 @@ void Application::PopulateWindows()
     w_side_bar_.AddSampleUiElement(std::move(about_ptr));
 
     /// TO DO, place Music player elements
+    auto curr_song_txt_box = std::make_unique<SongTextBox>(0, 10, 550, 37, 1, "---");
+    w_status_.AddSampleUiElement(std::move(curr_song_txt_box));
 }
 
 void Application::Render()
@@ -100,6 +103,7 @@ int Application::Run()
     using std::cout;
 
     sf::Clock my_clock;
+    bool startedSong = 0;
 
     InitializingScript();
 
@@ -180,6 +184,7 @@ int Application::Run()
                 case sf::Event::MouseButtonPressed:
                 {
                     EventHandler::Click(event);  
+                    Logger::Get() << "Size of all music: " << Knowledge::Daddy_Player->getAllMusic().size() << '\n';
                     break;           
                 }
                 case sf::Event::MouseWheelScrolled:
@@ -200,7 +205,23 @@ int Application::Run()
         _Debug_BackGroundRectangles();
 
         this->Render();
-        rend_window_.display();        
+        rend_window_.display();  
+
+        if(my_clock.getElapsedTime().asSeconds() > 6) {
+            if (not startedSong) {
+                startedSong = 1;
+                Logger::Get() << "Creating and playing test music.....\n";
+                auto music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
+                Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
+                music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample copy.mp3"));
+                Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
+
+                Knowledge::Daddy_Player->PlayMusic();
+            }
+            else {
+                Knowledge::Daddy_Player->PlayMusic();
+            }
+        }
     }
 
     return 0;

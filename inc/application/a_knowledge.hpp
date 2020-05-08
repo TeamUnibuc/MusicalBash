@@ -21,6 +21,8 @@ namespace Knowledge
     void SetEvent(sf::Event ev);
 
     sf::Event GetEvent();    
+
+    std::string GetActiveSongNameOrEmpty();
 }
 
 #endif
