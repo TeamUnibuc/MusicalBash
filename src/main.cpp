@@ -5,6 +5,7 @@
 #include "console_app.hpp"
 #include "a_logger.hpp"
 #include "sqlite3.h"
+#include "a_database.hpp"
 
 using namespace std;
 /// #include "tests/sound_player_t.hpp"
@@ -21,15 +22,20 @@ int main()
 
     // musical_bash_app.Run();
 
-    sqlite3* db;
-    int db_res = sqlite3_open("databaseName.db", &db);
-    if (db_res)
-        throw std::runtime_error(sqlite3_errmsg(db));
-    else
-        Logger::Get() << "Opened database successfully" << '\n';
+    // sqlite3* db;
+    // int db_res = sqlite3_open("databaseName.db", &db);
+    // if (db_res)
+    //     throw std::runtime_error(sqlite3_errmsg(db));
+    // else
+    //     Logger::Get() << "Opened database successfully" << '\n';
     
-    sqlite3_close(db);
     
+    
+    // sqlite3_close(db);
+    
+    DBHandler::StoreData("shit son");
+
+    Logger::Get() << DBHandler::ExtractData() << '\n';
 
     Logger::Get() << "Closing application..." << '\n';
     return 0;

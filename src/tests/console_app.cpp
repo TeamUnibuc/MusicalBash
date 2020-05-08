@@ -50,12 +50,15 @@ void StartConsoleApp()
         string s;
         cin >> s;
         if (s == "zip") {
-            cout << "Where?\n $$ ";
-            string where;
-            cin >> where;
-            ofstream out(where);
-            out << player.Zip();
-            out.close();
+            // cout << "Where?\n $$ ";
+            // string where;
+            // cin >> where;
+            // ofstream out(where);
+            // out << player.Zip();
+            // out.close();
+
+            /// Zip into the database
+            player.Zip();
             cout << "Done!\n";
         }
         else if (s == "unzip") {
