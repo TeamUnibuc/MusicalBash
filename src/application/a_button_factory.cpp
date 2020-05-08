@@ -5,7 +5,7 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::SideType type)
     const int btnWidth  = 230;
     const int btnHeight = 60;
     const int txtPosY   = 15;
-    const int txtSzY    = 30;
+    const int txtSzY    = 30;  /// 2 * txtPosY + txtSzY = btnHeight
 
     switch (type) {
         case SideType::Home : {
