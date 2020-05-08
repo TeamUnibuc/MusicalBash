@@ -4,7 +4,7 @@
 
 CFileSelect::CFileSelect() { }
 
-std::string CFileSelect::RequestFile()
+void CFileSelect::Execute()
 {
     char filename[1024];
     filename[0] = 0;
@@ -15,19 +15,12 @@ std::string CFileSelect::RequestFile()
     if (filename[0] == 0)
         throw std::runtime_error("User returned no file!");
     
-    return std::string(filename);
+    selected_file_ = std::string(filename);
+    if (selected_file_.size() > 0)
+        selected_file_.pop_back();
 }
 
-std::string CFileSelect::RequestDirectory()
+std::string CFileSelect::GetResult()
 {
-    char filename[1024];
-    filename[0] = 0;
-    
-    FILE *f = popen("zenity --file-selection --directory", "r");
-    fgets(filename, 1024, f);
-
-    if (filename[0] == 0)
-        throw std::runtime_error("User returned no file!");
-    
-    return std::string(filename);
+    return selected_file_;
 }

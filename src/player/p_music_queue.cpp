@@ -12,20 +12,20 @@ PMusicQueue::PMusicQueue()
     name_ = "Music Queue";
 }
 
-PMusicQueue& PMusicQueue::operator+=(std::string music)
+PMusicQueue& PMusicQueue::operator += (std::shared_ptr<PMusic> music)
 {
     content_.push_back(music);
     return *this;
 }
 
-PMusicQueue& PMusicQueue::operator+=(std::shared_ptr<PTrack> track)
+PMusicQueue& PMusicQueue::operator += (std::shared_ptr<PTrack> track)
 {
-    for (auto i : track->content_)
+    for (auto i : track->GetMusic())
         content_.push_back(i);
     return *this;
 }
 
-std::string PMusicQueue::FirstMusic(bool remove)
+std::shared_ptr<PMusic> PMusicQueue::FirstMusic(bool remove)
 {
     if (content_.empty())
         throw std::runtime_error("Tried to get music out of an empty track!");
@@ -37,7 +37,7 @@ std::string PMusicQueue::FirstMusic(bool remove)
     return rez;
 }
 
-std::string PMusicQueue::RandomMusic(bool remove)
+std::shared_ptr<PMusic> PMusicQueue::RandomMusic(bool remove)
 {
     if (content_.empty())
         throw std::runtime_error("Tried to get music out of an empty track!");

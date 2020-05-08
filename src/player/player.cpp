@@ -14,82 +14,67 @@ void Player::Unzip(const std::string& zipped)
     index_->Unzip(zipped);
 }
 
-void Player::CreateAlbum(const std::string& path)
+std::shared_ptr<PAlbum> Player::CreateAlbum(const std::string& path)
 {
-    index_->CreateAlbum(path);
+    return index_->CreateAlbum(path);
 }
 
-void Player::CreatePlaylist(const std::string& name)
+std::shared_ptr<PPlaylist> Player::CreatePlaylist(const std::string& name)
 {
-    index_->CreatePlaylist(name);
+    return index_->CreatePlaylist(name);
 }
 
-void Player::DeleteAlbum(const std::string& path)
+void Player::DeleteAlbum(const std::shared_ptr<PAlbum> album)
 {
-    index_->DeleteAlbum(path);
+    index_->DeleteAlbum(album);
 }
 
-void Player::DeletePlaylist(const std::string& name)
+void Player::DeletePlaylist(const std::shared_ptr<PPlaylist> playlist)
 {
-    index_->DeletePlaylist(name);
+    index_->DeletePlaylist(playlist);
 }
 
-void Player::addMusicToPlaylist(const std::string& playlist, const std::string& music)
-{
-    std::shared_ptr <PPlaylist> playlist_ptr = index_->getPlaylistPtr(playlist);
-
-    playlist_ptr->addMusic(music);
-}
-
-std::vector <std::string> Player::getAllMusic()
+std::vector <std::shared_ptr<PMusic>> Player::getAllMusic()
 {
     return index_->getAllMusic();
 }
 
-std::vector <std::string> Player::getAlbums()
+std::vector <std::shared_ptr<PAlbum>> Player::getAlbums()
 {
     return index_->getAlbums();
 }
 
-std::vector <std::string> Player::getPlaylists()
+std::vector <std::shared_ptr<PPlaylist>> Player::getPlaylists()
 {
     return index_->getPlaylists();
 }
 
-std::vector <std::string> Player::getMusicFromAlbum(const std::string& album)
-{
-    return index_->getMusicFromAlbum(album);
-}
-
-std::vector <std::string> Player::getMusicFromPlaylist(const std::string& playlist)
-{
-    return index_->getMusicFromPlaylist(playlist);
-}
-
-void Player::addMusicToQueue(const std::string& music)
+void Player::addMusicToQueue(const std::shared_ptr<PMusic> music)
 {
     (*music_queue_) += music;
+}  
+
+void Player::addAlbumToQueue(const std::shared_ptr<PAlbum> album)
+{
+    (*music_queue_) += album;
 }
 
-void Player::addAlbumToQueue(const std::string& name)
+void Player::addPlaylistToQueue(const std::shared_ptr<PPlaylist> playlist)
 {
-    std::shared_ptr<PAlbum> ptr = index_->getAlbumPtr(name);
-    (*music_queue_) += ptr;
-}
-
-void Player::addPlaylistToQueue(const std::string& name)
-{
-    std::shared_ptr<PPlaylist> ptr = index_->getPlaylistPtr(name);
-    (*music_queue_) += ptr;
+    (*music_queue_) += playlist;
 }
 
 void Player::PlayMusic()
 {
-    /// TODO: should see if melody ended
     if (music_player_->IsPlaying() || music_queue_->Size() == 0)
         return;
     
-    std::string music = music_queue_->FirstMusic(true);
+    if (music_player_->IsPaused()) {
+        music_player_->Play();
+        return;
+    }
+
+    std::shared_ptr<PMusic> music = music_queue_->FirstMusic(true);
     music_player_.reset(new PMusicPlayer(music));
     music_player_->Play();
 }
@@ -103,6 +88,28 @@ void Player::PauseMusic()
 void Player::StopMusic()
 {
     music_player_.reset(new PMusicPlayer);
+    music_queue_.reset(new PMusicQueue);
+}
+
+void Player::Step()
+{
+    if (getPlayingStatus() == -1)
+        PlayMusic();
+}
+
+double Player::getVolume() const
+{
+    return music_player_->GetVolume();
+}
+
+void Player::setVolume(double volume)
+{
+    music_player_->SetVolume(volume);
+}
+
+std::shared_ptr<PMusic> Player::getActiveSong() const
+{
+    return music_player_->GetPlayingMusic();
 }
 
 double Player::getActiveSongDuration() const
@@ -122,6 +129,8 @@ void Player::setActiveSongPlayingOffset(double offset)
 
 int Player::getPlayingStatus() const
 {
+    if (!music_player_)
+        return -1;
     if (music_player_->IsPaused())
         return 1;
     if (music_player_->IsPlaying())

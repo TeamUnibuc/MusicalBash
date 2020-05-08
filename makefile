@@ -8,8 +8,11 @@ $(info - - - - - - - - - - - - - -)
 
 # Do you want make to run in parralel?
 # if not, just comment the MAKEFLAGS line
+# redoRun command invokes make recursively, we have to put the flag only on the parent process
 NPROCS = $(shell grep -c 'processor' /proc/cpuinfo)
-MAKEFLAGS += -j$(NPROCS)
+ifeq (,$(findstring redoRun,$(MAKECMDGOALS)))
+	MAKEFLAGS += -j$(NPROCS)
+endif
 
 # Project Name (executable)
 PROJECT = musicalbash.out
@@ -98,9 +101,15 @@ OBJECTS = $(patsubst $(SRC_FO)/%.cpp, $(DEP_FO)/%.o, $(SOURCE_FILES))
 # Dependencies
 DEPENDENCIES = $(patsubst $(SRC_FO)/%.cpp, $(DEP_FO)/%.d, $(SOURCE_FILES))
 
+# Pretty print a path
+noop=
+space = $(noop) $(noop)
+PRETTY_PATH = $(subst $(space),/,$(filter-out $(lastword $(subst /, ,$(1))),$(subst /, ,$(1))))\
+ $(noop) $(lastword $(subst /, ,$(1)))
+
 # Create .d files
 $(DEP_FO)/%.d: $(SRC_FO)/%.cpp | createDepFolder
-	@echo Preprocess: $@
+	@echo Preprocess: "$(subst $(DEP_FO),,$(call PRETTY_PATH,$@))"
 	@$(CPP) $(DEPENDENCY_OPTIONS) $< -MT "$(DEP_FO)/$*.o $(DEP_FO)/$*.d" -MF $(DEP_FO)/$*.d
 
 # Make $(PROJECT) the default target
@@ -122,13 +131,17 @@ endif
 
 # Compile every cpp file to an object
 $(DEP_FO)/%.o: $(SRC_FO)/%.cpp | createDepFolder # | resetCompile
-	@echo Compile: $<
+	@echo Compile: "$(subst $(SRC_FO),,$(call PRETTY_PATH,$<))"
 	@$(CXX) -c $(COMPILE_OPTIONS) -o $@ $< 
 	@$(ADD_COMPILE_CNT)
 
 # Build & Run Project
 run: $(PROJECT)
 	./$(PROJECT) $(COMMANDLINE_OPTIONS)
+redoRun:
+	@$(MAKE) cleanAll
+	@$(MAKE) run
+
 
 createDepFolder:
 #	@echo Creating dependency folders

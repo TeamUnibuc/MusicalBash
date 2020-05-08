@@ -5,6 +5,8 @@
 
 #include <vector>
 #include <string>
+#include <map>
+#include <p_music.hpp>
 
 /**
  *  Class storing the information about an album.
@@ -19,7 +21,7 @@ public:
     PAlbum();
 
     /// creates an album with a given path
-    PAlbum(std::string album_path);
+    PAlbum(std::string album_path, std::map <std::string, std::shared_ptr<PMusic>> & pmusic);
 
     friend class PIndex;
 };

@@ -3,10 +3,7 @@
 
 PTrack::PTrack() { }
 
-PTrack::PTrack(std::string name, std::vector <std::string> content):
-    content_(content), name_(name) { }
-
-std::string PTrack::getName() const
+std::string PTrack::GetName() const
 {
     return name_;
 }
@@ -14,4 +11,9 @@ std::string PTrack::getName() const
 int PTrack::Size() const
 {
     return content_.size();
+}
+
+std::vector <std::shared_ptr<PMusic>> PTrack::GetMusic() const
+{
+    return content_;
 }
