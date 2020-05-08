@@ -20,7 +20,7 @@ Application::Application() :
               w_side_bar_.GetWidth() + kGap * 3/2, w_main_.GetHeight() + kGap * 3/2)
 {}
 
-void Application::InitializingScript()
+void Application::InitUI()
 {
     w_side_bar_.ClearAllElements();
     w_main_.ClearAllElements();
@@ -32,13 +32,22 @@ void Application::InitializingScript()
     
     rend_window_.setFramerateLimit(Constants::kFrameLimit);
 
-    const std::string kFontPath = "data/fonts/UbuntuMono-R.ttf";
-    if (!Constants::kFont.loadFromFile(kFontPath))
-        throw loading_error(kFontPath);
+    
+    if (!Constants::kFont.loadFromFile(Constants::kFontPath))
+        throw loading_error(Constants::kFontPath);
     else
         Logger::Get() << "Successfully loaded the global font" << '\n';
+}
+
+void Application::InitializingScript()
+{
+    InitUI();
     
     PopulateWindows();
+
+    Logger::Get() << "Creating DaddyPlayer Instance\n";
+    Knowledge::Daddy_Player = UniquePtr<Player>();
+    Logger::Get() << "DaddyPlayer created\n";
 }
 
 void Application::PopulateWindows()
@@ -46,8 +55,8 @@ void Application::PopulateWindows()
     /// Left side bar
     for (int  vertical = 20, gap = 20;
          auto btn_type : {ButtonFactory::SideType::Home,
-                          ButtonFactory::SideType::Albums,
                           ButtonFactory::SideType::Playlists,
+                          ButtonFactory::SideType::Albums,
                           ButtonFactory::SideType::MusicQueue,
                           ButtonFactory::SideType::ImportAlbum,
                           ButtonFactory::SideType::CreatePlaylist}) {
@@ -58,9 +67,11 @@ void Application::PopulateWindows()
         w_side_bar_.AddSampleUiElement(std::move(btn_ptr));
     }
 
-    // auto about_ptr = ButtonFactory::CreateButton(ButtonFactory::SideType::About);
-    // about_ptr->SetPosition()
-    // w_side_bar_.AddSampleUiElement(left_list);
+    auto about_ptr = ButtonFactory::Create(ButtonFactory::SideType::About);
+    about_ptr->SetPosition({20, 630});
+    w_side_bar_.AddSampleUiElement(std::move(about_ptr));
+
+    /// TO DO, place Music player elements
 }
 
 void Application::Render()

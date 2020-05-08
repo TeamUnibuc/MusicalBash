@@ -50,6 +50,7 @@ namespace Constants
 
     /// holds the font used by the application
     extern sf::Font kFont;
+    extern const std::string kFontPath;
 
 };
 
