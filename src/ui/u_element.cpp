@@ -1,5 +1,8 @@
 #include "u_element.hpp"
 
+UiElement::~UiElement()
+{}
+
 UiElement::UiElement() : pos_x(0), pos_y(0)
 {}
 

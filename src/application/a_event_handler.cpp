@@ -2,13 +2,14 @@
 
 #include "a_knowledge.hpp"
 #include "a_logger.hpp"
+#include "a_constants.hpp"
 
 namespace EventHandler
 {
 
 void Click(const sf::Event& ev)
 {
-    Logger::Get() << "Click at position: " << ev.mouseButton.x << ' ' << ev.mouseButton.y << '\n';
+    Logger::Get() << "Click at position: " << ev.mouseButton.x << ' ' << ev.mouseButton.y - Constants::kTopBarSize << '\n';
 
     Knowledge::SetEvent(ev);
 }

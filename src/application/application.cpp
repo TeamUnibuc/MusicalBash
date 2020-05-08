@@ -39,7 +39,78 @@ void Application::InitializingScript()
         Logger::Get() << "Successfully loaded the global font" << '\n';
     
 
+    PopulateWindows();
+}
 
+void Application::PopulateWindows()
+{
+    /// Left side bar
+    SharedPtr<ScrollableList> left_list(new ScrollableList(250, 550));
+    // sf::RectangleShape shape(sf::Vector2f(250, 550));
+    // shape.setFillColor(sf::Color(40, 40, 40, 40));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Home));
+    left_list->AddUiElement(ButtonFactory::CreateButton(ButtonFactory::SideType::Albums));
+    /// Place buttons on wnidow
+    // w_side_bar_.AddSampleUiElement(std::make_shared<DummyUI>(250, 550));
+    w_side_bar_.AddSampleUiElement(left_list);
 }
 
 void Application::Render()
@@ -60,7 +131,7 @@ void Application::SetKnowledge_MousePosition()
 {
     auto position = sf::Mouse::getPosition();
     auto window_pos = rend_window_.getPosition();
-    Knowledge::SetMousePoz({position.x - window_pos.x, position.y - window_pos.y});
+    Knowledge::SetMousePoz({position.x - window_pos.x, position.y - window_pos.y - Constants::kTopBarSize});
 }
 
 int Application::Run()
@@ -73,18 +144,6 @@ int Application::Run()
 
     /// scope for testing
     {
-        auto power_btn_ptr = std::make_shared<PngSprite>("data/img/power_button.png");
-        auto play_btn_ptr = std::make_shared<PngSprite>("data/img/play_button.png");
-        power_btn_ptr->SetSize(100, 100);
-        power_btn_ptr->SetPosition(20, 50);
-        play_btn_ptr->SetSize(80, 80);
-
-        // w_main_.AddSampleUiElement(power_btn_ptr);
-        w_side_bar_.AddSampleUiElement(play_btn_ptr);
-        w_status_.AddSampleUiElement(power_btn_ptr);
-
-        power_btn_ptr->SetColor(sf::Color::Green);
-
         /// Lets add some list of objects!!
         const std::string play_str = "data/img/play_button.png";
         const std::string power_str = "data/img/power_button.png";
