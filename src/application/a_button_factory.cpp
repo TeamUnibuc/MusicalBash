@@ -103,14 +103,14 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
         case PlayerType::VolUp : {
             auto ptr = std::make_unique<PngColorButton> (
                 szX, szY, std::make_unique<CPlayerVolUp>(), idle_color, hover_color,
-                std::make_shared<PngSprite>("data/img/music_higher_button.png")
+                std::make_shared<PngSprite>("data/img/music_up.png")
             );
             return ptr;
         }
         case PlayerType::VolDown : {
             auto ptr = std::make_unique<PngColorButton> (
                 szX, szY, std::make_unique<CPlayerVolDown>(), idle_color, hover_color,
-                std::make_shared<PngSprite>("data/img/music_lower_button.png")
+                std::make_shared<PngSprite>("data/img/music_down.png")
             );
             return ptr;
         }
