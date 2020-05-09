@@ -56,17 +56,25 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::SideType type)
 
 UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
 {
-    const int szX = 50;
-    const int szY = 50;
-    const sf::Color idle_color  = sf::Color::Black;
-    const sf::Color hover_color = sf::Color::Blue;
+    const int szX = 40;
+    const int szY = 40;
+    const sf::Color idle_color  = sf::Color::White;
+    const sf::Color hover_color = sf::Color::Red;
 
     switch (type) {
         case PlayerType::Next : {
             Logger::Get() << " - Created Next object\n";
             auto ptr = std::make_unique<PngColorButton> (
                 szX, szY, std::make_unique<CPlayerNext>(), idle_color, hover_color,
-                std::make_shared<PngSprite>("data/img/skip_next_button.png")
+                std::make_shared<PngSprite>("data/img/skip_next_white.png")
+            );
+            return ptr;
+        }
+        case PlayerType::Back : {
+            Logger::Get() << " - Created Back object\n";
+            auto ptr = std::make_unique<PngColorButton> (
+                szX, szY, std::make_unique<CPlayerBack>(), idle_color, hover_color,
+                std::make_shared<PngSprite>("data/img/skip_prev_white.png")
             );
             return ptr;
         }
@@ -84,17 +92,11 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
             );
             return ptr;
         }
-        case PlayerType::Play : {
-            auto ptr = std::make_unique<PngColorButton> (
+        case PlayerType::PlayPause : {
+            auto ptr = std::make_unique<DoublePngColorButton> (
                 szX, szY, std::make_unique<CPlayerPlay>(), idle_color, hover_color,
-                std::make_shared<PngSprite>("data/img/play_button.png")
-            );
-            return ptr;
-        }
-        case PlayerType::Pause : {
-            auto ptr = std::make_unique<PngColorButton> (
-                szX, szY, std::make_unique<CPlayerPause>(), idle_color, hover_color,
-                std::make_shared<PngSprite>("data/img/pause_button.png")
+                std::make_shared<PngSprite>("data/img/play_btn_white.png"), 
+                std::make_shared<PngSprite>("data/img/pause_btn_white.png")
             );
             return ptr;
         }

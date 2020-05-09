@@ -25,7 +25,13 @@ void CPlayerNext::Execute()
     Logger::Get() << "Next Button not implemented ! \n";
 }
 
+CPlayerBack::CPlayerBack()
+{}
 
+void CPlayerBack::Execute()
+{
+    Logger::Get() << "Back Button not implemented ! \n";
+}
 
 
 CPlayerPause::CPlayerPause()

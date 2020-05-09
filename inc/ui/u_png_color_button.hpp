@@ -5,7 +5,7 @@
 
 class PngColorButton : public ColorButton
 {
-private:
+protected:
     SharedPtr<PngSprite> sprite_;
 
 public:

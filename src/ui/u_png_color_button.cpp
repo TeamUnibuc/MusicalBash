@@ -15,10 +15,9 @@ void PngColorButton::Update(int off_x, int off_y)
 
 void PngColorButton::Render(sf::RenderWindow& rw, int off_x, int off_y)
 {
-    if (ThisButtonHovered(off_x, off_y))
-        sprite_->SetColor(hovered_);
-    else
-        sprite_->SetColor(normal_);
+    auto& color = (ThisButtonHovered(off_x, off_y) ? hovered_ : normal_);
+
+    sprite_->SetColor(color);
     
     // Logger::Get() << "PngColorButton Render hehe!!\n";
     sprite_->Render(rw, off_x + pos_x, off_y + pos_y);

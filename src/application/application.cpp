@@ -76,19 +76,19 @@ void Application::PopulateWindows()
     auto curr_song_txt_box = std::make_unique<SongTextBox>(0, 10, 550, 37, 1, "---");
     w_status_.AddSampleUiElement(std::move(curr_song_txt_box));
 
-    for (int horizontal = 40, vertical = 100, gap = 10;
-         auto btn_type : {ButtonFactory::PlayerType::Shuffle,
-                          ButtonFactory::PlayerType::Stop,
-                          ButtonFactory::PlayerType::Play,
-                          ButtonFactory::PlayerType::Pause,
-                          ButtonFactory::PlayerType::Next}) {
+    for (int horizontal = 80, vertical = 100, gap = 14;
+         auto btn_type : {ButtonFactory::PlayerType::Stop,
+                          ButtonFactory::PlayerType::Back,
+                          ButtonFactory::PlayerType::PlayPause,
+                          ButtonFactory::PlayerType::Next,
+                          ButtonFactory::PlayerType::Shuffle}) {
         auto ptr = ButtonFactory::Create(btn_type);
         ptr->SetPosition({horizontal, vertical});
         horizontal += ptr->GetWidth() + gap;
         w_status_.AddSampleUiElement(std::move(ptr));
     }
 
-    for (int horizontal = 550, vertical = 100, gap = 10;
+    for (int horizontal = 550, vertical = 100, gap = 14;
          auto btn_type : {ButtonFactory::PlayerType::VolDown,
                           ButtonFactory::PlayerType::VolUp}) {
         auto ptr = ButtonFactory::Create(btn_type);

@@ -48,6 +48,17 @@ public:
 };
 
 
+/**
+ * Command that preps Knowledge for pressing the Back button
+ */
+class CPlayerBack : public Command
+{
+public:
+    CPlayerBack();
+
+    void Execute() override;
+};
+
 
 /**
  * Command that preps Knowledge for pressing the Next button
