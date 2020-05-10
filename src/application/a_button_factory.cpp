@@ -56,10 +56,10 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::SideType type)
 
 UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
 {
-    const int szX = 40;
-    const int szY = 40;
+    const int szX = 32;
+    const int szY = 32;
     const sf::Color idle_color  = sf::Color::White;
-    const sf::Color hover_color = sf::Color::Red;
+    const sf::Color hover_color = sf::Color(203, 154, 225);
 
     switch (type) {
         case PlayerType::Next : {
@@ -88,7 +88,7 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
         case PlayerType::Shuffle : {
             auto ptr = std::make_unique<PngColorButton> (
                 szX, szY, std::make_unique<CPlayerShuffle>(), idle_color, hover_color,
-                std::make_shared<PngSprite>("data/img/round_weird_button.png")
+                std::make_shared<PngSprite>("data/img/shuffle_btn.png")
             );
             return ptr;
         }

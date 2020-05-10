@@ -44,7 +44,7 @@ void SetEvent(sf::Event ev)
 std::string GetActiveSongNameOrEmpty()
 {
     if (-1 == Daddy_Player->getPlayingStatus())
-        return "test name Song he agma lorem ipsum best of the day";
+        return "- - - - -";
     return Daddy_Player->getActiveSong()->getName();
 }
 

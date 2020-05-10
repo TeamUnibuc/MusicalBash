@@ -13,6 +13,7 @@
 #include "u_png_sprite.hpp"
 #include "u_scrollable_list.hpp"
 #include "u_song_text_box.hpp"
+#include "u_progress_bar.hpp"
 
 #include "a_button_factory.hpp"
 

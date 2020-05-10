@@ -53,7 +53,7 @@ void Application::InitializingScript()
 
 void Application::PopulateWindows()
 {
-    /// Left side bar
+  { /// Left side bar
     for (int  vertical = 20, gap = 20;
          auto btn_type : {ButtonFactory::SideType::Home,
                           ButtonFactory::SideType::Playlists,
@@ -71,12 +71,13 @@ void Application::PopulateWindows()
     auto about_ptr = ButtonFactory::Create(ButtonFactory::SideType::About);
     about_ptr->SetPosition({20, 630});
     w_side_bar_.AddSampleUiElement(std::move(about_ptr));
+  }
 
-    /// TO DO, place Music player elements
+  { /// Clickable square buttons in status bar
     auto curr_song_txt_box = std::make_unique<SongTextBox>(0, 10, 550, 37, 1, "---");
     w_status_.AddSampleUiElement(std::move(curr_song_txt_box));
 
-    for (int horizontal = 80, vertical = 100, gap = 14;
+    for (int horizontal = 160, vertical = 120, gap = 22;
          auto btn_type : {ButtonFactory::PlayerType::Stop,
                           ButtonFactory::PlayerType::Back,
                           ButtonFactory::PlayerType::PlayPause,
@@ -88,7 +89,7 @@ void Application::PopulateWindows()
         w_status_.AddSampleUiElement(std::move(ptr));
     }
 
-    for (int horizontal = 550, vertical = 100, gap = 14;
+    for (int horizontal = 700, vertical = 120, gap = 22;
          auto btn_type : {ButtonFactory::PlayerType::VolDown,
                           ButtonFactory::PlayerType::VolUp}) {
         auto ptr = ButtonFactory::Create(btn_type);
@@ -96,7 +97,36 @@ void Application::PopulateWindows()
         horizontal += ptr->GetWidth() + gap;
         w_status_.AddSampleUiElement(std::move(ptr));
     }
+  }
+    
+  { /// Creating song progress bar
+    auto song_bar = std::make_unique<ProgressBar>(
+        540, 6, 4, 10, sf::Color::White, sf::Color::Black, sf::Color(185, 87, 255),
+        [](){
+            auto curr_second = Knowledge::Daddy_Player->getActiveSongPlayingOffset();
+            auto length = Knowledge::Daddy_Player->getActiveSongDuration();
 
+            if (length < 0.1)
+                return 0.;
+
+            return curr_second / length * 100; 
+        }
+    );
+    song_bar->SetPosition({20, 194});
+    w_status_.AddSampleUiElement(std::move(song_bar));
+  }
+  
+  { /// Creating volume bar
+    auto vol_bar = std::make_unique<ProgressBar>(
+        190, 6, 6, 6, sf::Color::White, sf::Color::Black, sf::Color(150, 150, 150),
+        [](){
+            return Knowledge::Daddy_Player->getVolume();
+        } 
+    );
+    vol_bar->SetPosition({650, 194});
+
+    w_status_.AddSampleUiElement(std::move(vol_bar));
+  }
 }
 
 void Application::Render()
