@@ -5,6 +5,8 @@
 #include <sstream>
 #include <iostream>
 
+PMusic::PMusic() : played_count_(0), path_(""), duration_seconds_(0) { }
+
 PMusic::PMusic(std::string path) : played_count_(0), path_(path) {
     bool duration_calculated = false;
     /// If it is an mp3 file, then use the specific command
@@ -55,6 +57,15 @@ void PMusic::Unzip(std::string zipped)
 std::string PMusic::getName() const
 {
     return path_;
+}
+
+std::string PMusic::getSongNameWithoutPath() const
+{
+    int last_backslash = -1;
+    for (int i = 0; i < (int)path_.size(); i++)
+        if (path_[i] == '/')
+            last_backslash = i;
+    return path_.substr(last_backslash + 1);
 }
 
 int PMusic::getPlayedCount() const
