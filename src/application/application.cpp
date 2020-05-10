@@ -76,7 +76,7 @@ void Application::PopulateWindows()
   }
 
   { /// Clickable square buttons in status bar
-    auto curr_song_txt_box = std::make_unique<SongTextBox>(0, 10, 550, 37, 1, "---");
+    auto curr_song_txt_box = std::make_unique<SongTextBox>(4, 30, 550, 37, 1, "---");
     w_status_.AddSampleUiElement(std::move(curr_song_txt_box));
 
     for (int horizontal = 160, vertical = 120, gap = 22;
@@ -129,6 +129,30 @@ void Application::PopulateWindows()
 
     w_status_.AddSampleUiElement(std::move(vol_bar));
   }
+
+  { /// Creating the Time Marks
+    auto from_ptr = std::make_unique<DynamicTextBox>(
+        -5, 130, 90, 30, 2, "---",
+        [](){
+            int time = Knowledge::Daddy_Player->getActiveSongPlayingOffset();
+            // Logger::Get() << "Set seconds: " << time << '\n';
+            return Utils::IntToMinSecondSecond(time);
+        }
+    );
+    w_status_.AddSampleUiElement(std::move(from_ptr));
+
+    auto until_ptr = std::make_unique<DynamicTextBox>(
+        485, 130, 90, 30, 0, "---",
+        [](){
+            int total = Knowledge::Daddy_Player->getActiveSongDuration();
+            int time = Knowledge::Daddy_Player->getActiveSongPlayingOffset();
+            if (total < 0 || time < 0 || total - time < 0)
+                Logger::Get() << "Bad remaining duration from Player:  total = " << total << "  offset = " << time << '\n';
+            return Utils::IntToMinSecondSecond(total - time);
+        }
+    );
+    w_status_.AddSampleUiElement(std::move(until_ptr));
+  }
 }
 
 void Application::Render()
@@ -162,60 +186,7 @@ int Application::Run()
     InitializingScript();
 
     /// scope for testing
-    {
-        /// Lets add some list of objects!!
-        const std::string play_str = "data/img/play_button.png";
-        const std::string power_str = "data/img/power_button.png";
-        SharedPtr<ScrollableList> my_scroll_list(new ScrollableList(550, 470));
-        for (int i = 0;  i < 20;  ++i) {
-            // SharedPtr<DummyUI> someDummy(new DummyUI(400 + rand() % 100, 10 + rand() % 20));
-            SharedPtr<TextBox> someDummy(new TextBox(0, 0, 550, 40, 0, "Musical Bash"));
-            if (i % 3 == 0){
-                someDummy->SetColor(sf::Color::Blue);
-                someDummy->SetAlignment(i % 3);
-            }
-            else if (i % 3 == 1) {
-                someDummy->SetColor(sf::Color::Yellow);
-                someDummy->SetAlignment(i % 3);
-            }
-            else {
-                someDummy->SetColor(sf::Color::Red);
-                someDummy->SetAlignment(i % 3);
-            }
-            
-            my_scroll_list->AddUiElement(someDummy);
-        }
-        for (int i = 20; i < 40; ++i){
-            SharedPtr<TextBox> someDummy(new TextBox(0, 0, 550, 40, 0, "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop."));
-            if (i % 3 == 0){
-                someDummy->SetColor(sf::Color::Blue);
-                
-            }
-            else if (i % 3 == 1){
-                someDummy->SetColor(sf::Color::Yellow);
-                someDummy->SetAlignment(i % 3);
-            }
-            else{
-                someDummy->SetColor(sf::Color::Red);
-                someDummy->SetAlignment(i % 3);
-            }
-            
-            my_scroll_list->AddUiElement(someDummy);
-        }
-
-
-        w_main_.AddSampleUiElement(my_scroll_list);
-
-        SharedPtr<TextBox> my_text_box(new TextBox(0, 0, 550, 50, 0, "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop. "));
-        SharedPtr<TextBox> my_text_box2(new TextBox(0, 50, 550, 50, 0, "Musical Bash"));
-        SharedPtr<TextBox> my_text_box3(new TextBox(0, 100, 550, 50, 1, "Musical Bash"));
-        SharedPtr<TextBox> my_text_box4(new TextBox(0, 150, 550, 50, 2, "Musical Bash"));
-
-        // w_main_.AddSampleUiElement(my_text_box);
-        // w_main_.AddSampleUiElement(my_text_box2);
-        // w_main_.AddSampleUiElement(my_text_box3);
-        // w_main_.AddSampleUiElement(my_text_box4);
-    }
+    
     /// should delete the scope above
 
     while (rend_window_.isOpen()){
@@ -277,9 +248,9 @@ int Application::Run()
             if (not startedSong) {
                 startedSong = 1;
                 Logger::Get() << "Creating and playing test music.....\n";
-                auto music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
+                auto music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/IWillSurvive.wav"));
                 Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
-                music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample copy.mp3"));
+                music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
                 Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
 
                 Knowledge::Daddy_Player->PlayMusic();

@@ -14,6 +14,7 @@
 #include "u_scrollable_list.hpp"
 #include "u_song_text_box.hpp"
 #include "u_progress_bar.hpp"
+#include "u_dynamic_text_box.hpp"
 
 #include "a_button_factory.hpp"
 

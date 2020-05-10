@@ -10,7 +10,7 @@ Logger & Logger::Get()
     return logger;
 }
 
-void PrintEnum (Constants::State::W type)
+void Logger::PrintEnum (Constants::State::W type)
 {
     if (type == Constants::State::W::Albums)
         std::cerr << "W-Albums";

@@ -18,7 +18,7 @@ protected:
     sf::CircleShape circle_;
     
     ///  When called, this function tells the ProgressBar where the circle should be
-    std::function<int()> whatProgress;
+    std::function<float()> whatProgress;
 
 public:
     ProgressBar(int length, int hLeftBar, int hRightBar, int szCircle,
