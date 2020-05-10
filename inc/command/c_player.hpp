@@ -2,6 +2,8 @@
 
 #include "command.hpp"
 
+#include "a_knowledge.hpp"
+
 /**
  * Command the SHUFFLE button
  */

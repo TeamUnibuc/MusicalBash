@@ -10,6 +10,18 @@
 
 namespace Knowledge
 {
+    /// This enum tells the MainWindow what has to render
+    namespace State
+    {
+        union Data
+        {
+            static SharedPtr<PPlaylist> curr_playlist;
+            static SharedPtr<PAlbum> curr_album;
+        };
+    }
+
+    extern Constants::State::W curr;
+
     extern UniquePtr<Player> Daddy_Player;
 
     void Reset();

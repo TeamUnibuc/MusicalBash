@@ -20,14 +20,20 @@ namespace Constants
 {
     /// States saying what should each window should look for in each frame
     /// Also used to see if we need to rebuild the structure of the Music::Window
-    enum State
+    namespace State
     {
-        kHome,
-        kPlaylists,
-        kAlbums,
-        kAllSongs,
-        kManageSongs
-    };
+        enum class W
+        {
+            Home,
+            Playlists,
+            ViewPlaylist,
+            Albums,
+            ViewAlbum,
+            Queue,
+            Import,
+            Create
+        };
+    }
 
     /// width and height of thw Window (that holds every part of the UI))
     extern const int kWidth, kHeight, kTopBarSize;

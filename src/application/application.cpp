@@ -1,6 +1,5 @@
 #include "application.hpp"
 
-using Constants::State;
 using Constants::kGap, Constants::kWidth, Constants::kHeight;
  
 Application::Application() :
@@ -11,13 +10,16 @@ Application::Application() :
             sf::Style::Close | sf::Style::Titlebar),
 
     w_side_bar_(kWidth * 1/4 - kGap, kHeight - kGap, 
-                kGap * 1/2, kGap * 1/2),
+                kGap * 1/2, kGap * 1/2,
+                Musical::Window::Type::Side),
 
     w_main_(kWidth * 3/4 - kGap, kHeight * 2/3 - kGap,
-            w_side_bar_.GetWidth() + kGap * 3/2, kGap * 1/2),
+            w_side_bar_.GetWidth() + kGap * 3/2, kGap * 1/2,
+            Musical::Window::Type::Main),
             
     w_status_(kWidth * 3/4 - kGap, kHeight * 1/3 - kGap,
-              w_side_bar_.GetWidth() + kGap * 3/2, w_main_.GetHeight() + kGap * 3/2)
+              w_side_bar_.GetWidth() + kGap * 3/2, w_main_.GetHeight() + kGap * 3/2,
+              Musical::Window::Type::Status)
 {}
 
 void Application::InitUI()
@@ -42,7 +44,7 @@ void Application::InitUI()
 void Application::InitializingScript()
 {
     InitUI();
-    
+
     PopulateWindows();
 
     Logger::Get() << "Creating DaddyPlayer Instance\n";
@@ -300,17 +302,17 @@ void Application::_Debug_BackGroundRectangles()
     auto rect = sf::RectangleShape();
 
     rect.setFillColor(Constants::kWindowBackground);
-    rect.setPosition(sf::Vector2f(w_side_bar_.off_x, w_side_bar_.off_y));
+    rect.setPosition(sf::Vector2f(w_side_bar_.g_off_x, w_side_bar_.g_off_y));
     rect.setSize(sf::Vector2f(w_side_bar_.GetWidth(), w_side_bar_.GetHeight()));
     rend_window_.draw(rect);
 
     rect.setFillColor(Constants::kWindowBackground);
-    rect.setPosition(sf::Vector2f(w_main_.off_x, w_main_.off_y));
+    rect.setPosition(sf::Vector2f(w_main_.g_off_x, w_main_.g_off_y));
     rect.setSize(sf::Vector2f(w_main_.GetWidth(), w_main_.GetHeight()));
     rend_window_.draw(rect);
 
     rect.setFillColor(Constants::kWindowBackground);
-    rect.setPosition(sf::Vector2f(w_status_.off_x, w_status_.off_y));
+    rect.setPosition(sf::Vector2f(w_status_.g_off_x, w_status_.g_off_y));
     rect.setSize(sf::Vector2f(w_status_.GetWidth(), w_status_.GetHeight()));
     rend_window_.draw(rect);
 }
