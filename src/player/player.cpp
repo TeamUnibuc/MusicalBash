@@ -2,7 +2,7 @@
 
 Player::Player() : index_(new PIndex),
     music_queue_(new PMusicQueue),
-    music_player_(new PMusicPlayer), music_volume_(50) { }
+    music_player_(new PMusicPlayer) { }
 
 std::string Player::Zip() const
 {
@@ -77,7 +77,6 @@ void Player::PlayMusic()
     std::shared_ptr<PMusic> music = music_queue_->FirstMusic(true);
     music_player_.reset(new PMusicPlayer(music));
     music_player_->Play();
-    music_player_->SetVolume(music_volume_);
 }
 
 void Player::PauseMusic()
@@ -100,24 +99,17 @@ void Player::Step()
 
 double Player::getVolume() const
 {
-    return music_volume_;
+    return music_player_->GetVolume();
 }
 
 void Player::setVolume(double volume)
 {
-    if (volume > 100. || volume < 0.)
-        throw std::runtime_error("Invalid volume");
-    music_volume_ = volume;
     music_player_->SetVolume(volume);
 }
 
 std::shared_ptr<PMusic> Player::getActiveSong() const
 {
-    std::shared_ptr<PMusic> ans = music_player_->GetPlayingMusic();
-    if (ans)
-        return ans;
-    // need to create a new PMusic empty
-    std::shared_ptr<PMusic> ans(new PMusic);
+    return music_player_->GetPlayingMusic();
 }
 
 double Player::getActiveSongDuration() const
@@ -144,18 +136,5 @@ int Player::getPlayingStatus() const
     if (music_player_->IsPlaying())
         return 0;
     return -1;
-}
 
-Player& Player::operator++()
-{
-    music_volume_ = std::min(music_volume_ + 1, 100.);
-    setVolume(music_volume_);
-    return *this;
-}
-
-Player& Player::operator--()
-{
-    music_volume_ = std::max(music_volume_ - 1, 0.);
-    setVolume(music_volume_);
-    return *this;
 }
