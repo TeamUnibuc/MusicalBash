@@ -7,4 +7,4 @@ CShowAlbums::CShowAlbums()
 void CShowAlbums::Execute()
 {
     Logger::Get() << "Command ShowAlbums Not implemented !!! \n";
-}
+} 

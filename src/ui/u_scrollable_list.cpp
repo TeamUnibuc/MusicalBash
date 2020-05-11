@@ -12,6 +12,11 @@ void ScrollableList::AddUiElement(SharedPtr<UiElement> ptr)
     element_list.push_back(ptr);
 }
 
+void ScrollableList::ClearAllUiElements()
+{
+    element_list.clear();
+}
+
 void ScrollableList::SetStartIndex(int index)
 {
     if (index < 0)
@@ -21,6 +26,8 @@ void ScrollableList::SetStartIndex(int index)
 
 void ScrollableList::Render(sf::RenderWindow& rw, int off_x, int off_y)
 {
+    // Logger::Get() << "Rendering ScrlList at Pos: " << off_x + pos_x << " " << off_y + pos_y << '\n';
+    // Logger::Get() << "Start index: " << start_index_ << '\n';
     int used_vertical = 0, index = start_index_;
     while (index < (int)element_list.size() && element_list[index]->GetHeight() + used_vertical <= sizeY_) {
         element_list[index]->Render(rw, off_x + pos_x, off_y + pos_y + used_vertical);
@@ -31,6 +38,8 @@ void ScrollableList::Render(sf::RenderWindow& rw, int off_x, int off_y)
 
 void ScrollableList::Update(int off_x, int off_y)
 {
+    // Logger::Get() << "   Updating ScrollableList\n";
+
     auto ev = Knowledge::GetEvent();
     if (ev.type == sf::Event::MouseWheelScrolled) {
         auto mpoz = Knowledge::GetMousePoz();
@@ -68,6 +77,7 @@ bool ScrollableList::LastElementIsVisible(int start) const
         used_vertical += element_list[start]->GetHeight();
         ++start;
     }
+    Logger::Get() << "Last visible?   " << (start == (int)element_list.size() ? "YES" : "NO") << "\n";
     return start == (int)element_list.size();
 }
 

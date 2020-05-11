@@ -26,6 +26,8 @@ public:
 
     void AddUiElement(SharedPtr<UiElement> ptr);
 
+    void ClearAllUiElements();
+
     void SetStartIndex(int index);
 
     void Render(sf::RenderWindow& rw, int off_x, int off_y) override;

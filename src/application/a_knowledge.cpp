@@ -4,6 +4,8 @@ namespace Knowledge
 {
 UniquePtr<Player> Daddy_Player;
 
+Constants::State::W curr_state = Constants::State::W::Home;
+
 /// Global variables but available only 
 /// in this translation unit so we are safe
 
@@ -15,9 +17,9 @@ static std::pair<int, int> mouse_poz_;
 
 
 /// Functions so we can use those global variables!
-void Reset()
+void ResetEvent()
 {
-    mouse_poz_ = {-1, -1};
+    // mouse_poz_ = {-1, -1};
     event_ = kMockEvent;
 }
 

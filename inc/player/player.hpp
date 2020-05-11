@@ -7,6 +7,7 @@
 #include "p_music_player.hpp"
 #include "p_playlist.hpp"
 #include "p_music_queue.hpp"
+#include "a_constants.hpp"
 
 #include <vector>
 #include <string>
@@ -128,7 +129,7 @@ public:
 
     /**
      *  returns the curent status.
-     *  -1 for stopped
+     *  -1 for stopped, WARNING: Pointer to MusicPlayer invalid
      *  0 for playing
      *  1 for paused
      */

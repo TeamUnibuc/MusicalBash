@@ -4,6 +4,8 @@
 #include <memory>
 #include <iostream>
 
+#include "a_definitions.hpp"
+
 /// Singleton class that provides logging functionality
 class Logger
 {
@@ -13,6 +15,8 @@ private:
     Logger & operator=(const Logger & oth) = delete;
 
 public:
+    static void PrintEnum (Constants::State::W type);
+    
     static Logger & Get();
 
     /**
@@ -25,14 +29,19 @@ public:
         return *this;
     }
 
-    typedef std::ostream& (*SEL)(std::ostream&);
+    
 
+    typedef std::ostream& (*SEL)(std::ostream&);
+    
     Logger& operator << (SEL manipulator)
     {
         manipulator(std::cerr);
 
         return *this;
     }
+
+    
+
 };
 
 #endif // INC_APPLICATION_LOGGER_

@@ -17,6 +17,8 @@ protected:
     Command();
     
 public:
+    virtual ~Command();
+
     virtual void Execute() = 0;
 };
 

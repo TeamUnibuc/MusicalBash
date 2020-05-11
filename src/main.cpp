@@ -12,7 +12,7 @@ int main()
 {
     Logger::Get() << "Starting application...\n";
 
-    StartConsoleApp();
+    // StartConsoleApp();
     
     // unit_tests::RunAllTests();
 

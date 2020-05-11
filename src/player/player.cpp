@@ -2,8 +2,9 @@
 
 Player::Player() : index_(new PIndex),
     music_queue_(new PMusicQueue),
-    music_player_(new PMusicPlayer), music_volume_(50),
-    is_suffling_(false) { }
+    music_player_(new PMusicPlayer), music_volume_(Constants::kStartingVolume),
+    is_suffling_(false) 
+{ }
 
 std::string Player::Zip() const
 {
@@ -90,6 +91,7 @@ void Player::PlayMusic()
     history_.push_back(music);
 
     music_player_.reset(new PMusicPlayer(music));
+    music_player_->SetVolume(music_volume_);
     music_player_->Play();
 }
 
@@ -115,6 +117,9 @@ void Player::Step()
 
 double Player::getVolume() const
 {
+    if (getPlayingStatus() == -1)
+        return music_volume_;
+
     return music_player_->GetVolume();
 }
 
@@ -137,6 +142,7 @@ void Player::Prev()
     /// second case: play last song in queue
     if (getPlayingStatus() == -1 || history_.size() == 1) {
         music_player_.reset(new PMusicPlayer(history_.back()));
+        music_player_->SetVolume(music_volume_);
         return;
     }
 
@@ -144,11 +150,13 @@ void Player::Prev()
     music_queue_->AddToFront(history_.back());
     history_.pop_back();
     music_player_.reset(new PMusicPlayer(history_.back()));
+    music_player_->SetVolume(music_volume_);
 }
 
 void Player::Next()
 {
     music_player_.reset(new PMusicPlayer);
+    music_player_->SetVolume(music_volume_);
     PlayMusic();
 }
 
@@ -207,7 +215,14 @@ void Player::setSufflingStatus(bool suffle)
 
 Player& Player::operator++()
 {
-    music_volume_ = std::min(music_volume_ + 1, 100.);
+    music_volume_ = std::min(music_volume_ + Constants::kVolumeStep, 100.);
+    setVolume(music_volume_);
+    return *this;
+}
+
+Player& Player::operator--()
+{
+    music_volume_ = std::max(music_volume_ - Constants::kVolumeStep, 0.);
     setVolume(music_volume_);
     return *this;
 }
