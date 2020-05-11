@@ -4,12 +4,9 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
-#include "u_element.hpp"
-#include "u_container.hpp"
-#include "a_constants.hpp"
 #include "a_knowledge.hpp"
-#include "u_text_box.hpp"
-#include "u_scrollable_list.hpp"
+#include "v_views.hpp"
+#include "u_music_entry.hpp"
 
 namespace Musical
 {

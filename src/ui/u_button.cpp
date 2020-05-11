@@ -6,13 +6,19 @@ Button::Button(int szX, int szY, UniquePtr<Command> cPtr) :
 
 bool Button::ThisButtonClicked(int off_x, int off_y) const
 {
-    // Logger::Get() << "Checking click at: " <<  off_x + pos_x << ' '
-        //  << off_y + pos_y << ' ' <<  sizeX_ << ' ' << sizeY_ << '\n';
-    if (Knowledge::GetEvent().type == sf::Event::EventType::MouseButtonPressed)
-        if (Knowledge::GetEvent().mouseButton.button == sf::Mouse::Button::Left)
+    if (Knowledge::GetEvent().type == sf::Event::EventType::MouseButtonPressed) {
+        if (Knowledge::GetEvent().mouseButton.button == sf::Mouse::Button::Left) {
+            // Logger::Get() << "Left click pressed at: " << Knowledge::GetMousePoz().first << ' '
+            //               << Knowledge::GetMousePoz().second << '\n';
+            // Logger::Get() << "Checking click at: " <<  off_x + pos_x << ' '
+            //               << off_y + pos_y << ' ' <<  sizeX_ << ' ' << sizeY_ << '\n';   
             if (Utils::PointInsideRect(Knowledge::GetMousePoz(), 
-                                       off_x + pos_x, off_y + pos_y, sizeX_, sizeY_))
+                                       off_x + pos_x, off_y + pos_y, sizeX_, sizeY_)) {
+                Logger::Get() << " YES PRESSED \n";
                 return true;
+            }
+        }
+    }
     return false;
 }
 

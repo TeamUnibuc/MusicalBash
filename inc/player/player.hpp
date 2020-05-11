@@ -52,6 +52,9 @@ public:
     /// deletes a playlist
     void DeletePlaylist(const std::shared_ptr<PPlaylist> playlist);
 
+    /// returns the music in Queue
+    std::vector <SharedPtr<PMusic>> getQueueMusic();
+
     /// returns all the music
     std::vector <std::shared_ptr<PMusic>> getAllMusic();
 

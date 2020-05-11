@@ -85,3 +85,20 @@ bad_behaviour::~bad_behaviour()
 {
     delete []message;
 }
+
+null_pointer::null_pointer(std::string message_)
+{
+    message = new char[message_.size() + 1];
+    std::copy(message_.begin(), message_.end(), message);
+    message[message_.size()] = '\0';
+}
+
+const char * null_pointer::what() const throw()
+{
+    return message;
+}
+
+null_pointer::~null_pointer()
+{
+    delete []message;
+}

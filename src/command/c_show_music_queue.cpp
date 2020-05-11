@@ -5,5 +5,5 @@ CShowMusicQueue::CShowMusicQueue()
 
 void CShowMusicQueue::Execute()
 {
-    Knowledge::curr = Constants::State::W::Queue;
+    Knowledge::curr_state = Constants::State::W::Queue;
 }

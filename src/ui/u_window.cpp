@@ -72,117 +72,45 @@ void Window::MainController(int off_x, int off_y)
 {
     namespace Kld = Knowledge;
 
-    switch (Knowledge::curr)
+    if (prev_state != Knowledge::curr_state) {
+        Logger::Get() << " | Prev State: ";
+        Logger::PrintEnum(prev_state);
+        Logger::Get() << "\n";
+    }
+
+    switch (Knowledge::curr_state)
     {  /// ==== Main ==================  Queue  ==========================
     case Constants::State::W::Queue: {
         /// If change of state then create the TextBox and ScrollableList
-        if (prev_state != Constants::State::W::Queue) {
-            Logger::Get() << " | Prev State: ";
-            Logger::PrintEnum(prev_state);
+        if (prev_state != Knowledge::curr_state) {
             Logger::Get() << "  New state:  Queue\n";
 
             element_list.clear();
 
-            auto txt_ptr = std::make_unique<TextBox>(
-                5, 5, 700, 30, 1, "Current Queue"
-            );
-            element_list.push_back(std::move(txt_ptr));
-
-            auto lst_ptr = std::make_unique<ScrollableList>(
-                700, 500
-            );
-            lst_ptr->SetPosition({5, 35});
-            element_list.push_back(std::move(lst_ptr));
-
-            Logger::Get() << " - Added A ScrList and a TextButton to Main window\n";
+            ViewsMain::CreateQueue(element_list);
         }
-        /// find the ScrollableList in elements_list
-        SharedPtr<ScrollableList> ptr;
-        // int dbg_cnt = 0;
-        for (auto p : element_list) {
-            if (dynamic_cast<ScrollableList*>(&*p)) {
-                ptr = std::dynamic_pointer_cast<ScrollableList>(p);
-                // ++dbg_cnt;
-            }
-        }
-        // Logger::Get() << "Found  - " << dbg_cnt << " - ScrollableList elements in Container\n";
+        SharedPtr<ScrollableList> scrl_ptr;
 
-        Knowledge::curr = Constants::State::W::Queue;
+        for (auto p : element_list) 
+            if (dynamic_cast<ScrollableList*>(&*p))
+                scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
 
+        scrl_ptr->ClearAllUiElements(); 
+
+        ViewsMain::UpdateQueue(scrl_ptr, Knowledge::Daddy_Player->getQueueMusic());
+
+        Knowledge::curr_state = Constants::State::W::Queue;
         break;
     }  ///// ===== Main ============= Home =====================
     case Constants::State::W::Home :
     {
-        if (prev_state != Constants::State::W::Home) {
-            Logger::Get() << " | Prev State: ";
-            Logger::PrintEnum(prev_state);
+        if (prev_state != Knowledge::curr_state) {
             Logger::Get() << "  New state:  Home\n";
 
             element_list.clear();
-        
-            #pragma region
-        //   {
-        //     // Lets add some list of objects!!
-        //     const std::string play_str = "data/img/play_button.png";
-        //     const std::string power_str = "data/img/power_button.png";
-        //     SharedPtr<ScrollableList> my_scroll_list(new ScrollableList(550, 470));
-        //     for (int i = 0;  i < 20;  ++i) {
-        //         // SharedPtr<DummyUI> someDummy(new DummyUI(400 + rand() % 100, 10 + rand() % 20));
-        //         SharedPtr<TextBox> someDummy(new TextBox(0, 0, 550, 40, 0, "Musical Bash"));
-        //         if (i % 3 == 0){
-        //             someDummy->SetColor(sf::Color::Blue);
-        //             someDummy->SetAlignment(i % 3);
-        //         }
-        //         else if (i % 3 == 1) {
-        //             someDummy->SetColor(sf::Color::Yellow);
-        //             someDummy->SetAlignment(i % 3);
-        //         }
-        //         else {
-        //             someDummy->SetColor(sf::Color::Red);
-        //             someDummy->SetAlignment(i % 3);
-        //         }
-                
-        //         my_scroll_list->AddUiElement(someDummy);
-        //     }
-        //     for (int i = 20; i < 40; ++i){
-        //         SharedPtr<TextBox> someDummy(new TextBox(0, 0, 550, 40, 0, "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop."));
-        //         if (i % 3 == 0){
-        //             someDummy->SetColor(sf::Color::Blue);
-                    
-        //         }
-        //         else if (i % 3 == 1){
-        //             someDummy->SetColor(sf::Color::Yellow);
-        //             someDummy->SetAlignment(i % 3);
-        //         }
-        //         else{
-        //             someDummy->SetColor(sf::Color::Red);
-        //             someDummy->SetAlignment(i % 3);
-        //         }
-                
-        //         my_scroll_list->AddUiElement(someDummy);
-        //     }
-
-
-        //     element_list.push_back(my_scroll_list);
-
-        //     // SharedPtr<TextBox> my_text_box(new TextBox(0, 0, 550, 50, 0, "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop. "));
-        //     // SharedPtr<TextBox> my_text_box2(new TextBox(0, 50, 550, 50, 0, "Musical Bash"));
-        //     // SharedPtr<TextBox> my_text_box3(new TextBox(0, 100, 550, 50, 1, "Musical Bash"));
-        //     // SharedPtr<TextBox> my_text_box4(new TextBox(0, 150, 550, 50, 2, "Musical Bash"));
-
-        //     // element_list.push_back(my_text_box);
-        //     // element_list.push_back(my_text_box2);
-        //     // element_list.push_back(my_text_box3);
-        //     // element_list.push_back(my_text_box4);
-        //   }
-        #pragma endregion
-
         }
 
-        Knowledge::curr = Constants::State::W::Home;
-
-        for (auto p : element_list)
-            p->Update(off_x, off_y);
+        Knowledge::curr_state = Constants::State::W::Home;
 
 
         break;
@@ -192,7 +120,11 @@ void Window::MainController(int off_x, int off_y)
 
     }
 
-    prev_state = Knowledge::curr;
+    /// Finally update the elements contained in this window
+    for (auto p : element_list)
+        p->Update(off_x, off_y);
+
+    prev_state = Knowledge::curr_state;
 }
 
 

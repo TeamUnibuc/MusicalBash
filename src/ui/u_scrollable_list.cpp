@@ -12,6 +12,11 @@ void ScrollableList::AddUiElement(SharedPtr<UiElement> ptr)
     element_list.push_back(ptr);
 }
 
+void ScrollableList::ClearAllUiElements()
+{
+    element_list.clear();
+}
+
 void ScrollableList::SetStartIndex(int index)
 {
     if (index < 0)
@@ -33,6 +38,8 @@ void ScrollableList::Render(sf::RenderWindow& rw, int off_x, int off_y)
 
 void ScrollableList::Update(int off_x, int off_y)
 {
+    // Logger::Get() << "   Updating ScrollableList\n";
+
     auto ev = Knowledge::GetEvent();
     if (ev.type == sf::Event::MouseWheelScrolled) {
         auto mpoz = Knowledge::GetMousePoz();

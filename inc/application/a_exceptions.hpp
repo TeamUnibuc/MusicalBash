@@ -106,4 +106,24 @@ public:
     ~bad_behaviour();
 };
 
+/*
+ * Our own Exception class to use when a null pointer ocurs
+ */
+class null_pointer : public std::exception
+{
+private:
+    /// The message that will be logged
+    char * message;
+protected:
+public:
+    /// Error constructor that takes in the message to be logged
+    null_pointer(std::string message_);
+
+    /// Overriding the what() function
+    const char * what() const throw();
+
+    /// Error destructor
+    ~null_pointer();
+};
+
 #endif // INC_APPLICATION_EXCEPTIONS_

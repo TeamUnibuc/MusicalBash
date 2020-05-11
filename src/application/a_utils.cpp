@@ -33,4 +33,10 @@ namespace Utils
 
         return ret;
     }
+
+    sf::Color RandomColor()
+    {
+        srand(time(0));
+        return sf::Color(1u * (rand() << 16) + rand());
+    }
 }

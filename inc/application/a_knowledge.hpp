@@ -20,7 +20,7 @@ namespace Knowledge
         };
     }
 
-    extern Constants::State::W curr;
+    extern Constants::State::W curr_state;
 
     extern UniquePtr<Player> Daddy_Player;
 
