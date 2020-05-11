@@ -4,7 +4,7 @@
 #include <memory>
 #include <iostream>
 
-#include "a_constants.hpp"
+#include "a_definitions.hpp"
 
 /// Singleton class that provides logging functionality
 class Logger

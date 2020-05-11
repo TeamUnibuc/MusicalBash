@@ -101,8 +101,8 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
         case PlayerType::PlayPause : {
             auto ptr = std::make_unique<DoublePngColorButton> (
                 szX, szY, std::make_unique<CPlayerPlayPause>(), idle_color, hover_color,
-                std::make_shared<PngSprite>("data/img/play_btn_white.png"), 
-                std::make_shared<PngSprite>("data/img/pause_btn_white.png")
+                std::make_shared<PngSprite>("data/img/pause_btn_white.png"), 
+                std::make_shared<PngSprite>("data/img/play_btn_white.png")
             );
             return ptr;
         }

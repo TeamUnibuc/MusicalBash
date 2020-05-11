@@ -24,6 +24,6 @@ protected:
 public:
     static void Home();
 
-    static void CreateQueue(std::vector<SharedPtr<UiElement>>& father_elem_list);
+    static void CreateQueue(UiContainer * const father_elem_list);
     static void UpdateQueue(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PMusic>>& music_list);
 };

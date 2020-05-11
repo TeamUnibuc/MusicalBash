@@ -7,6 +7,7 @@
 #include "p_music_player.hpp"
 #include "p_playlist.hpp"
 #include "p_music_queue.hpp"
+#include "a_constants.hpp"
 
 #include <vector>
 #include <string>

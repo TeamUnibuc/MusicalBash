@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <utility>
 
+#include "a_definitions.hpp"
 #include "a_constants.hpp"
 #include "player.hpp"
 

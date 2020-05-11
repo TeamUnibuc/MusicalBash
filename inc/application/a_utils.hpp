@@ -2,6 +2,9 @@
 
 #include <utility>
 
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+
 #include "a_logger.hpp"
 
 namespace Utils

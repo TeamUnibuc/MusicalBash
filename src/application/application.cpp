@@ -24,9 +24,9 @@ Application::Application() :
 
 void Application::InitUI()
 {
-    w_side_bar_.ClearAllElements();
-    w_main_.ClearAllElements();
-    w_status_.ClearAllElements();
+    w_side_bar_.ClearAllUiElements();
+    w_main_.ClearAllUiElements();
+    w_status_.ClearAllUiElements();
 
     w_side_bar_.setViewPort(sf::FloatRect(0, 0, 0.25, 1));
     w_main_.setViewPort(sf::FloatRect(0.25, 0, 0.75, 0.666));
@@ -67,17 +67,17 @@ void Application::PopulateWindows()
         btn_ptr->SetPosition({20, vertical});
         vertical += btn_ptr->GetHeight() + gap;
 
-        w_side_bar_.AddSampleUiElement(std::move(btn_ptr));
+        w_side_bar_.AddUiElementToList(std::move(btn_ptr));
     }
 
     auto about_ptr = ButtonFactory::Create(ButtonFactory::SideType::About);
     about_ptr->SetPosition({20, 630});
-    w_side_bar_.AddSampleUiElement(std::move(about_ptr));
+    w_side_bar_.AddUiElementToList(std::move(about_ptr));
   }
 
   { /// Clickable square buttons in status bar
     auto curr_song_txt_box = std::make_unique<SongTextBox>(4, 30, 550, 37, 1, "---");
-    w_status_.AddSampleUiElement(std::move(curr_song_txt_box));
+    w_status_.AddUiElementToList(std::move(curr_song_txt_box));
 
     for (int horizontal = 160, vertical = 120, gap = 22;
          auto btn_type : {ButtonFactory::PlayerType::Stop,
@@ -88,7 +88,7 @@ void Application::PopulateWindows()
         auto ptr = ButtonFactory::Create(btn_type);
         ptr->SetPosition({horizontal, vertical});
         horizontal += ptr->GetWidth() + gap;
-        w_status_.AddSampleUiElement(std::move(ptr));
+        w_status_.AddUiElementToList(std::move(ptr));
     }
 
     for (int horizontal = 700, vertical = 120, gap = 22;
@@ -97,13 +97,13 @@ void Application::PopulateWindows()
         auto ptr = ButtonFactory::Create(btn_type);
         ptr->SetPosition({horizontal, vertical});
         horizontal += ptr->GetWidth() + gap;
-        w_status_.AddSampleUiElement(std::move(ptr));
+        w_status_.AddUiElementToList(std::move(ptr));
     }
   }
     
   { /// Creating song progress bar
     auto song_bar = std::make_unique<ProgressBar>(
-        540, 6, 4, 10, sf::Color::White, sf::Color::Black, sf::Color(185, 87, 255),
+        540, 6, 4, 10, sf::Color::White, sf::Color::Black, Constants::kPurple,
         [](){
             auto curr_second = Knowledge::Daddy_Player->getActiveSongPlayingOffset();
             auto length = Knowledge::Daddy_Player->getActiveSongDuration();
@@ -115,19 +115,19 @@ void Application::PopulateWindows()
         }
     );
     song_bar->SetPosition({20, 194});
-    w_status_.AddSampleUiElement(std::move(song_bar));
+    w_status_.AddUiElementToList(std::move(song_bar));
   }
   
   { /// Creating volume bar
     auto vol_bar = std::make_unique<ProgressBar>(
-        190, 6, 6, 6, sf::Color::White, sf::Color::Black, sf::Color(185, 87, 255),
+        190, 6, 6, 6, sf::Color::White, sf::Color::Black, Constants::kPurple,
         [](){
             return Knowledge::Daddy_Player->getVolume();
         } 
     );
     vol_bar->SetPosition({650, 194});
 
-    w_status_.AddSampleUiElement(std::move(vol_bar));
+    w_status_.AddUiElementToList(std::move(vol_bar));
   }
 
   { /// Creating the Time Marks
@@ -139,7 +139,7 @@ void Application::PopulateWindows()
             return Utils::IntToMinSecondSecond(time);
         }
     );
-    w_status_.AddSampleUiElement(std::move(from_ptr));
+    w_status_.AddUiElementToList(std::move(from_ptr));
 
     auto until_ptr = std::make_unique<DynamicTextBox>(
         485, 130, 90, 30, 0, "---",
@@ -151,7 +151,7 @@ void Application::PopulateWindows()
             return Utils::IntToMinSecondSecond(total - time);
         }
     );
-    w_status_.AddSampleUiElement(std::move(until_ptr));
+    w_status_.AddUiElementToList(std::move(until_ptr));
   }
 }
 

@@ -56,16 +56,6 @@ void Window::Update(int offX, int offY)
     throw bad_behaviour("Controller not existent for this Window type!");
 }
 
-void Window::AddSampleUiElement(std::shared_ptr<UiElement> ptr)
-{
-    element_list.push_back(ptr);
-}
-
-void Window::ClearAllElements()
-{
-    element_list.clear();
-}
-
 /// =============== Controllers =====================
 
 void Window::MainController(int off_x, int off_y)
@@ -87,7 +77,7 @@ void Window::MainController(int off_x, int off_y)
 
             element_list.clear();
 
-            ViewsMain::CreateQueue(element_list);
+            ViewsMain::CreateQueue(this);
         }
         SharedPtr<ScrollableList> scrl_ptr;
 

@@ -3,7 +3,8 @@
 Player::Player() : index_(new PIndex),
     music_queue_(new PMusicQueue),
     music_player_(new PMusicPlayer), music_volume_(Constants::kStartingVolume),
-    is_suffling_(false) { }
+    is_suffling_(false) 
+{ }
 
 std::string Player::Zip() const
 {
