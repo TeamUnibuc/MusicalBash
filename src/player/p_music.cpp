@@ -5,6 +5,8 @@
 #include <sstream>
 #include <iostream>
 
+PMusic::PMusic() : played_count_(0), path_(""), duration_seconds_(0) { }
+
 PMusic::PMusic(std::string path) : played_count_(0), path_(path) {
     bool duration_calculated = false;
     /// If it is an mp3 file, then use the specific command
