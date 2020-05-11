@@ -22,6 +22,8 @@ class PMusic
     double duration_seconds_;
 
 public:
+    PMusic();
+
     /* Creates a new music from the path path */
     PMusic(std::string path);
 

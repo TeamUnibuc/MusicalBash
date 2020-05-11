@@ -7,10 +7,14 @@ PMusicPlayer::PMusicPlayer(std::shared_ptr<PMusic> music) :
     p_music(p_mp3 ? nullptr : std::make_unique<sf::Music>()),
     music_playing(music)
 {
-    if (p_mp3)
+    if (p_mp3) {
         p_mp3->openFromFile(music->getName());
-    else if (p_music)
+        p_mp3->play();
+    }
+    else if (p_music) {
         p_music->openFromFile(music->getName());
+        p_music->play();
+    }
 }
 
 void PMusicPlayer::Play()
