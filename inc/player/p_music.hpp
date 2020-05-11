@@ -6,13 +6,12 @@
 #include <SFML/Audio.hpp>
 #include "c_mp3_file_duration.hpp"
 #include "c_file_select.hpp"
+#include "a_exceptions.hpp"
 
 /**
  * Class storing the information about a single track.
- * The duration of the track can be accessed by `getDuration`,
- * The path can be accessed with `getName`
- * The printable name of the music is `getSongNameWithoutPath`
  */
+
 class PMusic
 {
     /// number of times a song was played
@@ -23,8 +22,6 @@ class PMusic
     double duration_seconds_;
 
 public:
-
-    /// Creates an empty Pmusic
     PMusic();
 
     /* Creates a new music from the path path */
@@ -38,9 +35,6 @@ public:
 
     /// returns name and path of the song
     std::string getName() const;
-
-    /// returns only the name of the song, without the path
-    std::string getSongNameWithoutPath() const;
 
     /// returns nr of times it was played
     int getPlayedCount() const;

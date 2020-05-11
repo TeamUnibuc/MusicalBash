@@ -32,7 +32,7 @@ PMusic::PMusic(std::string path) : played_count_(0), path_(path) {
 std::string PMusic::Zip() const
 {
     if (path_.empty())
-        throw std::runtime_error("Tried to zip an empty PMusic object!");
+        throw zip_error("Tried to zip an empty PMusic object!");
 
     std::string data = std::to_string(played_count_) + "\n" + path_ + "\n";
     return data;
@@ -41,7 +41,7 @@ std::string PMusic::Zip() const
 void PMusic::Unzip(std::string zipped)
 {
     if (zipped.empty())
-        throw std::runtime_error("Tried to unzip an empty string!");
+        throw zip_error("Tried to unzip an empty string!");
     
     std::stringstream parser(zipped);
     parser >> played_count_;
@@ -57,15 +57,6 @@ void PMusic::Unzip(std::string zipped)
 std::string PMusic::getName() const
 {
     return path_;
-}
-
-std::string PMusic::getSongNameWithoutPath() const
-{
-    int last_backslash = -1;
-    for (int i = 0; i < (int)path_.size(); i++)
-        if (path_[i] == '/')
-            last_backslash = i;
-    return path_.substr(last_backslash + 1);
 }
 
 int PMusic::getPlayedCount() const

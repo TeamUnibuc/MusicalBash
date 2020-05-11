@@ -5,8 +5,13 @@
 #include <SFML/Graphics.hpp>
 #include <utility>
 
+#include "a_constants.hpp"
+#include "player.hpp"
+
 namespace Knowledge
 {
+    extern UniquePtr<Player> Daddy_Player;
+
     void Reset();
 
     void SetMousePoz(const std::pair<int, int>& where);

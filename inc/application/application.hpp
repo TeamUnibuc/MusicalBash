@@ -8,10 +8,13 @@
 #include "a_constants.hpp"
 #include "a_logger.hpp"
 #include "a_event_handler.hpp"
+#include "a_exceptions.hpp"
 #include "u_window.hpp"
 #include "u_png_sprite.hpp"
 #include "u_scrollable_list.hpp"
 #include "u_text_box.hpp"
+
+#include "a_button_factory.hpp"
 
 #include "u_dummy.hpp"
 
@@ -32,7 +35,11 @@ private:
 
     void Update();
 
+    void PopulateWindows();
+
     void SetKnowledge_MousePosition();
+
+    void InitUI();
 
     /// Debug functions
     void _Debug_BackGroundRectangles();

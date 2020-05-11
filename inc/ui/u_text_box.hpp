@@ -19,7 +19,7 @@ private:
     sf::Text text_;
 
     /// For cosmetic testing only, to be removed later !!!
-    sf::RectangleShape border;
+    // sf::RectangleShape border;
 
 protected:
 

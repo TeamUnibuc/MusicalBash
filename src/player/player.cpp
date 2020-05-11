@@ -91,7 +91,6 @@ void Player::PlayMusic()
 
     music_player_.reset(new PMusicPlayer(music));
     music_player_->Play();
-    music_player_->SetVolume(music_volume_);
 }
 
 void Player::PauseMusic()
@@ -116,14 +115,11 @@ void Player::Step()
 
 double Player::getVolume() const
 {
-    return music_volume_;
+    return music_player_->GetVolume();
 }
 
 void Player::setVolume(double volume)
 {
-    if (volume > 100. || volume < 0.)
-        throw std::runtime_error("Invalid volume");
-    music_volume_ = volume;
     music_player_->SetVolume(volume);
 }
 
@@ -212,13 +208,6 @@ void Player::setSufflingStatus(bool suffle)
 Player& Player::operator++()
 {
     music_volume_ = std::min(music_volume_ + 1, 100.);
-    setVolume(music_volume_);
-    return *this;
-}
-
-Player& Player::operator--()
-{
-    music_volume_ = std::max(music_volume_ - 1, 0.);
     setVolume(music_volume_);
     return *this;
 }
