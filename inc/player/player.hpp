@@ -24,10 +24,21 @@
  */
 class Player 
 {
+    /// index class containing all albums, playlists and songs
     std::shared_ptr <PIndex> index_;
+    /// music queue storing the active waiting list
     std::shared_ptr <PMusicQueue> music_queue_;
+    /// music player, SFML object playing sound
     std::shared_ptr <PMusicPlayer> music_player_;
+    /**
+     * vector storing history of played songs.
+     * Used for the `prev` command, able to restore played songs.
+     */
+    std::vector <std::shared_ptr<PMusic>> history_;
+    /// volume of the music [0-100]
     double music_volume_;
+    /// whether the music is suffling or not
+    bool is_suffling_;
 
 public:
 
@@ -71,13 +82,16 @@ public:
     /// adds a playlist to the playing queue
     void addPlaylistToQueue(const std::shared_ptr<PPlaylist> playlist);
 
+    /// returns the list of songs in the playing queue
+    std::vector <std::shared_ptr<PMusic>> GetPlayingQueue() const;
+
     /// starts to play to play the music
     void PlayMusic();
 
     /// pauses the music
     void PauseMusic();
 
-    /// stops the music and CLEARS the queue
+    /// stops the music WITHOUT clearing the queue
     void StopMusic();
 
     /// if music is stoped but there are elements in the queue it starts playing
@@ -88,6 +102,17 @@ public:
 
     /// sets the curent volume
     void setVolume(double volume);
+
+    /**
+     * If the playing offset if > 5 sec then sets the playing offset to 0
+     * Otherwise:
+     *          if the history is empty then reset playing offset
+     *          otherwise play previous song
+     */
+    void Prev();
+
+    /// Discards curent song and starts next one if it exists
+    void Next();
 
     /// returns curently playing music
     std::shared_ptr<PMusic> getActiveSong() const;
@@ -108,6 +133,12 @@ public:
      *  1 for paused
      */
     int getPlayingStatus() const;
+
+    /// returns shuffling status
+    bool getSufflingStatus() const;
+
+    /// sets shuffling status
+    void setSufflingStatus(bool suffle);
 
     /// increases volume by 1
     Player& operator++();
