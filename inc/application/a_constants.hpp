@@ -22,20 +22,24 @@ namespace Constants
     extern const sf::Color kPurple;
 
     /// Maximum framerate
-    extern const int kFrameLimit;
+    extern const int    kFrameLimit;
+
+    /// How much time to pass until Update function it's propagated again, even if no event takes place
+    extern const double kTimeToUpdate;
+
 
     /// Name of the application
-    extern const std::string kApplicationName;
+    extern const std::string              kApplicationName;
 
     /// holds a list of accepted extensions by the application
     extern const std::vector<std::string> kMusicExtensions;
 
     /// holds the font used by the application
-    extern sf::Font kFont;
-    extern const std::string kFontPath;
+    extern sf::Font           kFont;
+    extern const std::string  kFontPath;
 
-    extern const int kVolumeStep;
-    extern const int kStartingVolume;
+    extern const int  kVolumeStep;
+    extern const int  kStartingVolume;
 
 };
 

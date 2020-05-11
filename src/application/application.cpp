@@ -162,7 +162,7 @@ int Application::Run()
             Knowledge::ResetEvent();           
         }
 
-        if (clock_update_.getElapsedTime().asSeconds() > 0.1) {
+        if (clock_update_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
             // this->Update();
             this->Update();
             clock_update_.restart();
