@@ -43,11 +43,4 @@ void SetEvent(sf::Event ev)
     event_ = ev;
 }
 
-std::string GetActiveSongNameOrEmpty()
-{
-    if (-1 == Daddy_Player->getPlayingStatus())
-        return "- - - - -";
-    return Daddy_Player->getActiveSong()->getName();
-}
-
 }

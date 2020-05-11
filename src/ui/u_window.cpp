@@ -95,9 +95,9 @@ void Window::MainController(int off_x, int off_y)
             if (dynamic_cast<ScrollableList*>(&*p))
                 scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
 
-        scrl_ptr->ClearAllUiElements(); 
+        scrl_ptr->ClearAllUiElements();
 
-        ViewsMain::UpdateQueue(scrl_ptr, Knowledge::Daddy_Player->getQueueMusic());
+        ViewsMain::UpdateQueue(scrl_ptr, Knowledge::Daddy_Player->GetPlayingQueue());
 
         Knowledge::curr_state = Constants::State::W::Queue;
         break;

@@ -49,7 +49,7 @@ void Application::InitializingScript()
 
     Logger::Get() << "Creating DaddyPlayer Instance\n";
     Knowledge::Daddy_Player = std::make_unique<Player>();
-    Logger::Get() << Knowledge::GetActiveSongNameOrEmpty() << '\n';
+    Logger::Get() << Knowledge::Daddy_Player->getActiveSong()->getName() << '\n';
     Logger::Get() << "DaddyPlayer created\n";
 }
 
@@ -120,7 +120,7 @@ void Application::PopulateWindows()
   
   { /// Creating volume bar
     auto vol_bar = std::make_unique<ProgressBar>(
-        190, 6, 6, 6, sf::Color::White, sf::Color::Black, sf::Color(150, 150, 150),
+        190, 6, 6, 6, sf::Color::White, sf::Color::Black, sf::Color(185, 87, 255),
         [](){
             return Knowledge::Daddy_Player->getVolume();
         } 

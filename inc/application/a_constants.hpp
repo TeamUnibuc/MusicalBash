@@ -59,6 +59,7 @@ namespace Constants
     extern const std::string kFontPath;
 
     extern const int kVolumeStep;
+    extern const int kStartingVolume;
 
 };
 

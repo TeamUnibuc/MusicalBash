@@ -2,7 +2,7 @@
 
 Player::Player() : index_(new PIndex),
     music_queue_(new PMusicQueue),
-    music_player_(new PMusicPlayer), music_volume_(50),
+    music_player_(new PMusicPlayer), music_volume_(Constants::kStartingVolume),
     is_suffling_(false) { }
 
 std::string Player::Zip() const
@@ -33,14 +33,6 @@ void Player::DeleteAlbum(const std::shared_ptr<PAlbum> album)
 void Player::DeletePlaylist(const std::shared_ptr<PPlaylist> playlist)
 {
     index_->DeletePlaylist(playlist);
-}
-
-std::vector <SharedPtr<PMusic>> Player::getQueueMusic()
-{
-    if (music_queue_)
-        return music_queue_->GetMusic();
-    
-    return std::vector<SharedPtr<PMusic>>();
 }
 
 std::vector <std::shared_ptr<PMusic>> Player::getAllMusic()
@@ -98,6 +90,7 @@ void Player::PlayMusic()
     history_.push_back(music);
 
     music_player_.reset(new PMusicPlayer(music));
+    music_player_->SetVolume(music_volume_);
     music_player_->Play();
 }
 
@@ -123,7 +116,7 @@ void Player::Step()
 
 double Player::getVolume() const
 {
-    if (getPlayingStatus() != -1)
+    if (getPlayingStatus() == -1)
         return music_volume_;
 
     return music_player_->GetVolume();
@@ -148,6 +141,7 @@ void Player::Prev()
     /// second case: play last song in queue
     if (getPlayingStatus() == -1 || history_.size() == 1) {
         music_player_.reset(new PMusicPlayer(history_.back()));
+        music_player_->SetVolume(music_volume_);
         return;
     }
 
@@ -155,11 +149,13 @@ void Player::Prev()
     music_queue_->AddToFront(history_.back());
     history_.pop_back();
     music_player_.reset(new PMusicPlayer(history_.back()));
+    music_player_->SetVolume(music_volume_);
 }
 
 void Player::Next()
 {
     music_player_.reset(new PMusicPlayer);
+    music_player_->SetVolume(music_volume_);
     PlayMusic();
 }
 
