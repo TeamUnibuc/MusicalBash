@@ -3,8 +3,10 @@
 CImportAlbum::CImportAlbum()
 {}
 
-/// TO DO
 void CImportAlbum::Execute()
 {
-    Logger::Get() << "Command ImportAlbum Not implemented !!! \n";
+    CDirectorySelect directory_select;
+    directory_select.Execute();
+    Knowledge::Daddy_Player->CreateAlbum(directory_select.GetResult());
+    Logger::Get() << "Album added successfully!!! \n";
 }
