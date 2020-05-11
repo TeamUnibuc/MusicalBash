@@ -86,4 +86,24 @@ public:
     ~player_runtime_error();
 };
 
+/*
+ * Our own Exception class to use when the player encounters an error
+ */
+class bad_behaviour : public std::exception
+{
+private:
+    /// The message that will be logged
+    char * message;
+protected:
+public:
+    /// Error constructor that takes in the message to be logged
+    bad_behaviour(std::string message_);
+
+    /// Overriding the what() function
+    const char * what() const throw();
+
+    /// Error destructor
+    ~bad_behaviour();
+};
+
 #endif // INC_APPLICATION_EXCEPTIONS_

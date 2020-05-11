@@ -5,6 +5,12 @@
 #include <stdexcept>
 #include "a_exceptions.hpp"
 
+#include "a_logger.hpp"
+
+/**
+ *  Abstract class for commands
+ *  All commands are executable, they might be multi-threaded
+*/
 class Command
 {
 protected:

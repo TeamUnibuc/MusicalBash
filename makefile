@@ -22,7 +22,7 @@ COMMANDLINE_OPTIONS +=
 # Compiler
 CPP = cpp
 CXX = g++
-CSTD = c++17
+CSTD = c++2a
 
 # ======== Project options  =====================
 # THE folder to search for cpp files

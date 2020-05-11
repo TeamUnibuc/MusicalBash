@@ -2,6 +2,8 @@
 
 namespace Knowledge
 {
+UniquePtr<Player> Daddy_Player;
+
 /// Global variables but available only 
 /// in this translation unit so we are safe
 
