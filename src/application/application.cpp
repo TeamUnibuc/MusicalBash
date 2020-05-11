@@ -22,6 +22,20 @@ Application::Application() :
               Musical::Window::Type::Status)
 {}
 
+void Application::InitializingScript()
+{
+    Logger::Get() << "Creating DaddyPlayer Instance\n";
+    
+    Knowledge::Daddy_Player = std::make_unique<Player>();
+
+    Logger::Get() << Knowledge::Daddy_Player->getActiveSong()->getName() << '\n';
+    Logger::Get() << "DaddyPlayer created\n";
+
+    InitUI();
+
+    PopulateWindows();
+}
+
 void Application::InitUI()
 {
     w_side_bar_.ClearAllUiElements();
@@ -41,122 +55,34 @@ void Application::InitUI()
         Logger::Get() << "Successfully loaded the global font" << '\n';
 }
 
-void Application::InitializingScript()
-{
-    InitUI();
-
-    PopulateWindows();
-
-    Logger::Get() << "Creating DaddyPlayer Instance\n";
-    Knowledge::Daddy_Player = std::make_unique<Player>();
-    Logger::Get() << Knowledge::Daddy_Player->getActiveSong()->getName() << '\n';
-    Logger::Get() << "DaddyPlayer created\n";
-}
-
 void Application::PopulateWindows()
 {
-  { /// Left side bar
-    for (int  vertical = 20, gap = 20;
-         auto btn_type : {ButtonFactory::SideType::Home,
-                          ButtonFactory::SideType::Playlists,
-                          ButtonFactory::SideType::Albums,
-                          ButtonFactory::SideType::MusicQueue,
-                          ButtonFactory::SideType::ImportAlbum,
-                          ButtonFactory::SideType::CreatePlaylist}) {
-        auto btn_ptr = ButtonFactory::Create(btn_type);
-        btn_ptr->SetPosition({20, vertical});
-        vertical += btn_ptr->GetHeight() + gap;
+    ViewsSide::Create(&w_side_bar_);
 
-        w_side_bar_.AddUiElementToList(std::move(btn_ptr));
-    }
-
-    auto about_ptr = ButtonFactory::Create(ButtonFactory::SideType::About);
-    about_ptr->SetPosition({20, 630});
-    w_side_bar_.AddUiElementToList(std::move(about_ptr));
-  }
-
-  { /// Clickable square buttons in status bar
-    auto curr_song_txt_box = std::make_unique<SongTextBox>(4, 30, 550, 37, 1, "---");
-    w_status_.AddUiElementToList(std::move(curr_song_txt_box));
-
-    for (int horizontal = 160, vertical = 120, gap = 22;
-         auto btn_type : {ButtonFactory::PlayerType::Stop,
-                          ButtonFactory::PlayerType::Back,
-                          ButtonFactory::PlayerType::PlayPause,
-                          ButtonFactory::PlayerType::Next,
-                          ButtonFactory::PlayerType::Shuffle}) {
-        auto ptr = ButtonFactory::Create(btn_type);
-        ptr->SetPosition({horizontal, vertical});
-        horizontal += ptr->GetWidth() + gap;
-        w_status_.AddUiElementToList(std::move(ptr));
-    }
-
-    for (int horizontal = 700, vertical = 120, gap = 22;
-         auto btn_type : {ButtonFactory::PlayerType::VolDown,
-                          ButtonFactory::PlayerType::VolUp}) {
-        auto ptr = ButtonFactory::Create(btn_type);
-        ptr->SetPosition({horizontal, vertical});
-        horizontal += ptr->GetWidth() + gap;
-        w_status_.AddUiElementToList(std::move(ptr));
-    }
-  }
-    
-  { /// Creating song progress bar
-    auto song_bar = std::make_unique<ProgressBar>(
-        540, 6, 4, 10, sf::Color::White, sf::Color::Black, Constants::kPurple,
-        [](){
-            auto curr_second = Knowledge::Daddy_Player->getActiveSongPlayingOffset();
-            auto length = Knowledge::Daddy_Player->getActiveSongDuration();
-
-            if (length < 0.1)
-                return 0.;
-
-            return curr_second / length * 100; 
-        }
-    );
-    song_bar->SetPosition({20, 194});
-    w_status_.AddUiElementToList(std::move(song_bar));
-  }
-  
-  { /// Creating volume bar
-    auto vol_bar = std::make_unique<ProgressBar>(
-        190, 6, 6, 6, sf::Color::White, sf::Color::Black, Constants::kPurple,
-        [](){
-            return Knowledge::Daddy_Player->getVolume();
-        } 
-    );
-    vol_bar->SetPosition({650, 194});
-
-    w_status_.AddUiElementToList(std::move(vol_bar));
-  }
-
-  { /// Creating the Time Marks
-    auto from_ptr = std::make_unique<DynamicTextBox>(
-        -5, 130, 90, 30, 2, "---",
-        [](){
-            int time = Knowledge::Daddy_Player->getActiveSongPlayingOffset();
-            // Logger::Get() << "Set seconds: " << time << '\n';
-            return Utils::IntToMinSecondSecond(time);
-        }
-    );
-    w_status_.AddUiElementToList(std::move(from_ptr));
-
-    auto until_ptr = std::make_unique<DynamicTextBox>(
-        485, 130, 90, 30, 0, "---",
-        [](){
-            int total = Knowledge::Daddy_Player->getActiveSongDuration();
-            int time = Knowledge::Daddy_Player->getActiveSongPlayingOffset();
-            if (total < 0 || time < 0 || total - time < 0)
-                Logger::Get() << "Bad remaining duration from Player:  total = " << total << "  offset = " << time << '\n';
-            return Utils::IntToMinSecondSecond(total - time);
-        }
-    );
-    w_status_.AddUiElementToList(std::move(until_ptr));
-  }
+    ViewsStatus::Create(&w_status_);
 }
 
 void Application::Render()
 {
+    /// Displays the darker rectangles behind every Big UI Window
+    auto rect = sf::RectangleShape();
+
+    rect.setFillColor(Constants::kWindowBackground);
+    rect.setPosition(sf::Vector2f(w_side_bar_.g_off_x, w_side_bar_.g_off_y));
+    rect.setSize(sf::Vector2f(w_side_bar_.GetWidth(), w_side_bar_.GetHeight()));
+    rend_window_.draw(rect);
+
+    rect.setFillColor(Constants::kWindowBackground);
+    rect.setPosition(sf::Vector2f(w_main_.g_off_x, w_main_.g_off_y));
+    rect.setSize(sf::Vector2f(w_main_.GetWidth(), w_main_.GetHeight()));
+    rend_window_.draw(rect);
+
+    rect.setFillColor(Constants::kWindowBackground);
+    rect.setPosition(sf::Vector2f(w_status_.g_off_x, w_status_.g_off_y));
+    rect.setSize(sf::Vector2f(w_status_.GetWidth(), w_status_.GetHeight()));
+    rend_window_.draw(rect);
+
+    /// Renders its children
     w_side_bar_.Render(rend_window_, 0, 0);
     w_status_.Render(rend_window_, 0, 0);
     w_main_.Render(rend_window_, 0, 0);
@@ -167,6 +93,7 @@ void Application::Update()
     w_side_bar_.Update(0, 0);
     w_status_.Update(0, 0);
     w_main_.Update(0, 0);
+    
 }
 
 void Application::SetKnowledge_MousePosition()
@@ -180,32 +107,25 @@ int Application::Run()
 {
     using std::cout;
 
-    sf::Clock my_clock;
+    sf::Clock debug_clock;
     bool startedSong = 0;
 
     InitializingScript();
 
-    /// scope for testing
-    
-    /// should delete the scope above
+    /// reset clock for updating
+    clock_update_.restart();
 
     while (rend_window_.isOpen()){
+        
+        /// Handle events that took place from last render
 
         sf::Event event;
         while (rend_window_.pollEvent(event)){
-            Knowledge::Reset();
             Knowledge::SetEvent(event);
             SetKnowledge_MousePosition();
 
             switch (event.type)
             {
-                case sf::Event::Closed:
-                {
-                    rend_window_.close();
-                    Logger::Get() << "The window was closed\n";
-                    break;
-                }  
-
                 case sf::Event::MouseButtonPressed:
                 {
                     EventHandler::Click(event);  
@@ -224,27 +144,42 @@ int Application::Run()
                         EventHandler::DebugKeyDown();
                     break;
                 }
+                case sf::Event::Closed:
+                {
+                    rend_window_.close();
+                    Logger::Get() << "The window was closed\n";
+                    break;
+                }
                 default:
                 {
                     break;
                 }
             }
-            this->Update();            
+            /// Update UiElements if they "sense" something need to be changed
+            this->Update(); 
+
+            /// Reset the knowledge so we dont update multiple times
+            Knowledge::ResetEvent();           
+        }
+
+        if (clock_update_.getElapsedTime().asSeconds() > 0.1) {
+            // this->Update();
+            this->Update();
+            clock_update_.restart();
         }
 
         /// Music Player loop
         Knowledge::Daddy_Player->Step();
 
-        /// Game loop UI
-
         rend_window_.clear(Constants::kAppBackground);
-
-        _Debug_BackGroundRectangles();
 
         this->Render();
         rend_window_.display();  
 
-        if(my_clock.getElapsedTime().asSeconds() > 3) {  /// DEBUG
+
+
+
+        if(debug_clock.getElapsedTime().asSeconds() > 3) {  /// DEBUG
             if (not startedSong) {
                 startedSong = 1;
                 Logger::Get() << "Creating and playing test music.....\n";
@@ -258,6 +193,8 @@ int Application::Run()
                 Knowledge::Daddy_Player->PlayMusic();
             }
         }
+
+
     }
 
     return 0;
@@ -268,24 +205,4 @@ void Application::_Debug_PrintMousePosition()
     auto position = sf::Mouse::getPosition();
     auto window_pos = rend_window_.getPosition();
     Logger::Get() << "Mouse hovering at: " << position.x - window_pos.x << ' ' << position.y - window_pos.y << '\n';
-}
-
-void Application::_Debug_BackGroundRectangles()
-{
-    auto rect = sf::RectangleShape();
-
-    rect.setFillColor(Constants::kWindowBackground);
-    rect.setPosition(sf::Vector2f(w_side_bar_.g_off_x, w_side_bar_.g_off_y));
-    rect.setSize(sf::Vector2f(w_side_bar_.GetWidth(), w_side_bar_.GetHeight()));
-    rend_window_.draw(rect);
-
-    rect.setFillColor(Constants::kWindowBackground);
-    rect.setPosition(sf::Vector2f(w_main_.g_off_x, w_main_.g_off_y));
-    rect.setSize(sf::Vector2f(w_main_.GetWidth(), w_main_.GetHeight()));
-    rend_window_.draw(rect);
-
-    rect.setFillColor(Constants::kWindowBackground);
-    rect.setPosition(sf::Vector2f(w_status_.g_off_x, w_status_.g_off_y));
-    rect.setSize(sf::Vector2f(w_status_.GetWidth(), w_status_.GetHeight()));
-    rend_window_.draw(rect);
 }

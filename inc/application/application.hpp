@@ -31,6 +31,9 @@ private:
     Musical::Window w_main_;
     Musical::Window w_status_;
 
+    /// clock for calling update if nothing happened for some time
+    sf::Clock clock_update_;
+
     void InitializingScript();
 
     void Render();
@@ -44,8 +47,6 @@ private:
     void InitUI();
 
     /// Debug functions
-    void _Debug_BackGroundRectangles();
-
     void _Debug_PrintMousePosition();
     
 public:

@@ -25,7 +25,7 @@ namespace Knowledge
 
     extern UniquePtr<Player> Daddy_Player;
 
-    void Reset();
+    void ResetEvent();
 
     void SetMousePoz(const std::pair<int, int>& where);
 
@@ -34,8 +34,6 @@ namespace Knowledge
     void SetEvent(sf::Event ev);
 
     sf::Event GetEvent();    
-
-    std::string GetActiveSongNameOrEmpty();
 }
 
 #endif
