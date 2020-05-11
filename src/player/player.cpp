@@ -123,6 +123,9 @@ void Player::Step()
 
 double Player::getVolume() const
 {
+    if (getPlayingStatus() != -1)
+        return music_volume_;
+
     return music_player_->GetVolume();
 }
 
@@ -215,7 +218,14 @@ void Player::setSufflingStatus(bool suffle)
 
 Player& Player::operator++()
 {
-    music_volume_ = std::min(music_volume_ + 1, 100.);
+    music_volume_ = std::min(music_volume_ + Constants::kVolumeStep, 100.);
+    setVolume(music_volume_);
+    return *this;
+}
+
+Player& Player::operator--()
+{
+    music_volume_ = std::max(music_volume_ - Constants::kVolumeStep, 0.);
     setVolume(music_volume_);
     return *this;
 }

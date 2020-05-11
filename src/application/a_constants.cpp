@@ -27,4 +27,6 @@ const std::vector<std::string> kMusicExtensions {
 
 sf::Font kFont;
 
+constexpr int kVolumeStep = 10;
+
 }

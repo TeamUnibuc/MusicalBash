@@ -58,6 +58,8 @@ namespace Constants
     extern sf::Font kFont;
     extern const std::string kFontPath;
 
+    extern const int kVolumeStep;
+
 };
 
 #endif // INC_APPLICATION_CONSTANTS_

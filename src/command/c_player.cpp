@@ -59,7 +59,8 @@ CPlayerVolDown::CPlayerVolDown()
 
 void CPlayerVolDown::Execute()
 {
-    Logger::Get() << "Volume Down Button not implemented ! \n";
+    Player& ref = *Knowledge::Daddy_Player;
+    --ref;
 }
 
 CPlayerVolUp::CPlayerVolUp()
@@ -67,7 +68,8 @@ CPlayerVolUp::CPlayerVolUp()
 
 void CPlayerVolUp::Execute()
 {
-    Logger::Get() << "Volume Up Button not implemented ! \n";
+    Player& ref = *Knowledge::Daddy_Player;
+    ++ref;
 }
 
 
