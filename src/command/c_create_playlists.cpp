@@ -32,7 +32,7 @@ void CCreatePlaylists::PostExecutionVerification()
             Knowledge::Daddy_Player->CreatePlaylist(playlist_name);
             Logger::Get() << "Playlist " << playlist_name << " has been created" << '\n';
         }
-        user_input_command_.release();
+        user_input_command_.reset();
         user_input_thread_ = std::thread();
     }
 }

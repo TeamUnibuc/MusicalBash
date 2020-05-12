@@ -31,7 +31,7 @@ void CImportAlbum::PostExecutionVerification()
             Knowledge::Daddy_Player->CreateAlbum(album_name);
             Logger::Get() << "Album " << album_name << " added successfully!!! \n";
         }
-        dir_select_command_.release();
+        dir_select_command_.reset();
         dir_select_thread_ = std::thread();
     }
 }

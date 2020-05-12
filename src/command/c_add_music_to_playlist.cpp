@@ -38,7 +38,7 @@ void CAddMusicToPlaylist::PostExecutionVerification()
             playlist_->AddMusic(music);
             Logger::Get() << "Music " << music_name << " added successfully to " << playlist_->GetName() << "!!! \n";
         }
-        file_select_command_.release();
+        file_select_command_.reset();
         file_select_thread_ = std::thread();
     }
 }
