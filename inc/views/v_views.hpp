@@ -42,6 +42,12 @@ public:
 
     static void CreatePlaylists(UiContainer *const father, UiElement *const fatherUi);
     static void UpdatePlaylists(UiContainer *const father, UiElement *const fatherUi);
+
+    static void CreateSpecificAlbum(UiContainer *const father, UiElement *const fatherUi);
+    static void UpdateSpecificAlbum(/* TO DO */);
+
+    static void CreateSpecificPlaylist(UiContainer *const father, UiElement *const fatherUi);
+    static void UpdateSpecificPlaylist(/* TO DO */);
 };
 
 class ViewsSide

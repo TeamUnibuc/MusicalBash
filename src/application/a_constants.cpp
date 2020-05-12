@@ -10,7 +10,7 @@ constexpr int kTopBarSize = 40;
 constexpr int kGap = 30;
 
 constexpr int    kFrameLimit   = 75;
-constexpr double kTimeToUpdate = 0.1;
+constexpr double kTimeToUpdate = 1.5;
 
 const std::string kFontPath = "data/fonts/UbuntuMono-R.ttf";
 

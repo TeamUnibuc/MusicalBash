@@ -6,5 +6,5 @@ CShowPlaylists::CShowPlaylists()
 /// TO DO
 void CShowPlaylists::Execute()
 {
-    Logger::Get() << "Command ShowPlaylists Not implemented !!! \n";
+    Knowledge::State::curr_state = Constants::State::W::Playlists;
 }

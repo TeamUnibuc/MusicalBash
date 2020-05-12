@@ -118,7 +118,7 @@ void Window::MainController(int off_x, int off_y)
         break;
     }
 
-    ///// ==================== Main ============== Playlist ======================
+    ///// ==================== Main ============== Playlist ======================  TO DO
 
     case Constants::State::W::Playlists : 
     {
@@ -154,6 +154,34 @@ void Window::MainController(int off_x, int off_y)
         scrl_ptr->ClearAllUiElements();
 
         ViewsMain::UpdateAlbums(scrl_ptr, Knowledge::Daddy_Player->getAlbums());
+        break;
+    }
+
+    case Constants::State::W::ViewAlbum : 
+    {
+        if (prev_state != app_state ||
+            (prev_state == app_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
+                Logger::Get() << "INFO:  New state - Specific Album\n";
+                
+                element_list.clear();
+                ViewsMain::CreateSpecificAlbum(this, this);
+        }
+
+        ViewsMain::UpdateSpecificAlbum();
+        break;
+    }
+
+    case Constants::State::W::ViewPlaylist : 
+    {
+        if (prev_state != app_state ||
+            (prev_state == app_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
+                Logger::Get() << "INFO:  New state - Specific Playists\n";
+                
+                element_list.clear();
+                ViewsMain::CreateSpecificPlaylist(this, this);
+        }
+
+        ViewsMain::UpdateSpecificPlaylist();
         break;
     }
 

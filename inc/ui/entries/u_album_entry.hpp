@@ -20,11 +20,12 @@ private:
 
     void SetPosition(const std::pair<int,int>& pos) = delete;
 
-    static const int kEntryWidth;
-    static const int kButtonWidth;
-    static const int kHeight;
-    static const int kActualHeight;
-    static const int kGap;
+    static const int   kEntryWidth;
+    static const int   kButtonWidth;
+    static const int   kHeight;
+    static const int   kActualHeight;
+    static const int   kGap;
+    static const float kHeightRatio;
 
 public:
     AlbumEntry(int posX, int posY, sf::Color normal, sf::Color hovered,

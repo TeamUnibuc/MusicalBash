@@ -1,22 +1,24 @@
 #include "u_album_entry.hpp"
 
-const int AlbumEntry::kEntryWidth   = 500;
-const int AlbumEntry::kButtonWidth  = 100;
-const int AlbumEntry::kHeight       = 100;
-const int AlbumEntry::kActualHeight = 80;
-const int AlbumEntry::kGap          = 30;
+const int AlbumEntry::kEntryWidth    = 700;
+const int AlbumEntry::kButtonWidth   = 100;
+const int AlbumEntry::kHeight        = 66;
+const int AlbumEntry::kActualHeight  = 80;
+const int AlbumEntry::kGap           = 30;
+const float AlbumEntry::kHeightRatio = 0.7;
 
 AlbumEntry::AlbumEntry(int posX, int posY, sf::Color normal, sf::Color hovered,
                SharedPtr<PAlbum> alb_ptr, int number, 
                UniquePtr<Command> c_ptr, SharedPtr<PngSprite> png_ptr) :
     album_ptr_(alb_ptr),
-    del_btn_(kButtonWidth, kHeight, std::move(std::make_unique<CDeleteAlbum>(alb_ptr)), normal, hovered, png_ptr),
-    col_btn_(kEntryWidth, kHeight, std::move(c_ptr),
-             normal, hovered),
+    del_btn_(kHeight * kHeightRatio, kHeight * kHeightRatio, 
+             std::move(std::make_unique<CDeleteAlbum>(alb_ptr)), normal, hovered, png_ptr),
+    col_btn_(kEntryWidth,            kHeight * kHeightRatio, 
+             std::move(c_ptr), normal, hovered),
     number_(number)
 {
-    col_btn_.SetPosition({0, (kHeight - kActualHeight) / 2});
-    del_btn_.SetPosition({kEntryWidth + kGap, (kHeight - kActualHeight) / 2});
+    col_btn_.SetPosition({0, kHeight * (1. - kHeightRatio) / 2});
+    del_btn_.SetPosition({kEntryWidth + kGap, kHeight * (1. - kHeightRatio) / 2});
 }
 
     

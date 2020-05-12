@@ -1,7 +1,7 @@
 #include "v_views.hpp"
 
 const int ViewsMain::kListWidthSimple  = 760 + 18;
-const int ViewsMain::kListWidthButtons = 750;
+const int ViewsMain::kListWidthButtons = 760 + 18 + 180;
 const int ViewsMain::kListHeight       = 440; 
 const int ViewsMain::kEntryHeight      = 66;
 
@@ -183,17 +183,50 @@ void ViewsMain::UpdateAlbums(SharedPtr<ScrollableList> l_ptr, const std::vector<
 
 void ViewsMain::CreatePlaylists(UiContainer *const father, UiElement *const fatherUi)
 {
-
+    Logger::Get() << "ERROR: Main Create Playlist   view not implemented!\n";
 }
 
 /// ============================= Main ===== Update ===== Playlists =================
 
 void ViewsMain::UpdatePlaylists(UiContainer *const father, UiElement *const fatherUi)
 {
+    Logger::Get() << "ERROR: Main Update Playlist   view not implemented!\n";
+}
+
+/// ============================ Main ===== Create ===== Specific Album =============
+
+void ViewsMain::CreateSpecificAlbum(UiContainer *const father, UiElement *const fatherUi)
+{
+    Logger::Get() << "ERROR: Main Create Specific Album   view not implemented!\n";
+}
+
+/// ============================ Main ===== Update ===== Specific Album =============
+
+void ViewsMain::UpdateSpecificAlbum(/* TO DO */)
+{
+    Logger::Get() << "ERROR: Main Update Specific Album   view not implemented!\n";
 
 }
 
-/// ==================================================== Side Menu ======== Create =========================
+/// ============================ Main ===== Create ===== Specific Playlist =============
+
+void ViewsMain::CreateSpecificPlaylist(UiContainer *const father, UiElement *const fatherUi)
+{
+    Logger::Get() << "ERROR: Main Create Specific Playlist   view not implemented!\n";
+
+}
+
+/// ============================ Main ===== Update ===== Specific Playlist =============
+
+void ViewsMain::UpdateSpecificPlaylist(/* TO DO */)
+{
+    Logger::Get() << "ERROR: Main Update Specific Playlist   view not implemented!\n";
+
+}
+
+///  Side Window
+/// =========================== Side Menu ======== Create =========================
+
 void ViewsSide::Create(UiContainer *const father_elem)
 {
     for (int  vertical = 20, gap = 20;
