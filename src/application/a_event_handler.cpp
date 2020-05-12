@@ -7,11 +7,10 @@
 namespace EventHandler
 {
 
-void Click(const sf::Event& ev)
+void Click()
 {
-    Logger::Get() << "Click at position: " << ev.mouseButton.x << ' ' << ev.mouseButton.y - Constants::kTopBarSize << '\n';
-
-    Knowledge::SetEvent(ev);
+    auto [x, y] = Knowledge::GetMousePoz();
+    Logger::Get() << "Click at position: " << x << ' ' << y << '\n';
 }
 
 void MouseWheelScrolled(const sf::Event& event)
