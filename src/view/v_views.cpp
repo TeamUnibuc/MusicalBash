@@ -16,12 +16,14 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
 {
     Logger::Get() << "INFO: Creating Home View\n";
 
-    SharedPtr<TextBox> tb_ptr(new TextBox(0, 0, fatherUi->GetWidth(), kTitleHeight, 1, "Home"));
+    SharedPtr<TextBox> tb_ptr(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, "Home"));
     father->AddUiElementToList(tb_ptr);
 
     const int colWidth = 220, colHeight = 40, colGap = 70;
-    const int lineGap  = 20,  lineOffsetX = 30, lineOffsetY = kTitleHeight + 10;
+    const int lineGap  = 10,  lineOffsetX = 36, lineOffsetY = kTitleHeight + 55;
     const int nrItems  = 4;
+
+/// Add the Buttons for Albums, Playlists and Songs  ====================
 
     auto album_list = Knowledge::Daddy_Player->getAlbums();
     auto playlist_list = Knowledge::Daddy_Player->getPlaylists();
@@ -43,7 +45,7 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
         c_spec_alb->SetAlbum(album_list[i]);
         btn_ptr = std::make_shared<TextButton>(
             colWidth, colHeight, std::move(c_spec_alb),
-            Constants::kSideBtnIdle, Constants::kSideBtnHover,
+            sf::Color::Transparent, Constants::kSideBtnHover,
             std::make_unique<TextBox>(
                 11, 8, colWidth, 25, 0, album_list[i]->GetName()
             )
@@ -58,7 +60,7 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
         c_spec_playlist->SetPlaylist(playlist_list[i]);
         btn_ptr = std::make_shared<TextButton>(
             colWidth, colHeight, std::move(c_spec_playlist),
-            Constants::kSideBtnIdle, Constants::kSideBtnHover,
+            sf::Color::Transparent, Constants::kSideBtnHover,
             std::make_unique<TextBox>(
                 11, 8, colWidth, 25, 0, playlist_list[i]->GetName()
             )
@@ -71,7 +73,7 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
         /// Create Music clickable
         btn_ptr = std::make_shared<TextButton>(
             colWidth, colHeight, std::make_unique<CAddMusicQueue>(music_list[i]),
-            Constants::kSideBtnIdle, Constants::kSideBtnHover,
+            sf::Color::Transparent, Constants::kSideBtnHover,
             std::make_unique<TextBox>(
                 11, 8, colWidth, 25, 0, music_list[i]->getSongNameWithoutPath()
             )
@@ -81,6 +83,22 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
       }
 
     }
+
+/// Add green texts on top of the 3 lists
+    auto txt_ptr = std::make_shared<TextBox>(
+        lineOffsetX, kTitleHeight + 20, colWidth, 27, 1, "Albums");
+    txt_ptr->SetColor(Constants::kGreen);
+    father->AddUiElementToList(txt_ptr);
+    
+    txt_ptr = std::make_shared<TextBox>(
+        lineOffsetX + colGap + colWidth, kTitleHeight + 20, colWidth, 27, 1, "Playlists");
+    txt_ptr->SetColor(Constants::kGreen);
+    father->AddUiElementToList(txt_ptr);
+
+    txt_ptr = std::make_shared<TextBox>(
+        lineOffsetX + 2 * (colGap + colWidth), kTitleHeight + 20, colWidth, 27, 1, "Playlists");
+    txt_ptr->SetColor(Constants::kGreen);
+    father->AddUiElementToList(txt_ptr);
 }
 
 /// ====================================== Main ======= Update  ======= Home ==================
@@ -99,7 +117,7 @@ void ViewsMain::UpdateHome(UiContainer *const father, UiElement *const fatherUi)
 
 void ViewsMain::CreateQueue(UiContainer * const c_ptr, UiElement *const fatherUi)
 {
-    SharedPtr<TextBox> tb_ptr(new TextBox(0, 0, fatherUi->GetWidth(), kTitleHeight, 1, "Current Queue"));
+    SharedPtr<TextBox> tb_ptr(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, "Current Queue"));
     c_ptr->AddUiElementToList(tb_ptr);
 
     auto lst_ptr = std::make_unique<ScrollableList>(
