@@ -8,10 +8,15 @@
 #include "a_constants.hpp"
 #include "a_logger.hpp"
 #include "a_event_handler.hpp"
+#include "a_exceptions.hpp"
 #include "u_window.hpp"
 #include "u_png_sprite.hpp"
 #include "u_scrollable_list.hpp"
-#include "u_text_box.hpp"
+#include "u_song_text_box.hpp"
+#include "u_progress_bar.hpp"
+#include "u_dynamic_text_box.hpp"
+
+#include "a_button_factory.hpp"
 
 #include "u_dummy.hpp"
 
@@ -26,17 +31,22 @@ private:
     Musical::Window w_main_;
     Musical::Window w_status_;
 
+    /// clock for calling update if nothing happened for some time
+    sf::Clock clock_update_;
+
     void InitializingScript();
 
     void Render();
 
     void Update();
 
+    void PopulateWindows();
+
     void SetKnowledge_MousePosition();
 
-    /// Debug functions
-    void _Debug_BackGroundRectangles();
+    void InitUI();
 
+    /// Debug functions
     void _Debug_PrintMousePosition();
     
 public:

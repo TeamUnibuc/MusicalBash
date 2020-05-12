@@ -9,6 +9,9 @@
 #include "tests/directory_select_t.hpp"
 #include "tests/mp3_file_duration_t.hpp"
 #include "player_t.hpp"
+#include "t_command_tests.hpp"
+
+#include "a_knowledge.hpp"
 
 namespace unit_tests
 {

@@ -9,9 +9,7 @@ namespace {
 
     [[maybe_unused]] void make_tick()
     {
-        while (true)
-            player.Step();
-        this_thread::sleep_for(chrono::milliseconds(100));
+        player.Step();
     }
 
     void print_available_functions()
@@ -22,6 +20,7 @@ namespace {
         cout << "3. list music\n    Lists all available music\n";
         cout << "4. list album\n    Lists all available albums\n";
         cout << "5. list playlist\n    Lists all available playlists\n";
+        cout << "5.5 list queue\n Lists playing queue\n";
         cout << "6. play\n    Plays the music\n";
         cout << "7. pause\n    Pauses the music\n";
         cout << "8. stop\n    stops the music\n";
@@ -36,6 +35,9 @@ namespace {
         cout << "17. offset get\n    shows curent offset in music\n";
         cout << "18. offset set\n    sets the playing offset\n";
         cout << "19. status\n    show status of player\n";
+        cout << "20. tick\n    creates a system tick\n";
+        cout << "21. prev\n    shows previous track\n";
+        cout << "21. next\n    shows next track\n";
     }
 
 }
@@ -100,6 +102,12 @@ void StartConsoleApp()
                     for (auto j : i->GetMusic())
                         cout << j->getName() << '\n';
                 }
+            }
+            else if (s == "queue") {
+                auto queue = player.GetPlayingQueue();
+                cout << "Playing queue:\n";
+                for (auto i : queue)
+                    cout << i->getName() << " - " << i->getDuration() << "sec.\n";
             }
             else {
                 cout << "Invalid argument\n";

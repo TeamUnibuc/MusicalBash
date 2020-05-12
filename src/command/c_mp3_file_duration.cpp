@@ -4,7 +4,7 @@
 
 CMp3FileDuration::CMp3FileDuration(const std::string& filePath)
     : filePath(filePath)
-{ }
+{ } 
 
 void CMp3FileDuration::Execute()
 {

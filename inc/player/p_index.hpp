@@ -47,7 +47,7 @@ public:
     std::vector <std::shared_ptr<PMusic>> getAllMusic() const;
     
     /// returns shared_ptr with given music
-    std::shared_ptr<PMusic> getMusicPtr(const std::string& name) const;
+    std::shared_ptr<PMusic> getMusicPtr(const std::string& name);
 
     /// deletes an album. Throw error if it does not exist
     void DeleteAlbum(const std::shared_ptr<PAlbum> album);

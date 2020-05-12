@@ -19,11 +19,14 @@ private:
     int        start_index_;
 
 protected:
+    bool LastElementIsVisible(int start) const;
 
 public:
     ScrollableList(int sizeX, int sizeY);
 
     void AddUiElement(SharedPtr<UiElement> ptr);
+
+    void ClearAllUiElements();
 
     void SetStartIndex(int index);
 

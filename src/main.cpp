@@ -14,13 +14,13 @@ int main()
 {
     Logger::Get() << "Starting application...\n";
 
-    StartConsoleApp();
+    // StartConsoleApp();
     
     // unit_tests::RunAllTests();
 
-    // Application musical_bash_app;
+    Application musical_bash_app;
 
-    // musical_bash_app.Run();
+    musical_bash_app.Run();
 
     Logger::Get() << "Closing application..." << '\n';
     return 0;

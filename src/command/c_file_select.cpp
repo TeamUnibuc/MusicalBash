@@ -6,18 +6,27 @@ CFileSelect::CFileSelect() { }
 
 void CFileSelect::Execute()
 {
-    char filename[1024];
-    filename[0] = 0;
+    thread_is_locked_.lock();
 
-    FILE *f = popen("zenity --file-selection", "r");
-    fgets(filename, 1024, f);
+    try {
+        char filename[1024];
+        filename[0] = 0;
 
-    if (filename[0] == 0)
-        throw std::runtime_error("User returned no file!");
-    
-    selected_file_ = std::string(filename);
-    if (selected_file_.size() > 0)
-        selected_file_.pop_back();
+        FILE *f = popen("zenity --file-selection", "r");
+        fgets(filename, 1024, f);
+
+        if (filename[0] == 0)
+            throw std::runtime_error("User returned no file!");
+        
+        selected_file_ = std::string(filename);
+        if (selected_file_.size() > 0)
+            selected_file_.pop_back();
+    }
+    catch (...) {
+        Logger::Get() << "There was a problem processing the file_select command!\n";
+        selected_file_ = "";
+    }
+    thread_is_locked_.unlock();
 }
 
 std::string CFileSelect::GetResult()

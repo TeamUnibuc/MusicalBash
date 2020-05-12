@@ -7,9 +7,11 @@
 /// Should contain a function for each event to handle from the main loop
 namespace EventHandler
 {
-    void Click(const sf::Event& event);
+    void Click();
 
     void MouseWheelScrolled(const sf::Event& event);
+
+    void DebugKeyDown();
 };
 
 #endif // INC_APPLICATION_EVENT_HANDLER_

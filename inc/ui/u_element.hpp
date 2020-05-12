@@ -2,6 +2,7 @@
 #define INC_UI_ELEMENT_
 
 #include <SFML/Graphics.hpp>
+#include "a_exceptions.hpp"
 
 /**
  * UIElement class, representing a drawable element.
@@ -17,6 +18,8 @@ protected:
     int pos_x, pos_y;
 
 public:
+    virtual ~UiElement();
+
     UiElement();
 
     UiElement(int pos_x, int pos_y);
@@ -30,6 +33,10 @@ public:
 
     /// Watch out to properly override this!!
     virtual int GetWidth() const = 0;
+
+    std::pair<int, int> GetPosition() const;
+
+    void SetPosition(const std::pair<int, int>& pos);
 };
 
 #endif // INC_UI_ELEMENT_

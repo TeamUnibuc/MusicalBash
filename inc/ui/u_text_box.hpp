@@ -17,10 +17,7 @@ private:
     int alignment_;
 
     sf::Text text_;
-
-    /// For cosmetic testing only, to be removed later !!!
-    sf::RectangleShape border;
-
+    
 protected:
 
 public:

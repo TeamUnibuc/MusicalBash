@@ -6,6 +6,7 @@
 #include <SFML/Audio.hpp>
 #include "c_mp3_file_duration.hpp"
 #include "c_file_select.hpp"
+#include "a_exceptions.hpp"
 
 /**
  * Class storing the information about a single track.
@@ -21,8 +22,13 @@ class PMusic
     double duration_seconds_;
 
 public:
+    PMusic();
+
     /* Creates a new music from the path path */
     PMusic(std::string path);
+
+    /// returns only the name of the song, without the path
+    std::string getSongNameWithoutPath() const;
 
     /// converts the content of the class to a string
     std::string Zip() const;

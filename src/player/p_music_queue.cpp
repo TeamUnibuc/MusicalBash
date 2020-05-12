@@ -25,10 +25,15 @@ PMusicQueue& PMusicQueue::operator += (std::shared_ptr<PTrack> track)
     return *this;
 }
 
+void PMusicQueue::AddToFront(std::shared_ptr<PMusic> music)
+{
+    content_.insert(content_.begin(), music);
+}
+
 std::shared_ptr<PMusic> PMusicQueue::FirstMusic(bool remove)
 {
     if (content_.empty())
-        throw std::runtime_error("Tried to get music out of an empty track!");
+        throw out_of_bounds_error("Tried to get music out of an empty track!");
 
     auto rez = content_[0];
     if (remove)
@@ -40,7 +45,7 @@ std::shared_ptr<PMusic> PMusicQueue::FirstMusic(bool remove)
 std::shared_ptr<PMusic> PMusicQueue::RandomMusic(bool remove)
 {
     if (content_.empty())
-        throw std::runtime_error("Tried to get music out of an empty track!");
+        throw out_of_bounds_error("Tried to get music out of an empty track!");
     
     int where = rnd() % content_.size();
     auto rez = content_[where];

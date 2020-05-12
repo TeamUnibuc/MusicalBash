@@ -6,7 +6,7 @@ PngSprite::~PngSprite()
 PngSprite::PngSprite(const std::string& path) : Sprite()
 {
     if (!texture_.loadFromFile(path)) {
-        throw std::runtime_error("SFML Failed to load texture from file: " + path);
+        throw loading_error(path);
     }
     texture_.setSmooth(true);
     sprite_.setTexture(texture_);
