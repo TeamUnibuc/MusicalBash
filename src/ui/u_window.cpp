@@ -101,7 +101,8 @@ void Window::MainController(int off_x, int off_y)
     ///// The Home state holds three columns of stuff: Random Albums, Random Playlists, Random Songs
     case Constants::State::W::Home :
     {
-        if (prev_state != Knowledge::State::curr_state) {
+        if (prev_state != Knowledge::State::curr_state ||
+            (prev_state == Knowledge::State::curr_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
             Logger::Get() << "INFO:  New state -  Home\n";
 
             element_list.clear();
