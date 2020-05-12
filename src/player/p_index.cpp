@@ -97,10 +97,10 @@ std::vector <std::shared_ptr<PMusic>> PIndex::getAllMusic() const
     return ans;
 }
 
-std::shared_ptr<PMusic> PIndex::getMusicPtr(const std::string& name) const
+std::shared_ptr<PMusic> PIndex::getMusicPtr(const std::string& name)
 {
     if (pmusic_.find(name) == pmusic_.end())
-        throw player_runtime_error("Tried to get pointer to an inexistent music!");
+        pmusic_[name] = std::make_shared<PMusic>(name);
     return pmusic_.at(name);
 }
 

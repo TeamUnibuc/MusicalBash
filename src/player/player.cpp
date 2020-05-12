@@ -26,6 +26,11 @@ std::shared_ptr<PPlaylist> Player::CreatePlaylist(const std::string& name)
     return index_->CreatePlaylist(name);
 }
 
+std::shared_ptr<PMusic> Player::CreateMusic(const std::string& path)
+{
+    return index_->getMusicPtr(path);
+}
+
 void Player::DeleteAlbum(const std::shared_ptr<PAlbum> album)
 {
     index_->DeleteAlbum(album);

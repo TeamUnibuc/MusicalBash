@@ -1,9 +1,12 @@
 #include "c_name_select.hpp"
 
-CNameSelect::CNameSelect() { }
+CNameSelect::CNameSelect()
+{
+}
 
 void CNameSelect::Execute()
 {
+    thread_is_locked_.lock();
     char filename[1024];
     filename[0] = 0;
     
@@ -16,6 +19,7 @@ void CNameSelect::Execute()
     choosen_name_ = std::string(filename);
     // if (choo_.size() > 0)
     //     selected_directory_.pop_back();
+    thread_is_locked_.unlock();
 }
 
 std::string CNameSelect::GetResult()
