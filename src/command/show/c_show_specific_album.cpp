@@ -1,6 +1,6 @@
 #include "c_show_specific_album.hpp"
 
-CShowSpecificAlbum::CShowSpecificAlbum()
+CShowSpecificAlbum::CShowSpecificAlbum(SharedPtr<PAlbum> ptr) : album_(ptr)
 {}
 
 void CShowSpecificAlbum::SetAlbum(SharedPtr<PAlbum> ptr)

@@ -62,20 +62,22 @@ void Window::MainController(int off_x, int off_y)
 {
     namespace Kld = Knowledge;
 
-    if (prev_state != Knowledge::State::curr_state) {
+    auto& app_state = Kld::State::curr_state;
+
+    if (prev_state != app_state) {
         Logger::Get() << "INFO:  Prev State -  ";
         Logger::PrintEnum(prev_state);
         Logger::Get() << "\n";
     }
 
-    switch (Knowledge::State::curr_state)
+    switch (app_state)
     {  
     /// ==== Main ==================  Queue  ==========================
     /// Queue state holds two things: A textbox for displaying the name of the view (Music Queue)
     ///   And a Scrollable list for the song entries
     case Constants::State::W::Queue: {
         /// If change of state then create the TextBox and ScrollableList
-        if (prev_state != Knowledge::State::curr_state) {
+        if (prev_state != app_state) {
             Logger::Get() << "INFO:  New  State -  Queue\n";
 
             element_list.clear();
@@ -101,8 +103,8 @@ void Window::MainController(int off_x, int off_y)
     ///// The Home state holds three columns of stuff: Random Albums, Random Playlists, Random Songs
     case Constants::State::W::Home :
     {
-        if (prev_state != Knowledge::State::curr_state ||
-            (prev_state == Knowledge::State::curr_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
+        if (prev_state != app_state ||
+            (prev_state == app_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
             Logger::Get() << "INFO:  New state -  Home\n";
 
             element_list.clear();
@@ -110,14 +112,50 @@ void Window::MainController(int off_x, int off_y)
             ViewsMain::CreateHome(this, this);
         }
 
-        Knowledge::State::curr_state = Constants::State::W::Home;
+        app_state = Constants::State::W::Home;
         
         ViewsMain::UpdateHome(this, this);
-
         break;
     }
 
-    /// Next case here
+    ///// ==================== Main ============== Playlist ======================
+
+    case Constants::State::W::Playlists : 
+    {
+        if (prev_state != app_state ||
+            (prev_state == app_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
+                Logger::Get() << "INFO:  New sate - Playists\n";
+                
+                element_list.clear();
+                ViewsMain::CreatePlaylists(this, this);
+        }
+
+        ViewsMain::UpdatePlaylists(this, this);
+        break;
+    }
+
+    //// ====================== Main ============== Albums ======================
+
+    case Constants::State::W::Albums :
+    {
+        if (prev_state != app_state ||
+            (prev_state == app_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
+            Logger::Get() << "INFO:  New state - Albums\n";
+
+            element_list.clear();
+            ViewsMain::CreateAlbums(this, this);
+        }
+
+        SharedPtr<ScrollableList> scrl_ptr;
+
+        for (auto p : element_list) 
+            if (dynamic_cast<ScrollableList*>(&*p))
+                scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
+        scrl_ptr->ClearAllUiElements();
+
+        ViewsMain::UpdateAlbums(scrl_ptr, Knowledge::Daddy_Player->getAlbums());
+        break;
+    }
 
     }
 
@@ -125,7 +163,7 @@ void Window::MainController(int off_x, int off_y)
     for (auto p : element_list)
         p->Update(off_x, off_y);
 
-    prev_state = Knowledge::State::curr_state;
+    prev_state = app_state;
 }
 
 

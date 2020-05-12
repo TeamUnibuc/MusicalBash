@@ -1,16 +1,16 @@
-#pragma once /// SHOW SPECIFIC ALBUM
+#pragma once /// COMMAND DELETE ALBUM HPP
 
 #include "command.hpp"
 #include "p_album.hpp"
 #include "a_knowledge.hpp"
 
-class CShowSpecificAlbum : public Command
+class CDeleteAlbum : public Command
 {
 private:
-    SharedPtr<PAlbum> album_;
+    SharedPtr<PAlbum> a_ptr;
 
 public:
-    CShowSpecificAlbum(SharedPtr<PAlbum> ptr);
+    CDeleteAlbum(SharedPtr<PAlbum> ptr = nullptr);
 
     void SetAlbum(SharedPtr<PAlbum> ptr);
 

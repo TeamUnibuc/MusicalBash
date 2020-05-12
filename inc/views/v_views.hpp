@@ -6,6 +6,7 @@
 #include "a_button_factory.hpp"
 #include "u_dynamic_text_box.hpp"
 #include "u_progress_bar.hpp"
+#include "u_album_entry.hpp"
 
 /**
  * ViewsMain is a class that has logic for populating different views
@@ -15,6 +16,7 @@
 class ViewsMain
 {
 private:
+    static void SetTitle(const std::string& str, UiContainer *const c_ptr, UiElement *const fatherUi);
 
 protected:
     /// Height of the Title for each View Name as text at the top of the window
@@ -34,6 +36,12 @@ public:
 
     static void CreateQueue(UiContainer *const father, UiElement *const fatherUi);
     static void UpdateQueue(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PMusic>>& music_list);
+
+    static void CreateAlbums(UiContainer *const father, UiElement *const fatherUi);
+    static void UpdateAlbums(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PAlbum>>& album_list);
+
+    static void CreatePlaylists(UiContainer *const father, UiElement *const fatherUi);
+    static void UpdatePlaylists(UiContainer *const father, UiElement *const fatherUi);
 };
 
 class ViewsSide

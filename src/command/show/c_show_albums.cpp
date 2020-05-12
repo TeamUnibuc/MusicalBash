@@ -6,5 +6,5 @@ CShowAlbums::CShowAlbums()
 /// TO DO
 void CShowAlbums::Execute()
 {
-    Logger::Get() << "Command ShowAlbums Not implemented !!! \n";
+    Knowledge::State::curr_state = Constants::State::W::Albums;
 } 

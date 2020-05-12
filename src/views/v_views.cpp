@@ -1,7 +1,7 @@
 #include "v_views.hpp"
 
 const int ViewsMain::kListWidthSimple  = 760 + 18;
-const int ViewsMain::kListWidthButtons = 550;
+const int ViewsMain::kListWidthButtons = 750;
 const int ViewsMain::kListHeight       = 440; 
 const int ViewsMain::kEntryHeight      = 66;
 
@@ -10,14 +10,21 @@ const int ViewsMain::kTitleHeight      = 38;
 
 const std::pair<int,int> ViewsMain::kListPoz = {40, 50};
 
+/// ====== Utils =====================
+
+void ViewsMain::SetTitle(const std::string& str, UiContainer *const c_ptr, UiElement *const fatherUi)
+{
+    SharedPtr<TextBox> tb_ptr(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, str));
+    c_ptr->AddUiElementToList(tb_ptr);
+}
+
 /// ====================================== Main ======= Create ======= Home ==================
 
 void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
 {
     Logger::Get() << "INFO: Creating Home View\n";
 
-    SharedPtr<TextBox> tb_ptr(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, "Home"));
-    father->AddUiElementToList(tb_ptr);
+    SetTitle("Home", father, fatherUi);
 
     const int colWidth = 220, colHeight = 40, colGap = 70;
     const int lineGap  = 10,  lineOffsetX = 36, lineOffsetY = kTitleHeight + 55;
@@ -41,8 +48,7 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
         SharedPtr<TextButton> btn_ptr;
       if (i < album_list.size()) {
         /// create album clickable
-        auto c_spec_alb = std::make_unique<CShowSpecificAlbum>();
-        c_spec_alb->SetAlbum(album_list[i]);
+        auto c_spec_alb = std::make_unique<CShowSpecificAlbum>(album_list[i]);
         btn_ptr = std::make_shared<TextButton>(
             colWidth, colHeight, std::move(c_spec_alb),
             sf::Color::Transparent, Constants::kSideBtnHover,
@@ -117,8 +123,7 @@ void ViewsMain::UpdateHome(UiContainer *const father, UiElement *const fatherUi)
 
 void ViewsMain::CreateQueue(UiContainer * const c_ptr, UiElement *const fatherUi)
 {
-    SharedPtr<TextBox> tb_ptr(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, "Current Queue"));
-    c_ptr->AddUiElementToList(tb_ptr);
+    SetTitle("Current Queue", c_ptr, fatherUi);
 
     auto lst_ptr = std::make_unique<ScrollableList>(
         kListWidthSimple, kListHeight
@@ -141,6 +146,51 @@ void ViewsMain::UpdateQueue(SharedPtr<ScrollableList> l_ptr, const std::vector<S
         );
         l_ptr->AddUiElement(std::move(entry_ptr));
     }
+}
+
+/// ============================= Main ===== Create ===== Albums ====================
+
+void ViewsMain::CreateAlbums(UiContainer *const father, UiElement *const fatherUi)
+{
+    SetTitle("Albums", father, fatherUi);
+
+    auto lst_ptr = std::make_unique<ScrollableList>(
+        kListWidthButtons, kListHeight
+    );
+    lst_ptr->SetPosition(kListPoz);
+
+    father->AddUiElementToList(std::move(lst_ptr));
+}
+
+/// ============================= Main ===== Update ===== Albums ====================
+
+void ViewsMain::UpdateAlbums(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PAlbum>>& album_list)
+{
+    int contor = 0;
+    for (auto a_ptr : album_list) {
+        auto entry_ptr = std::make_unique<AlbumEntry>(
+            kListWidthSimple, kEntryHeight, 
+            Constants::kSideBtnIdle, Constants::kSideBtnHover,
+            a_ptr, ++contor,
+            std::make_unique<CShowSpecificAlbum>(a_ptr),
+            std::make_shared<PngSprite>("data/img/red_cross.png")
+        );
+        l_ptr->AddUiElement(std::move(entry_ptr));
+    }
+}
+
+/// ============================= Main ===== Create ===== Playlists =================
+
+void ViewsMain::CreatePlaylists(UiContainer *const father, UiElement *const fatherUi)
+{
+
+}
+
+/// ============================= Main ===== Update ===== Playlists =================
+
+void ViewsMain::UpdatePlaylists(UiContainer *const father, UiElement *const fatherUi)
+{
+
 }
 
 /// ==================================================== Side Menu ======== Create =========================
