@@ -20,6 +20,7 @@ namespace Constants
     extern const sf::Color kAppBackground;
     extern const sf::Color kSideBtnIdle, kSideBtnHover;
     extern const sf::Color kPurple;
+    extern const sf::Color kGreen;
 
     /// Maximum framerate
     extern const int    kFrameLimit;

@@ -15,6 +15,8 @@ protected:
 
     SharedPtr<PMusic> music_;
 
+    int number_;
+
     static const float kPercentage;
     static const float kHeightRatio;
     static const int   kMinSpaceForDuration;
@@ -22,11 +24,13 @@ protected:
 
 public:
     MusicEntry(int szX, int szY, 
-               sf::Color normal, sf::Color hovered, SharedPtr<PMusic> mPtr);
+               sf::Color normal, sf::Color hovered, SharedPtr<PMusic> mPtr, int number);
 
     void Render(sf::RenderWindow& rw, int off_x, int off_y) override;
 
     void Update(int off_x, int off_y) override;
+
+    void SetNumber(int nr);
 
     int GetHeight() const override;
     int GetWidth() const override;

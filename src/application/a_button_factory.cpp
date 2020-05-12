@@ -91,7 +91,7 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
                 std::make_shared<PngSprite>("data/img/shuffle_btn.png"),
                 [idle_color](sf::Color& col) {
                     if (Knowledge::Daddy_Player->getSufflingStatus())
-                        col = sf::Color(12, 201, 22);
+                        col = Constants::kGreen;
                     else
                         col = idle_color;
                 }

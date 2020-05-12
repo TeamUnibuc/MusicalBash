@@ -19,6 +19,7 @@ const sf::Color kAppBackground    = sf::Color(51,  133, 255, 255);
 const sf::Color kSideBtnHover     = sf::Color(20,  20,  20,  240);
 const sf::Color kSideBtnIdle      = sf::Color(100, 100, 100, 240);
 const sf::Color kPurple           = sf::Color(185, 87,  255);
+const sf::Color kGreen            = sf::Color(12,  201, 22);
 
 const std::string kApplicationName = "Musical Bash";
 

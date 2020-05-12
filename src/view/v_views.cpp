@@ -114,11 +114,12 @@ void ViewsMain::CreateQueue(UiContainer * const c_ptr, UiElement *const fatherUi
 
 void ViewsMain::UpdateQueue(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PMusic>>& music_list)
 {
+    int contor = 0;
     for (auto m_ptr : music_list) {
         auto entry_ptr = std::make_unique<MusicEntry>(
             kListWidthSimple, kEntryHeight, 
             Constants::kSideBtnIdle, Constants::kSideBtnHover,
-            m_ptr
+            m_ptr, ++contor
         );
         l_ptr->AddUiElement(std::move(entry_ptr));
     }
