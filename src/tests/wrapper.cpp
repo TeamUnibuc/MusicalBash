@@ -16,7 +16,7 @@ namespace unit_tests
     {   
         Logger::Get() << "Creating DaddyPlayer Instance\n";
         Knowledge::Daddy_Player = std::make_unique<Player>();
-        Logger::Get() << Knowledge::GetActiveSongNameOrEmpty() << '\n';
+        // Logger::Get() << Knowledge::GetActiveSongNameOrEmpty() << '\n';
         Logger::Get() << "DaddyPlayer created\n";
 
         cout << std::unitbuf;
