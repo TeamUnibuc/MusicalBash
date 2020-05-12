@@ -59,6 +59,9 @@ public:
     Will launch an exception if name is taken */
     std::shared_ptr<PPlaylist> CreatePlaylist(const std::string& name);
 
+    /// creates if necessary and returns pointer to new PMusic
+    std::shared_ptr<PMusic> CreateMusic(const std::string& path);
+
     /// removes an album from index
     void DeleteAlbum(const std::shared_ptr<PAlbum> album);
 

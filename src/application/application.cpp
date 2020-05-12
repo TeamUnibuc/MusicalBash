@@ -86,10 +86,13 @@ void Application::Render()
 
 void Application::Update()
 {
+    /// Updating multithread stuff
+    CImportAlbum::PostExecutionVerification();
+    CCreatePlaylists::PostExecutionVerification();
+    
     w_side_bar_.Update(0, 0);
     w_status_.Update(0, 0);
     w_main_.Update(0, 0);
-    
 }
 
 void Application::SetKnowledge_MousePosition()
