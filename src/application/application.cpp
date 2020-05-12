@@ -42,10 +42,6 @@ void Application::InitUI()
     w_main_.ClearAllUiElements();
     w_status_.ClearAllUiElements();
 
-    w_side_bar_.setViewPort(sf::FloatRect(0, 0, 0.25, 1));
-    w_main_.setViewPort(sf::FloatRect(0.25, 0, 0.75, 0.666));
-    w_status_.setViewPort(sf::FloatRect(0.25, 0.666, 0.75, 0.333));
-    
     rend_window_.setFramerateLimit(Constants::kFrameLimit);
 
     
@@ -128,7 +124,7 @@ int Application::Run()
             {
                 case sf::Event::MouseButtonPressed:
                 {
-                    EventHandler::Click(event);  
+                    EventHandler::Click();
                     Logger::Get() << "Size of all music: " << Knowledge::Daddy_Player->getAllMusic().size() << '\n';
                     break;           
                 }
@@ -159,11 +155,13 @@ int Application::Run()
             this->Update(); 
 
             /// Reset the knowledge so we dont update multiple times
-            Knowledge::ResetEvent();           
+            Knowledge::ResetEvent();
+
+            /// Reset clock used for forced updates
+            clock_update_.restart();
         }
 
         if (clock_update_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
-            // this->Update();
             this->Update();
             clock_update_.restart();
         }
@@ -196,6 +194,21 @@ int Application::Run()
                 Knowledge::Daddy_Player->addAlbumToQueue( Knowledge::Daddy_Player->getAlbums()[0] );
 
                 Knowledge::Daddy_Player->PlayMusic();
+
+                // Knowledge::Daddy_Player->PlayMusic();
+                
+                Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
+                
+                auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];
+
+                Knowledge::Daddy_Player->addAlbumToQueue(album_ptr);
+
+                Knowledge::Daddy_Player->CreatePlaylist("Test Playlist");
+                Knowledge::Daddy_Player->CreatePlaylist("Coding");
+
+                Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
+                    Knowledge::Daddy_Player->getAllMusic()[2]
+                );
             }
         }
 

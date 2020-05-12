@@ -22,7 +22,6 @@ protected:
 
     FType col_updater_;
 
-public:
     static FType kDefault;
 
 };
