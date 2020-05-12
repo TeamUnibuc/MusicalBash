@@ -52,12 +52,6 @@ public:
 
     /// Update Window
     void Update(int offX, int offY);
-
-    /// Add some UiElement to the Window
-    void AddSampleUiElement(std::shared_ptr<UiElement> ptr);
-
-    /// Deletes all the UiElement from the Window
-    void ClearAllElements();
 };
 
 }

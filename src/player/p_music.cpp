@@ -5,7 +5,7 @@
 #include <sstream>
 #include <iostream>
 
-PMusic::PMusic() : played_count_(0), path_(""), duration_seconds_(0) { }
+PMusic::PMusic() : played_count_(0), path_("None"), duration_seconds_(0) { }
 
 PMusic::PMusic(std::string path) : played_count_(0), path_(path) {
     bool duration_calculated = false;
@@ -27,6 +27,15 @@ PMusic::PMusic(std::string path) : played_count_(0), path_(path) {
         duration_seconds_ = myMusic.getDuration().asSeconds();
         duration_calculated = true;
     }
+}
+
+std::string PMusic::getSongNameWithoutPath() const
+{
+    int last_backslash = -1;
+    for (int i = 0; i < (int)path_.size(); i++)
+        if (path_[i] == '/')
+            last_backslash = i;
+    return path_.substr(last_backslash + 1);
 }
 
 std::string PMusic::Zip() const

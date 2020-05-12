@@ -27,7 +27,7 @@ void MusicEntry::Render(sf::RenderWindow& rw, int off_x, int off_y)
     const int txtLen     = size_x_ - std::max(kMinSpaceForDuration, int(size_x_ * kPercentage));
 
     TextBox song_name(5, off_height, txtLen, txt_height, 
-                      0, music_->getName());
+                      0, music_->getSongNameWithoutPath());
 
     TextBox song_duration(txtLen - 14, off_height, size_x_ - txtLen, txt_height,
                           2, Utils::IntToMinSecondSecond(music_->getDuration()));

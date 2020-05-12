@@ -17,9 +17,9 @@ static std::pair<int, int> mouse_poz_;
 
 
 /// Functions so we can use those global variables!
-void Reset()
+void ResetEvent()
 {
-    mouse_poz_ = {-1, -1};
+    // mouse_poz_ = {-1, -1};
     event_ = kMockEvent;
 }
 
@@ -41,13 +41,6 @@ sf::Event GetEvent()
 void SetEvent(sf::Event ev)
 {
     event_ = ev;
-}
-
-std::string GetActiveSongNameOrEmpty()
-{
-    if (-1 == Daddy_Player->getPlayingStatus())
-        return "- - - - -";
-    return Daddy_Player->getActiveSong()->getName();
 }
 
 }

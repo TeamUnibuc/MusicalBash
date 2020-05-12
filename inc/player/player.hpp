@@ -7,6 +7,7 @@
 #include "p_music_player.hpp"
 #include "p_playlist.hpp"
 #include "p_music_queue.hpp"
+#include "a_constants.hpp"
 
 #include <vector>
 #include <string>
@@ -63,9 +64,6 @@ public:
 
     /// deletes a playlist
     void DeletePlaylist(const std::shared_ptr<PPlaylist> playlist);
-
-    /// returns the music in Queue
-    std::vector <SharedPtr<PMusic>> getQueueMusic();
 
     /// returns all the music
     std::vector <std::shared_ptr<PMusic>> getAllMusic();

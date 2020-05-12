@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "u_element.hpp"
+#include "a_definitions.hpp"
 
 /**
  * Container class, by derivating it.
@@ -16,10 +17,16 @@ class UiContainer
 {
 private:
 protected:
+    std::vector <std::shared_ptr<UiElement>> element_list;
+    
 public:
     UiContainer();
 
-    std::vector <std::shared_ptr<UiElement>> element_list;
+    /// Add some UiElement to the Window
+    void AddUiElementToList(const SharedPtr<UiElement>& ptr);
+
+    /// Deletes all the UiElement from the Window
+    void ClearAllUiElements();
 };
 
 #endif // INC_UI_CONTAINER_

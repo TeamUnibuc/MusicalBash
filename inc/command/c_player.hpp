@@ -18,21 +18,10 @@ public:
 /**
  * Command that preps Knowledge for pressing the Next button
  */
-class CPlayerPlay : public Command
+class CPlayerPlayPause : public Command
 {
 public:
-    CPlayerPlay();
-
-    void Execute() override;
-};
-
-/**
- * Command the PLAY button
- */
-class CPlayerPause : public Command
-{
-public:
-    CPlayerPause();
+    CPlayerPlayPause();
 
     void Execute() override;
 };

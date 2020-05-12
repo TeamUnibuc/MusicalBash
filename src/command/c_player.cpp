@@ -5,15 +5,20 @@ CPlayerShuffle::CPlayerShuffle()
 
 void CPlayerShuffle::Execute()
 {
-    Logger::Get() << "Shuffle Button not implemented ! \n";
+    const bool shuffle = Knowledge::Daddy_Player->getSufflingStatus();
+    Knowledge::Daddy_Player->setSufflingStatus(1 - shuffle);
 }
 
-CPlayerPlay::CPlayerPlay()
+CPlayerPlayPause::CPlayerPlayPause()
 {}
 
-void CPlayerPlay::Execute()
+void CPlayerPlayPause::Execute()
 {
-    Logger::Get() << "Play Button not implemented ! \n";
+    const bool isPlaying = (Knowledge::Daddy_Player->getPlayingStatus() == 0);
+    if (not isPlaying)
+        Knowledge::Daddy_Player->PlayMusic();
+    else
+        Knowledge::Daddy_Player->PauseMusic();
 }
 
 
@@ -22,7 +27,7 @@ CPlayerNext::CPlayerNext()
 
 void CPlayerNext::Execute()
 {
-    Logger::Get() << "Next Button not implemented ! \n";
+    Knowledge::Daddy_Player->Next();
 }
 
 CPlayerBack::CPlayerBack()
@@ -30,16 +35,7 @@ CPlayerBack::CPlayerBack()
 
 void CPlayerBack::Execute()
 {
-    Logger::Get() << "Back Button not implemented ! \n";
-}
-
-
-CPlayerPause::CPlayerPause()
-{}
-
-void CPlayerPause::Execute()
-{
-    Logger::Get() << "Pause Button not implemented ! \n";
+    Knowledge::Daddy_Player->Prev();
 }
 
 /**
@@ -50,7 +46,7 @@ CPlayerStop::CPlayerStop()
 
 void CPlayerStop::Execute()
 {
-    Logger::Get() << "Stop Button not implemented ! \n";
+    Knowledge::Daddy_Player->StopMusic();
 }
 
 

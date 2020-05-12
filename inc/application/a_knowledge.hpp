@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <utility>
 
+#include "a_definitions.hpp"
 #include "a_constants.hpp"
 #include "player.hpp"
 
@@ -24,7 +25,7 @@ namespace Knowledge
 
     extern UniquePtr<Player> Daddy_Player;
 
-    void Reset();
+    void ResetEvent();
 
     void SetMousePoz(const std::pair<int, int>& where);
 
@@ -33,8 +34,6 @@ namespace Knowledge
     void SetEvent(sf::Event ev);
 
     sf::Event GetEvent();    
-
-    std::string GetActiveSongNameOrEmpty();
 }
 
 #endif

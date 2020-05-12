@@ -88,15 +88,21 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
         case PlayerType::Shuffle : {
             auto ptr = std::make_unique<PngColorButton> (
                 szX, szY, std::make_unique<CPlayerShuffle>(), idle_color, hover_color,
-                std::make_shared<PngSprite>("data/img/shuffle_btn.png")
+                std::make_shared<PngSprite>("data/img/shuffle_btn.png"),
+                [idle_color](sf::Color& col) {
+                    if (Knowledge::Daddy_Player->getSufflingStatus())
+                        col = sf::Color(12, 201, 22);
+                    else
+                        col = idle_color;
+                }
             );
             return ptr;
         }
         case PlayerType::PlayPause : {
             auto ptr = std::make_unique<DoublePngColorButton> (
-                szX, szY, std::make_unique<CPlayerPlay>(), idle_color, hover_color,
-                std::make_shared<PngSprite>("data/img/play_btn_white.png"), 
-                std::make_shared<PngSprite>("data/img/pause_btn_white.png")
+                szX, szY, std::make_unique<CPlayerPlayPause>(), idle_color, hover_color,
+                std::make_shared<PngSprite>("data/img/pause_btn_white.png"), 
+                std::make_shared<PngSprite>("data/img/play_btn_white.png")
             );
             return ptr;
         }
