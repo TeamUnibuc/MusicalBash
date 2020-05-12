@@ -17,17 +17,22 @@ class ViewsMain
 private:
 
 protected:
+    /// Height of the Title for each View Name as text at the top of the window
+    static const int kTitleHeight;
+    /// Height of the scrollable list from just below the title to the end
+    static const int kListHeight;
+
     static const int kListWidthSimple;
     static const int kListWidthButtons;
-    static const int kListHeight;
     static const int kEntryHeight;
 
     static const std::pair<int,int> kListPoz;
 
 public:
-    static void Home();
+    static void CreateHome(UiContainer *const father, UiElement *const fatherUi);
+    static void UpdateHome(UiContainer *const father, UiElement *const fatherUi);
 
-    static void CreateQueue(UiContainer * const father_elem_list);
+    static void CreateQueue(UiContainer *const father, UiElement *const fatherUi);
     static void UpdateQueue(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PMusic>>& music_list);
 };
 

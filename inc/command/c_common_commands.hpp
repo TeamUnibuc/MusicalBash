@@ -7,3 +7,5 @@
 #include "c_show_home.hpp"
 #include "c_show_music_queue.hpp"
 #include "c_show_playlists.hpp"
+#include "c_show_specific_album.hpp"
+#include "c_show_specific_playlist.hpp"

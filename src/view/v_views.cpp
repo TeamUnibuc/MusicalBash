@@ -5,23 +5,102 @@ const int ViewsMain::kListWidthButtons = 550;
 const int ViewsMain::kListHeight       = 440; 
 const int ViewsMain::kEntryHeight      = 66;
 
+const int ViewsMain::kTitleHeight      = 38;
+
+
 const std::pair<int,int> ViewsMain::kListPoz = {40, 50};
 
+/// ====================================== Main ======= Create ======= Home ==================
 
-void ViewsMain::Home()
+void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
 {
+    Logger::Get() << "INFO: Creating Home View\n";
 
+    SharedPtr<TextBox> tb_ptr(new TextBox(0, 0, fatherUi->GetWidth(), kTitleHeight, 1, "Home"));
+    father->AddUiElementToList(tb_ptr);
+
+    const int colWidth = 220, colHeight = 40, colGap = 70;
+    const int lineGap  = 20,  lineOffsetX = 30, lineOffsetY = kTitleHeight + 10;
+    const int nrItems  = 4;
+
+    auto album_list = Knowledge::Daddy_Player->getAlbums();
+    auto playlist_list = Knowledge::Daddy_Player->getPlaylists();
+    auto music_list = Knowledge::Daddy_Player->getAllMusic();
+
+    std::random_shuffle(album_list.begin(), album_list.end());
+    std::random_shuffle(playlist_list.begin(), playlist_list.end());
+    std::random_shuffle(music_list.begin(), music_list.end());
+
+    Logger::Get() << "DEBUG: Sizes =  " << album_list.size() << ' ' << playlist_list.size() << ' ' << music_list.size() << '\n';
+
+
+    for (size_t i = 0; i < nrItems; ++i) {
+        /// Create the first row of elemens
+        SharedPtr<TextButton> btn_ptr;
+      if (i < album_list.size()) {
+        /// create album clickable
+        auto c_spec_alb = std::make_unique<CShowSpecificAlbum>();
+        c_spec_alb->SetAlbum(album_list[i]);
+        btn_ptr = std::make_shared<TextButton>(
+            colWidth, colHeight, std::move(c_spec_alb),
+            Constants::kSideBtnIdle, Constants::kSideBtnHover,
+            std::make_unique<TextBox>(
+                11, 8, colWidth, 25, 0, album_list[i]->GetName()
+            )
+        );
+        btn_ptr->SetPosition({lineOffsetX, lineOffsetY + (lineGap + colHeight) * i});
+        father->AddUiElementToList(btn_ptr);
+      }
+
+      if (i < playlist_list.size()) {
+        /// Create Playlist clickable
+        auto c_spec_playlist = std::make_unique<CShowSpecificPlaylist>();
+        c_spec_playlist->SetPlaylist(playlist_list[i]);
+        btn_ptr = std::make_shared<TextButton>(
+            colWidth, colHeight, std::move(c_spec_playlist),
+            Constants::kSideBtnIdle, Constants::kSideBtnHover,
+            std::make_unique<TextBox>(
+                11, 8, colWidth, 25, 0, playlist_list[i]->GetName()
+            )
+        );
+        btn_ptr->SetPosition({lineOffsetX + colGap + colWidth, lineOffsetY + (lineGap + colHeight) * i});
+        father->AddUiElementToList(btn_ptr);
+      }
+
+      if (i < music_list.size()) {
+        /// Create Music clickable
+        btn_ptr = std::make_shared<TextButton>(
+            colWidth, colHeight, std::make_unique<CAddMusicQueue>(music_list[i]),
+            Constants::kSideBtnIdle, Constants::kSideBtnHover,
+            std::make_unique<TextBox>(
+                11, 8, colWidth, 25, 0, music_list[i]->getSongNameWithoutPath()
+            )
+        );
+        btn_ptr->SetPosition({lineOffsetX + 2 * (colWidth + colGap), lineOffsetY + (lineGap + colHeight) * i});
+        father->AddUiElementToList(btn_ptr);
+      }
+
+    }
+}
+
+/// ====================================== Main ======= Update  ======= Home ==================
+
+void ViewsMain::UpdateHome(UiContainer *const father, UiElement *const fatherUi)
+{
+    /// Reupdate Home ? Maybe after some time just redo create
+
+    // if (last_time_home_created_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
+    //     father->ClearAllUiElements();
+    //     CreateHome(father, fatherUi);
+    // }
 }
 
 /// ======================================= Main ===== Create ===== Queue ==========
 
-void ViewsMain::CreateQueue(UiContainer * const c_ptr)
+void ViewsMain::CreateQueue(UiContainer * const c_ptr, UiElement *const fatherUi)
 {
-    auto txt_ptr = std::make_unique<TextBox>(
-        5, 8, 700, 30, 1, "Current Queue"
-    );
-
-    c_ptr->AddUiElementToList(std::move(txt_ptr));
+    SharedPtr<TextBox> tb_ptr(new TextBox(0, 0, fatherUi->GetWidth(), kTitleHeight, 1, "Current Queue"));
+    c_ptr->AddUiElementToList(tb_ptr);
 
     auto lst_ptr = std::make_unique<ScrollableList>(
         kListWidthSimple, kListHeight

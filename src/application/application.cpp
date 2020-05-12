@@ -182,13 +182,18 @@ int Application::Run()
         if(debug_clock.getElapsedTime().asSeconds() > 3) {  /// DEBUG
             if (not startedSong) {
                 startedSong = 1;
-                Logger::Get() << "Creating and playing test music.....\n";
-                auto music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
-                Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
-                music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/IWillSurvive.wav"));
-                Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
-                music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
-                Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
+                // Logger::Get() << "Creating and playing test music.....\n";
+                // auto music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
+                // Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
+                // music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/IWillSurvive.wav"));
+                // Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
+                // music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
+                // Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
+                
+                Logger::Get() << "DEBUG: Adding Album to Player\n";
+                Knowledge::Daddy_Player->CreateAlbum("data");
+
+                Knowledge::Daddy_Player->addAlbumToQueue( Knowledge::Daddy_Player->getAlbums()[0] );
 
                 Knowledge::Daddy_Player->PlayMusic();
             }

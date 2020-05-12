@@ -4,7 +4,9 @@ namespace Knowledge
 {
 UniquePtr<Player> Daddy_Player;
 
-Constants::State::W curr_state = Constants::State::W::Home;
+/// State holding information
+Constants::State::W   State::curr_state = Constants::State::W::Home;
+// State::Data           State::data;
 
 /// Global variables but available only 
 /// in this translation unit so we are safe

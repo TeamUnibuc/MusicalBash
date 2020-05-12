@@ -14,14 +14,15 @@ namespace Knowledge
     /// This enum tells the MainWindow what has to render
     namespace State
     {
-        union Data
+        struct Data
         {
-            static SharedPtr<PPlaylist> curr_playlist;
-            static SharedPtr<PAlbum> curr_album;
+            SharedPtr<PPlaylist> curr_playlist;
+            SharedPtr<PAlbum> curr_album;
         };
-    }
 
-    extern Constants::State::W curr_state;
+        static Data data;
+        extern Constants::State::W curr_state;
+    }
 
     extern UniquePtr<Player> Daddy_Player;
 

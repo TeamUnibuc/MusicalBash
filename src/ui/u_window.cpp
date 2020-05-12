@@ -62,46 +62,56 @@ void Window::MainController(int off_x, int off_y)
 {
     namespace Kld = Knowledge;
 
-    if (prev_state != Knowledge::curr_state) {
-        Logger::Get() << " | Prev State: ";
+    if (prev_state != Knowledge::State::curr_state) {
+        Logger::Get() << "INFO:  Prev State -  ";
         Logger::PrintEnum(prev_state);
         Logger::Get() << "\n";
     }
 
-    switch (Knowledge::curr_state)
-    {  /// ==== Main ==================  Queue  ==========================
+    switch (Knowledge::State::curr_state)
+    {  
+    /// ==== Main ==================  Queue  ==========================
+    /// Queue state holds two things: A textbox for displaying the name of the view (Music Queue)
+    ///   And a Scrollable list for the song entries
     case Constants::State::W::Queue: {
         /// If change of state then create the TextBox and ScrollableList
-        if (prev_state != Knowledge::curr_state) {
-            Logger::Get() << "  New state:  Queue\n";
+        if (prev_state != Knowledge::State::curr_state) {
+            Logger::Get() << "INFO:  New  State -  Queue\n";
 
             element_list.clear();
 
-            ViewsMain::CreateQueue(this);
+            ViewsMain::CreateQueue(this, this);
         }
+
+        /// Gasesc lista care tine entry-urile din queue
         SharedPtr<ScrollableList> scrl_ptr;
 
         for (auto p : element_list) 
             if (dynamic_cast<ScrollableList*>(&*p))
                 scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
-
         scrl_ptr->ClearAllUiElements();
 
-        ViewsMain::UpdateQueue(scrl_ptr, Knowledge::Daddy_Player->GetPlayingQueue());
+        /// Updatez view-list-ul
+        ViewsMain::UpdateQueue(scrl_ptr, Kld::Daddy_Player->GetPlayingQueue());
 
-        Knowledge::curr_state = Constants::State::W::Queue;
+        Kld::State::curr_state = Constants::State::W::Queue;
         break;
-    }  ///// ===== Main ============= Home =====================
+    }  
+    ///// ======================= Main ============= Home ==============================
+    ///// The Home state holds three columns of stuff: Random Albums, Random Playlists, Random Songs
     case Constants::State::W::Home :
     {
-        if (prev_state != Knowledge::curr_state) {
-            Logger::Get() << "  New state:  Home\n";
+        if (prev_state != Knowledge::State::curr_state) {
+            Logger::Get() << "INFO:  New state -  Home\n";
 
             element_list.clear();
+
+            ViewsMain::CreateHome(this, this);
         }
 
-        Knowledge::curr_state = Constants::State::W::Home;
-
+        Knowledge::State::curr_state = Constants::State::W::Home;
+        
+        ViewsMain::UpdateHome(this, this);
 
         break;
     }
@@ -114,7 +124,7 @@ void Window::MainController(int off_x, int off_y)
     for (auto p : element_list)
         p->Update(off_x, off_y);
 
-    prev_state = Knowledge::curr_state;
+    prev_state = Knowledge::State::curr_state;
 }
 
 
