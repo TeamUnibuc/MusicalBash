@@ -177,7 +177,7 @@ int Application::Run()
 
 
 
-        if(debug_clock.getElapsedTime().asSeconds() > 3) {  /// DEBUG
+        if(debug_clock.getElapsedTime().asSeconds() > 1) {  /// DEBUG
             if (not startedSong) {
                 startedSong = 1;
                 // Logger::Get() << "Creating and playing test music.....\n";

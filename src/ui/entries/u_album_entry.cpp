@@ -1,6 +1,6 @@
 #include "u_album_entry.hpp"
 
-const int   AlbumEntry::kEntryWidth    = 700;
+const int   AlbumEntry::kEntryWidth    = 710;
 const int   AlbumEntry::kButtonWidth   = 100;
 const int   AlbumEntry::kHeight        = 66;
 const int   AlbumEntry::kActualHeight  = 80;
@@ -16,13 +16,13 @@ const std::pair<int, int> AlbumEntry::kDelBtnSize = {kHeight * kHeightRatio, kHe
 
 AlbumEntry::AlbumEntry(SharedPtr<PAlbum> alb_ptr, int number) :
     album_ptr_(alb_ptr),
-    del_btn_sprite_("data/img/red_cross.png"),  /// kHeight * kHeightRatio, kHeight * kHeightRatio, 
+    del_btn_sprite_("data/img/red_cross.png"),
     col_btn_(kColBtnSize.first, kColBtnSize.second, 
              std::make_unique<CShowSpecificAlbum>(alb_ptr), 
-             Constants::kSideBtnIdle, Constants::kSideBtnHover),
+             sf::Color::Transparent, Constants::kSideBtnHover),
     del_btn_(kDelBtnSize.first, kDelBtnSize.second,
              std::make_unique<CDeleteAlbum>(alb_ptr), 
-             Constants::kSideBtnIdle, Constants::kSideBtnHover),
+             sf::Color::Transparent, Constants::kSideBtnHover),
     number_(number)
 {
     del_btn_sprite_.SetPosition(kDelBtnPos.first + kSpriteOffset, kDelBtnPos.second + kSpriteOffset);
@@ -57,29 +57,18 @@ void AlbumEntry::Render(sf::RenderWindow& rw, int off_x, int off_y)
     TextBox album_name(30, off_height, txtLen, txt_height, 
                       0, album_ptr_->GetName());
 
-    // Logger::Get() << "Song name textbox details: " << song_name.GetWidth() << " " << song_name.GetHeight() << '\n';
+    TextBox underline(30, off_height + 10, txtLen, txt_height, 
+                      0, std::string(album_name.GetText().size(), '_'));
+
+    if (not col_btn_.ThisButtonHovered(off_x, off_y))
+        underline.Render(rw, off_x + pos_x, off_y + pos_y);
     
     txt_nr.Render(rw, off_x + pos_x, off_y + pos_y);
     album_name.Render(rw, off_x + pos_x, off_y + pos_y);
 
+/// Render the delete button and it's sprite
     del_btn_.Render(rw, off_x + pos_x, off_y + pos_y);
     del_btn_sprite_.Render(rw, off_x + pos_x, off_y + pos_y);
-
-/// Render the underlying button with changing color on hover
-//     auto under_del_btn = sf::RectangleShape({del_btn_sprite_.GetWidth(), del_btn_sprite_.GetHeight()});
-//     under_del_btn.setPosition({del_btn_sprite_.GetPosition().first, del_btn_sprite_.GetPosition().second});
-
-//     if (del_btn_.ThisButtonHovered(off_x, off_y))
-//         under_del_btn.setFillColor(Constants::kSideBtnHover);
-//     else
-//         under_del_btn.setFillColor(Constants::kSideBtnIdle);
-    
-//     under_del_btn.move(off_x, off_y);
-
-//     rw.draw(under_del_btn);
-
-// /// Render the sprite for the button
-//     del_btn_sprite_.Render(rw, off_x + pos_x, off_y + pos_y);
 }
 
 int AlbumEntry::GetWidth() const
