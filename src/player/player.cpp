@@ -16,7 +16,7 @@ void Player::Zip() const
 
 void Player::Unzip()
 {
-    // index_->Unzip();
+    index_->Unzip();
 }
 
 std::shared_ptr<PAlbum> Player::CreateAlbum(const std::string& path)
