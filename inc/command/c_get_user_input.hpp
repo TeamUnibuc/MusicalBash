@@ -29,6 +29,7 @@ public:
     std::string GetResult();
 
     friend class CCreatePlaylists;
+    friend class CDownloadFromWeb;
 };
 
 #endif /// INC_C_GET_USER_INPUT_

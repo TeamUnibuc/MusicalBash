@@ -24,6 +24,9 @@ Application::Application() :
 
 void Application::InitializingScript()
 {
+    /// computes the absolute path of `$HOME/.musicalbash`
+    Constants::CreateApplicationPath();
+
     Logger::Get() << "Creating DaddyPlayer Instance\n";
     
     Knowledge::Daddy_Player = std::make_unique<Player>();
@@ -89,6 +92,7 @@ void Application::Update()
     /// Updating multithread stuff
     CImportAlbum::PostExecutionVerification();
     CCreatePlaylists::PostExecutionVerification();
+    CDownloadFromWeb::PostExecutionVerification();
     
     w_side_bar_.Update(0, 0);
     w_status_.Update(0, 0);
@@ -160,14 +164,15 @@ int Application::Run()
 
             /// Reset the knowledge so we dont update multiple times
             Knowledge::ResetEvent();
-
-            /// Reset clock used for forced updates
-            clock_update_.restart();
         }
 
+        /// once every ktimetoupdate we have to refresh
         if (clock_update_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
             this->Update();
             clock_update_.restart();
+
+            /// refreshing the downloads folder
+            Knowledge::Daddy_Player->CreateAlbum(Constants::application_path + "/downloads");
         }
 
         /// Music Player loop

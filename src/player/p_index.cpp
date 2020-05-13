@@ -68,9 +68,13 @@ void PIndex::Unzip()
 
 std::shared_ptr<PAlbum> PIndex::CreateAlbum(std::string path)
 {
-    for (auto i : palbum_)
-        if (i->GetName() == path)
-            throw player_runtime_error("Existing album is added again!");
+    /// if the album already exists then re-scan it
+    for (auto i : palbum_) {
+        if (i->GetName() == path) {
+            (*i) = PAlbum(path, pmusic_);
+            return i;
+        }
+    }
 
     palbum_.push_back(std::shared_ptr<PAlbum> (new PAlbum(path, pmusic_)));
     return palbum_.back();
