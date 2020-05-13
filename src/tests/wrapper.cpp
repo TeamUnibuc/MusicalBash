@@ -14,6 +14,11 @@ namespace unit_tests
 
     void RunAllTests()
     {   
+        Logger::Get() << "Creating DaddyPlayer Instance\n";
+        Knowledge::Daddy_Player = std::make_unique<Player>();
+        // Logger::Get() << Knowledge::GetActiveSongNameOrEmpty() << '\n';
+        Logger::Get() << "DaddyPlayer created\n";
+
         cout << std::unitbuf;
 
         cout << "\033[1;34mRunning all tests\n";
@@ -22,7 +27,9 @@ namespace unit_tests
         // RunSingleTest(TestDirectorySelect, "Directory select");
         // RunSingleTest(TestGetFileDuration, "Mp3 Duration");
         // RunSingleTest(TestBasicFunctionalityPMusicPlayer, "Basic Sound_Player");
-        RunSingleTest(TestBasicFunctionalityPlayer, "Basic Player");
+        // RunSingleTest(TestBasicFunctionalityPlayer, "Basic Player");
+        RunSingleTest(TestDirSelectCommand, "Add album command test");
+        RunSingleTest(TestCreatePlaylist, "Create playlist test");
         
         cout << std::nounitbuf;
     }

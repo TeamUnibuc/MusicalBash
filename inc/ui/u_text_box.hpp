@@ -36,7 +36,7 @@ public:
     /*
      * Function for setting the text inside the TextBox
      * It will set the right font size to fit vertically and it will crop the text if it is too long
-     * It is currently set up to take up 80% of the vertical space
+     * It is currently set up to take up 70% of the vertical space
      */
     void SetText(std::string textInput);
 

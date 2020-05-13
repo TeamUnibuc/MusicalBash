@@ -1,18 +1,16 @@
-#pragma once // C_CREATE_PLAYLISTS
+#pragma once // C_DOWNLOAD_fROM_WEB
 
 #include "command.hpp"
-#include "c_get_user_input.hpp"
 #include "a_knowledge.hpp"
+#include "c_get_user_input.hpp"
 
 #include <thread>
 
 /**
- * Command creating new playlists.
- * The command is started with Execute()
- * And one it finished executing it is joined
- * by regularly calling PostExecutionVerification()
+ * Command downloading a music from the internet and placing it in
+ * the "$HOME/.musicalbash/downloads" folder
 */
-class CCreatePlaylists : public Command
+class CDownloadFromWeb : public Command
 {
     /**
      * Pointer to the only allowed CGetUserInput command.
@@ -23,7 +21,8 @@ class CCreatePlaylists : public Command
     static std::thread user_input_thread_;
 
 public:
-    CCreatePlaylists();
+
+    CDownloadFromWeb();
 
     void Execute() override;
 

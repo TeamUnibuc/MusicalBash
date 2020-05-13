@@ -12,7 +12,7 @@ PMusic::PMusic(std::string path) : played_count_(0), path_(path) {
     /// If it is an mp3 file, then use the specific command
     if (path.size() > 3) {
         if (path.substr(path.size() - 4, 4) == ".mp3") {
-            std::cerr << path << '\n';
+            // std::cerr << path << '\n';
 
             CMp3FileDuration command(path);
             command.Execute();

@@ -41,7 +41,7 @@ STAT_FO += .stats
 
 # ======== Libraries for linking
 LIBS += -lstdc++fs -lsfml-graphics -lsfml-window -lsfml-system \
-       -lsfml-network -lsfml-audio -lmpg123
+       -lsfml-network -lsfml-audio -lmpg123 -lsqlite3
 
 # we use <filesystem> which is a new thing, oh well
 ifneq ($(filter $(shell g++ -dumpversion),1 2 3 4 5 6 7),)

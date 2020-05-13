@@ -4,6 +4,7 @@
 #include "command.hpp"
 
 #include <string>
+#include <mutex>
 
 /**
  * Class able to launch a GUI menu asking for a file
@@ -15,6 +16,11 @@ class CFileSelect final : public Command
 {
 private:
     std::string selected_file_;
+    /**
+     * thread_is_locked_ is used for the caller to be able
+     * to see when this command has finished executing
+     */
+    std::mutex thread_is_locked_;
 
 public:
     CFileSelect();
@@ -24,6 +30,8 @@ public:
 
     /// Returns the path of the selected file
     std::string GetResult();
+
+    friend class CAddMusicToPlaylist;
 };
 
 

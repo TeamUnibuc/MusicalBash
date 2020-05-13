@@ -6,8 +6,9 @@
 
 PIndex::PIndex() { }
 
-std::string PIndex::Zip() const
+void PIndex::Zip() const
 {
+
     std::string enc;
     enc += std::to_string(palbum_.size()) + "\n";
     
@@ -24,14 +25,17 @@ std::string PIndex::Zip() const
             enc += c->getName() + "\n";
     }
 
-    return enc;
+    DBHandler::StoreData(enc);
 }
 
-void PIndex::Unzip(std::string zipped)
+void PIndex::Unzip()
 {
-    std::stringstream buff(zipped);
+
+    std::stringstream buff(DBHandler::ExtractData());
     std::string s;
     getline(buff, s);
+    if (s.empty())
+        return;
     int n = std::stoi(s);
 
     while (n--) {
@@ -64,10 +68,14 @@ void PIndex::Unzip(std::string zipped)
 
 std::shared_ptr<PAlbum> PIndex::CreateAlbum(std::string path)
 {
-    for (auto i : palbum_)
-        if (i->GetName() == path)
-            throw player_runtime_error("Existing album is added again!");
-
+    /// if the album already exists then re-scan it
+    for (auto i : palbum_) {
+        if (i->GetName() == path) {
+            (*i) = PAlbum(path, pmusic_);
+            return i;
+        }
+    }
+    
     palbum_.push_back(std::shared_ptr<PAlbum> (new PAlbum(path, pmusic_)));
     return palbum_.back();
 }
@@ -97,10 +105,10 @@ std::vector <std::shared_ptr<PMusic>> PIndex::getAllMusic() const
     return ans;
 }
 
-std::shared_ptr<PMusic> PIndex::getMusicPtr(const std::string& name) const
+std::shared_ptr<PMusic> PIndex::getMusicPtr(const std::string& name)
 {
     if (pmusic_.find(name) == pmusic_.end())
-        throw player_runtime_error("Tried to get pointer to an inexistent music!");
+        pmusic_[name] = std::make_shared<PMusic>(name);
     return pmusic_.at(name);
 }
 

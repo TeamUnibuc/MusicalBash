@@ -42,6 +42,9 @@ namespace Constants
     extern const int  kVolumeStep;
     extern const int  kStartingVolume;
 
+    extern std::string application_path;
+
+    void CreateApplicationPath();
 };
 
 #endif // INC_APPLICATION_CONSTANTS_

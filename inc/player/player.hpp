@@ -47,10 +47,10 @@ public:
     Player();
 
     /// encodes all the info in the player (the index)
-    std::string Zip() const;
+    void Zip() const;
 
     /// decodes the info from string to index
-    void Unzip(const std::string& zipped);
+    void Unzip();
 
     /// adds an album to the index
     std::shared_ptr<PAlbum> CreateAlbum(const std::string& path);
@@ -58,6 +58,9 @@ public:
     /* creates a new playlist with a given name.
     Will launch an exception if name is taken */
     std::shared_ptr<PPlaylist> CreatePlaylist(const std::string& name);
+
+    /// creates if necessary and returns pointer to new PMusic
+    std::shared_ptr<PMusic> CreateMusic(const std::string& path);
 
     /// removes an album from index
     void DeleteAlbum(const std::shared_ptr<PAlbum> album);

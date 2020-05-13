@@ -24,6 +24,10 @@ Application::Application() :
 
 void Application::InitializingScript()
 {
+    Logger::Get() << "Called the initializing script\n";
+    /// computes the absolute path of `$HOME/.musicalbash`
+    Constants::CreateApplicationPath();
+
     Logger::Get() << "Creating DaddyPlayer Instance\n";
     
     Knowledge::Daddy_Player = std::make_unique<Player>();
@@ -86,12 +90,19 @@ void Application::Render()
 
 void Application::Update()
 {
+<<<<<<< HEAD
     Logger::Get() << "INFO:  New Update tick!\n";
 
+=======
+    /// Updating multithread stuff
+    CImportAlbum::PostExecutionVerification();
+    CCreatePlaylists::PostExecutionVerification();
+    CDownloadFromWeb::PostExecutionVerification();
+    
+>>>>>>> master
     w_side_bar_.Update(0, 0);
     w_status_.Update(0, 0);
     w_main_.Update(0, 0);
-    
 }
 
 void Application::SetKnowledge_MousePosition()
@@ -107,6 +118,8 @@ int Application::Run()
 
     sf::Clock debug_clock;
     bool startedSong = 0;
+
+    Logger::Get() << "Application run called\n";
 
     InitializingScript();
 
@@ -146,6 +159,7 @@ int Application::Run()
                 }
                 case sf::Event::Closed:
                 {
+                    Knowledge::Daddy_Player->Zip();
                     rend_window_.close();
                     Logger::Get() << "The window was closed\n";
                     break;
@@ -162,9 +176,13 @@ int Application::Run()
             }
         }
 
+        /// once every ktimetoupdate we have to refresh
         if (clock_update_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
             this->Update();
             clock_update_.restart();
+
+            /// refreshing the downloads folder
+            Knowledge::Daddy_Player->CreateAlbum(Constants::application_path + "/downloads");
         }
 
         /// Music Player loop
@@ -178,7 +196,7 @@ int Application::Run()
 
 
 
-        if(debug_clock.getElapsedTime().asSeconds() > 1) {  /// DEBUG
+        if(debug_clock.getElapsedTime().asSeconds() > 2) {  /// DEBUG
             if (not startedSong) {
                 startedSong = 1;
                 // Logger::Get() << "Creating and playing test music.....\n";
@@ -200,7 +218,7 @@ int Application::Run()
 
                 // Knowledge::Daddy_Player->PlayMusic();
                 
-                Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
+                // Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
                 
                 for (int i = 0; i < 2; ++i) {
                     auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];

@@ -4,6 +4,7 @@
 #include "p_album.hpp"
 #include "p_playlist.hpp"
 #include "p_music.hpp"
+#include "a_database.hpp"
 
 #include <map>
 #include <set>
@@ -24,11 +25,11 @@ public:
     /// constructor
     PIndex();
 
-    /// converts the content of the class, playlists, albums and musics to a string
-    std::string Zip() const;
+    /// converts the content of the class, playlists, albums and musics to a string in the database
+    void Zip() const;
 
-    /// restores the content of the class from the zip string
-    void Unzip(std::string zipped);
+    /// restores the content of the class from the database
+    void Unzip();
 
     /// adds a new album to the index
     std::shared_ptr<PAlbum> CreateAlbum(std::string path);
@@ -46,7 +47,7 @@ public:
     std::vector <std::shared_ptr<PMusic>> getAllMusic() const;
     
     /// returns shared_ptr with given music
-    std::shared_ptr<PMusic> getMusicPtr(const std::string& name) const;
+    std::shared_ptr<PMusic> getMusicPtr(const std::string& name);
 
     /// deletes an album. Throw error if it does not exist
     void DeleteAlbum(const std::shared_ptr<PAlbum> album);

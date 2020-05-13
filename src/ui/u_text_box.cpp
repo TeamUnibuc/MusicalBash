@@ -23,7 +23,7 @@ void TextBox::SetText(std::string textInput)
     text_.setString(textInput);
     sf::FloatRect textBounds = text_.getLocalBounds();
     
-    /// We want it to occupy 80% of the TextBox height
+    /// We want it to occupy 70% of the TextBox height
     text_.setCharacterSize(0.7 * sizeY_);
 
     textBounds = text_.getLocalBounds();

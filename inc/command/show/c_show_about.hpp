@@ -2,6 +2,9 @@
 
 #include "command.hpp"
 
+/**
+ * Class displaying a simple zenity --info message
+ */
 class CShowAbout : public Command 
 {
 private:

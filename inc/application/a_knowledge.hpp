@@ -34,7 +34,7 @@ namespace Knowledge
 
     void SetEvent(sf::Event ev);
 
-    sf::Event GetEvent();    
+    sf::Event GetEvent();
 }
 
 #endif

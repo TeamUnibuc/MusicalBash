@@ -4,16 +4,18 @@ Player::Player() : index_(new PIndex),
     music_queue_(new PMusicQueue),
     music_player_(new PMusicPlayer), music_volume_(Constants::kStartingVolume),
     is_suffling_(false) 
-{ }
-
-std::string Player::Zip() const
 {
-    return index_->Zip();
+    this->Unzip();
 }
 
-void Player::Unzip(const std::string& zipped)
+void Player::Zip() const
 {
-    index_->Unzip(zipped);
+    index_->Zip();
+}
+
+void Player::Unzip()
+{
+    index_->Unzip();
 }
 
 std::shared_ptr<PAlbum> Player::CreateAlbum(const std::string& path)
@@ -24,6 +26,11 @@ std::shared_ptr<PAlbum> Player::CreateAlbum(const std::string& path)
 std::shared_ptr<PPlaylist> Player::CreatePlaylist(const std::string& name)
 {
     return index_->CreatePlaylist(name);
+}
+
+std::shared_ptr<PMusic> Player::CreateMusic(const std::string& path)
+{
+    return index_->getMusicPtr(path);
 }
 
 void Player::DeleteAlbum(const std::shared_ptr<PAlbum> album)

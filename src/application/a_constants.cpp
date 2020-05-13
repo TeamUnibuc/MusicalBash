@@ -1,4 +1,6 @@
 #include "a_constants.hpp"
+#include "a_logger.hpp"
+#include "a_exceptions.hpp"
 
 namespace Constants
 {
@@ -32,5 +34,30 @@ sf::Font kFont;
 
 constexpr int kVolumeStep = 10;
 constexpr int kStartingVolume = 50;
+
+std::string application_path;
+
+void CreateApplicationPath()
+{
+    Logger::Get() << "Creating applicaition folders\n";
+
+    system("mkdir $HOME/.musicalbash -p");
+    system("mkdir $HOME/.musicalbash/downloads -p");
+    system("mkdir $HOME/.musicalbash/database -p");    
+
+    char path[1024];
+    path[0] = 0;
+    
+    FILE *f = popen("(cd $HOME/.musicalbash; pwd)", "r");
+    fgets(path, 1024, f);
+
+    if (path[0] == 0)
+        throw bad_behaviour("Unable to find application path!");
+    
+    application_path = std::string(path);
+    application_path.pop_back();
+
+    Logger::Get() << "Found app path at \"" + application_path + "\"\n";
+}
 
 }
