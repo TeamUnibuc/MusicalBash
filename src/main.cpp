@@ -6,6 +6,7 @@
 #include "a_logger.hpp"
 #include "sqlite3.h"
 #include "a_database.hpp"
+#include "c_open_downloads_folder.hpp"
 
 #include "c_download_from_web.hpp"
 
@@ -14,7 +15,10 @@ using namespace std;
 
 int main()
 {
-    
+    // Constants::application_path = "/home/theodor/.musicalbash";
+    // auto c = COpenDownloadsFolder();
+    // c.Execute();
+
     // auto command = CDownloadFromWeb();
     // command.Execute();
 
