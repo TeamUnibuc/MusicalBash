@@ -4,6 +4,7 @@
 #include "p_album.hpp"
 #include "p_playlist.hpp"
 #include "p_music.hpp"
+#include "a_database.hpp"
 
 #include <map>
 #include <set>
@@ -24,11 +25,11 @@ public:
     /// constructor
     PIndex();
 
-    /// converts the content of the class, playlists, albums and musics to a string
-    std::string Zip() const;
+    /// converts the content of the class, playlists, albums and musics to a string in the database
+    void Zip() const;
 
-    /// restores the content of the class from the zip string
-    void Unzip(std::string zipped);
+    /// restores the content of the class from the database
+    void Unzip();
 
     /// adds a new album to the index
     std::shared_ptr<PAlbum> CreateAlbum(std::string path);

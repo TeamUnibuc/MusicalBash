@@ -4,6 +4,8 @@
 #include "wrapper.hpp"
 #include "console_app.hpp"
 #include "a_logger.hpp"
+#include "sqlite3.h"
+#include "a_database.hpp"
 
 using namespace std;
 /// #include "tests/sound_player_t.hpp"
