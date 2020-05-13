@@ -25,7 +25,7 @@ Application::Application() :
 void Application::InitializingScript()
 {
     /// computes the absolute path of `$HOME/.musicalbash`
-    Knowledge::CreateApplicationPath();
+    Constants::CreateApplicationPath();
 
     Logger::Get() << "Creating DaddyPlayer Instance\n";
     
@@ -163,14 +163,15 @@ int Application::Run()
 
             /// Reset the knowledge so we dont update multiple times
             Knowledge::ResetEvent();
-
-            /// Reset clock used for forced updates
-            clock_update_.restart();
         }
 
+        /// once every ktimetoupdate we have to refresh
         if (clock_update_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
             this->Update();
             clock_update_.restart();
+
+            /// refreshing the downloads folder
+            Knowledge::Daddy_Player->CreateAlbum(Constants::application_path + "/downloads");
         }
 
         /// Music Player loop

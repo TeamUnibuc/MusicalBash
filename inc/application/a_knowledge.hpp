@@ -25,8 +25,6 @@ namespace Knowledge
 
     extern UniquePtr<Player> Daddy_Player;
 
-    extern std::string application_path;
-
     void ResetEvent();
 
     void SetMousePoz(const std::pair<int, int>& where);
@@ -36,8 +34,6 @@ namespace Knowledge
     void SetEvent(sf::Event ev);
 
     sf::Event GetEvent();
-
-    void CreateApplicationPath();
 }
 
 #endif
