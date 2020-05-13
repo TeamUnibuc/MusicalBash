@@ -97,14 +97,15 @@ void Window::MainController(int off_x, int off_y)
         ViewsMain::UpdateQueue(scrl_ptr, Kld::Daddy_Player->GetPlayingQueue());
 
         Kld::State::curr_state = Constants::State::W::Queue;
+        
+        app_state = Constants::State::W::Queue;
         break;
     }  
     ///// ======================= Main ============= Home ==============================
     ///// The Home state holds three columns of stuff: Random Albums, Random Playlists, Random Songs
     case Constants::State::W::Home :
     {
-        if (prev_state != app_state ||
-            (prev_state == app_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
+        if (prev_state != app_state) {
             Logger::Get() << "INFO:  New state -  Home\n";
 
             element_list.clear();
@@ -115,6 +116,8 @@ void Window::MainController(int off_x, int off_y)
         app_state = Constants::State::W::Home;
         
         ViewsMain::UpdateHome(this, this);
+
+        app_state = Constants::State::W::Home;
         break;
     }
 
@@ -122,9 +125,8 @@ void Window::MainController(int off_x, int off_y)
 
     case Constants::State::W::Playlists : 
     {
-        if (prev_state != app_state ||
-            (prev_state == app_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
-                Logger::Get() << "INFO:  New sate - Playists\n";
+        if (prev_state != app_state) {
+                Logger::Get() << "INFO:  New state - Playists\n";
                 
                 element_list.clear();
                 ViewsMain::CreatePlaylists(this, this);
@@ -138,6 +140,8 @@ void Window::MainController(int off_x, int off_y)
         scrl_ptr->ClearAllUiElements();
 
         ViewsMain::UpdatePlaylists(scrl_ptr, Kld::Daddy_Player->getPlaylists());
+
+        app_state = Constants::State::W::Playlists;
         break;
     }
 
@@ -145,8 +149,7 @@ void Window::MainController(int off_x, int off_y)
 
     case Constants::State::W::Albums :
     {
-        if (prev_state != app_state ||
-            (prev_state == app_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
+        if (prev_state != app_state) {
             Logger::Get() << "INFO:  New state - Albums\n";
 
             element_list.clear();
@@ -161,27 +164,36 @@ void Window::MainController(int off_x, int off_y)
         scrl_ptr->ClearAllUiElements();
 
         ViewsMain::UpdateAlbums(scrl_ptr, Knowledge::Daddy_Player->getAlbums());
+
+        app_state = Constants::State::W::Albums;
         break;
     }
 
     case Constants::State::W::ViewAlbum : 
     {
-        if (prev_state != app_state ||
-            (prev_state == app_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
-                Logger::Get() << "INFO:  New state - Specific Album\n";
-                
-                element_list.clear();
-                ViewsMain::CreateSpecificAlbum(this, this);
+        if (prev_state != app_state) {
+            Logger::Get() << "INFO:  New state - Specific Album\n";
+            
+            element_list.clear();
+            ViewsMain::CreateSpecificAlbum(this, this);
         }
 
-        ViewsMain::UpdateSpecificAlbum();
+        SharedPtr<ScrollableList> scrl_ptr;
+
+        for (auto p : element_list) 
+            if (dynamic_cast<ScrollableList*>(&*p))
+                scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
+        scrl_ptr->ClearAllUiElements();
+
+        ViewsMain::UpdateSpecificAlbum(scrl_ptr);
+
+        app_state = Constants::State::W::ViewAlbum;
         break;
     }
 
     case Constants::State::W::ViewPlaylist : 
     {
-        if (prev_state != app_state ||
-            (prev_state == app_state && Knowledge::GetEvent().type == sf::Event::MouseButtonPressed)) {
+        if (prev_state != app_state) {
                 Logger::Get() << "INFO:  New state - Specific Playists\n";
                 
                 element_list.clear();
@@ -189,16 +201,31 @@ void Window::MainController(int off_x, int off_y)
         }
 
         ViewsMain::UpdateSpecificPlaylist();
+
+        app_state = Constants::State::W::ViewPlaylist;
+        break;
+    }
+
+    case Constants::State::W::Import : 
+    {
+        Logger::Get() << "INFO:  The App wants state Import, but i don't have to update any view";
+        break;
+    }
+
+    case Constants::State::W::Create :
+    {
+        Logger::Get() << "INFO:  The app wants state Create (playlist), but \n \
+                          The Main Window Controller doesn't have to ask for a new view";
         break;
     }
 
     }
 
+    prev_state = app_state;
+
     /// Finally update the elements contained in this window
     for (auto p : element_list)
         p->Update(off_x, off_y);
-
-    prev_state = app_state;
 }
 
 

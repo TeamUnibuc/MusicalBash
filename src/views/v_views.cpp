@@ -102,7 +102,7 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
     father->AddUiElementToList(txt_ptr);
 
     txt_ptr = std::make_shared<TextBox>(
-        lineOffsetX + 2 * (colGap + colWidth), kTitleHeight + 20, colWidth, 27, 1, "Playlists");
+        lineOffsetX + 2 * (colGap + colWidth), kTitleHeight + 20, colWidth, 27, 1, "Songs");
     txt_ptr->SetColor(Constants::kGreen);
     father->AddUiElementToList(txt_ptr);
 }
@@ -208,15 +208,34 @@ void ViewsMain::UpdatePlaylists(SharedPtr<ScrollableList> l_ptr,
 
 void ViewsMain::CreateSpecificAlbum(UiContainer *const father, UiElement *const fatherUi)
 {
-    Logger::Get() << "ERROR: Main Create Specific Album   view not implemented!\n";
+    const auto& album = Knowledge::State::data.curr_album;
+    SetTitle("Album: " + album->GetName(), father, fatherUi);
+
+    auto lst_ptr = std::make_unique<ScrollableList>(
+        kListWidthButtons, kListHeight
+    );
+    lst_ptr->SetPosition(kListPoz);
+
+    father->AddUiElementToList(std::move(lst_ptr));
 }
 
 /// ============================ Main ===== Update ===== Specific Album =============
 
-void ViewsMain::UpdateSpecificAlbum(/* TO DO */)
+void ViewsMain::UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr)
 {
-    Logger::Get() << "ERROR: Main Update Specific Album   view not implemented!\n";
+    const auto& album = Knowledge::State::data.curr_album;
 
+    Logger::Get() << " Album to update: " << Knowledge::State::data.curr_album->GetName() << '\n';
+
+    int contor = 0;
+    for (auto song_ptr : album->GetMusic()) {
+        auto entry = std::make_unique<MusicEntry>(
+            kListWidthSimple, kEntryHeight, 
+            Constants::kSideBtnIdle, Constants::kSideBtnHover,
+            song_ptr, ++contor
+        );
+        l_ptr->AddUiElement(std::move(entry));
+    }
 }
 
 /// ============================ Main ===== Create ===== Specific Playlist =============

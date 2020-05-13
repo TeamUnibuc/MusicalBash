@@ -23,6 +23,7 @@ void PlaylistEntry::Update(int off_x, int off_y)
 {
     sprite_del_btn_.Update(off_x + pos_x, off_y + pos_y);
     col_btn_.Update(off_x + pos_x, off_y + pos_y);
+    del_btn_.Update(off_x + pos_x, off_y + pos_y);
 }
 
 void PlaylistEntry::Render(sf::RenderWindow& rw, int off_x, int off_y)

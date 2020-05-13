@@ -86,6 +86,8 @@ void Application::Render()
 
 void Application::Update()
 {
+    Logger::Get() << "INFO:  New Update tick!\n";
+
     w_side_bar_.Update(0, 0);
     w_status_.Update(0, 0);
     w_main_.Update(0, 0);

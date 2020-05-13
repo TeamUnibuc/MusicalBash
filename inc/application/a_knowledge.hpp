@@ -17,11 +17,11 @@ namespace Knowledge
         struct Data
         {
             SharedPtr<PPlaylist> curr_playlist;
-            SharedPtr<PAlbum> curr_album;
+            SharedPtr<PAlbum>    curr_album;
         };
 
-        static Data data;
-        extern Constants::State::W curr_state;
+        extern Data                 data;
+        extern Constants::State::W  curr_state;
     }
 
     extern UniquePtr<Player> Daddy_Player;

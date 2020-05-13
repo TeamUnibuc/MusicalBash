@@ -5,7 +5,7 @@
 #include "u_text_box.hpp"
 #include "a_utils.hpp"
 
-class MusicEntry : public Entry
+class MusicEntry : public UiElement
 {
 private:
 protected:
