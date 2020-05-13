@@ -15,8 +15,8 @@ namespace {
     void print_available_functions()
     {
         cout << "Available functions:\n";
-        cout << "1. zip [file]\n    Zips the content of player in file\n";
-        cout << "2. unzip [file]\n    Unzips the content of player from file\n";
+        cout << "1. zip \n    Zips the content of player in the database\n";
+        cout << "2. unzip \n    Unzips the content of player from the database\n";
         cout << "3. list music\n    Lists all available music\n";
         cout << "4. list album\n    Lists all available albums\n";
         cout << "5. list playlist\n    Lists all available playlists\n";
@@ -51,33 +51,30 @@ void StartConsoleApp()
         cout << " $ ";
         string s;
         cin >> s;
-        if (s == "tick")
-            make_tick();
-        else if (s == "prev")
-            player.Prev();
-        else if (s == "next")
-            player.Next();
-        else if (s == "zip") {
-            cout << "Where?\n $$ ";
-            string where;
-            cin >> where;
-            ofstream out(where);
-            out << player.Zip();
-            out.close();
+        if (s == "zip") {
+            // cout << "Where?\n $$ ";
+            // string where;
+            // cin >> where;
+            // ofstream out(where);
+            // out << player.Zip();
+            // out.close();
+
+            /// Zip into the database
+            player.Zip();
             cout << "Done!\n";
         }
         else if (s == "unzip") {
-            cout << "From where?\n $$ ";
-            string where;
-            cin >> where;
+            // cout << "From where?\n $$ ";
+            // string where;
+            // cin >> where;
 
-            ifstream in;
-            in.open(where);
-            stringstream strStream;
-            strStream << in.rdbuf(); //read the file
-            string str = strStream.str();
-            player = Player();
-            player.Unzip(str);
+            // ifstream in;
+            // in.open(where);
+            // stringstream strStream;
+            // strStream << in.rdbuf(); //read the file
+            // string str = strStream.str();
+            // player = Player();
+            player.Unzip();
             cout << "Done!\n";
         }
         else if (s == "list") {
@@ -228,7 +225,7 @@ void StartConsoleApp()
             int status = player.getPlayingStatus();
             if (status == -1)
                 cout << "Player is stopped\n";
-            if (status == 0)
+            else if (status == 0)
                 cout << "Player is playing\n";
             else if (status == 1)
                 cout << "Player is paused\n";

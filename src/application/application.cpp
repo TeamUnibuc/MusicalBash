@@ -145,6 +145,7 @@ int Application::Run()
                 }
                 case sf::Event::Closed:
                 {
+                    Knowledge::Daddy_Player->Zip();
                     rend_window_.close();
                     Logger::Get() << "The window was closed\n";
                     break;
@@ -180,7 +181,7 @@ int Application::Run()
 
 
 
-        if(debug_clock.getElapsedTime().asSeconds() > 3) {  /// DEBUG
+        if(debug_clock.getElapsedTime().asSeconds() > 6) {  /// DEBUG
             if (not startedSong) {
                 startedSong = 1;
                 // Logger::Get() << "Creating and playing test music.....\n";
@@ -193,11 +194,13 @@ int Application::Run()
 
                 // Knowledge::Daddy_Player->PlayMusic();
                 
-                Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
+                // Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
                 
-                auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];
+                // auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];
 
-                Knowledge::Daddy_Player->addAlbumToQueue(album_ptr);
+                // Knowledge::Daddy_Player->addAlbumToQueue(album_ptr);
+
+                // Knowledge::Daddy_Player->Zip();
             }
         }
 

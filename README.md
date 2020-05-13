@@ -19,6 +19,8 @@ sudo apt install zenity
 sudo apt install mp3info
 
 sudo apt install youtube-dl
+
+sudo apt install libsqlite3-dev
 ```
 
 ## SFML

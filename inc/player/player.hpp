@@ -47,10 +47,10 @@ public:
     Player();
 
     /// encodes all the info in the player (the index)
-    std::string Zip() const;
+    void Zip() const;
 
     /// decodes the info from string to index
-    void Unzip(const std::string& zipped);
+    void Unzip();
 
     /// adds an album to the index
     std::shared_ptr<PAlbum> CreateAlbum(const std::string& path);

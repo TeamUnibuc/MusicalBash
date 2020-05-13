@@ -2,6 +2,8 @@
 
 #include "command.hpp"
 
+#include "a_knowledge.hpp"
+
 /**
  * TO DO
 */
