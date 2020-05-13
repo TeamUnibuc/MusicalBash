@@ -7,6 +7,7 @@
 #include "u_dynamic_text_box.hpp"
 #include "u_progress_bar.hpp"
 #include "u_album_entry.hpp"
+#include "u_playlist_entry.hpp"
 
 /**
  * ViewsMain is a class that has logic for populating different views
@@ -41,10 +42,10 @@ public:
     static void UpdateAlbums(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PAlbum>>& album_list);
 
     static void CreatePlaylists(UiContainer *const father, UiElement *const fatherUi);
-    static void UpdatePlaylists(UiContainer *const father, UiElement *const fatherUi);
+    static void UpdatePlaylists(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PPlaylist>>& playlist_list);
 
     static void CreateSpecificAlbum(UiContainer *const father, UiElement *const fatherUi);
-    static void UpdateSpecificAlbum(/* TO DO */);
+    static void UpdateSpecificAlbum();
 
     static void CreateSpecificPlaylist(UiContainer *const father, UiElement *const fatherUi);
     static void UpdateSpecificPlaylist(/* TO DO */);

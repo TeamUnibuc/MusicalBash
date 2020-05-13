@@ -130,7 +130,14 @@ void Window::MainController(int off_x, int off_y)
                 ViewsMain::CreatePlaylists(this, this);
         }
 
-        ViewsMain::UpdatePlaylists(this, this);
+        SharedPtr<ScrollableList> scrl_ptr;
+
+        for (auto p : element_list) 
+            if (dynamic_cast<ScrollableList*>(&*p))
+                scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
+        scrl_ptr->ClearAllUiElements();
+
+        ViewsMain::UpdatePlaylists(scrl_ptr, Kld::Daddy_Player->getPlaylists());
         break;
     }
 

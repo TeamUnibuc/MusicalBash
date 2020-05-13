@@ -4,8 +4,9 @@
 #include "c_delete_album.hpp"
 #include "c_show_specific_album.hpp"
 #include "u_text_box.hpp"
+#include "u_entry_with_button.hpp"
 
-class AlbumEntry : public UiElement
+class AlbumEntry : public UiElement, private EntryWithButton
 {
 private:
     SharedPtr<PAlbum> album_ptr_;
@@ -16,25 +17,10 @@ private:
 
     int number_;
 
-
-    int GetHeight() const override;
-    int GetWidth()  const override;
-
     void SetPosition(const std::pair<int,int>& pos) = delete;
 
-    static const int   kEntryWidth;
-    static const int   kButtonWidth;
-    static const int   kHeight;
-    static const int   kActualHeight;
-    static const int   kGap;
-    static const int   kSpriteOffset;
-    static const float kHeightRatio;
-
-    static const std::pair<int, int> kColBtnPos;
-    static const std::pair<int, int> kDelBtnPos;
-
-    static const std::pair<int, int> kColBtnSize;
-    static const std::pair<int, int> kDelBtnSize;
+    int GetWidth()  const override;
+    int GetHeight() const override;
 
 public:
     AlbumEntry(SharedPtr<PAlbum> album_ptr, int number);

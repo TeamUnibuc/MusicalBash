@@ -9,7 +9,7 @@ private:
     SharedPtr<PPlaylist> playlist_;
 
 public:
-    CShowSpecificPlaylist();
+    CShowSpecificPlaylist(SharedPtr<PPlaylist> ptr = nullptr);
 
     void SetPlaylist(SharedPtr<PPlaylist> ptr);
 

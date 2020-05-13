@@ -164,7 +164,8 @@ void ViewsMain::CreateAlbums(UiContainer *const father, UiElement *const fatherU
 
 /// ============================= Main ===== Update ===== Albums ====================
 
-void ViewsMain::UpdateAlbums(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PAlbum>>& album_list)
+void ViewsMain::UpdateAlbums(SharedPtr<ScrollableList> l_ptr,
+                             const std::vector<SharedPtr<PAlbum>>& album_list)
 {
     int contor = 0;
     for (auto a_ptr : album_list) {
@@ -179,14 +180,28 @@ void ViewsMain::UpdateAlbums(SharedPtr<ScrollableList> l_ptr, const std::vector<
 
 void ViewsMain::CreatePlaylists(UiContainer *const father, UiElement *const fatherUi)
 {
-    Logger::Get() << "ERROR: Main Create Playlist   view not implemented!\n";
+    SetTitle("Playlists", father, fatherUi);
+
+    auto lst_ptr = std::make_unique<ScrollableList>(
+        kListWidthButtons, kListHeight
+    );
+    lst_ptr->SetPosition(kListPoz);
+
+    father->AddUiElementToList(std::move(lst_ptr));
 }
 
 /// ============================= Main ===== Update ===== Playlists =================
 
-void ViewsMain::UpdatePlaylists(UiContainer *const father, UiElement *const fatherUi)
+void ViewsMain::UpdatePlaylists(SharedPtr<ScrollableList> l_ptr, 
+                                const std::vector<SharedPtr<PPlaylist>>& playlist_list)
 {
-    Logger::Get() << "ERROR: Main Update Playlist   view not implemented!\n";
+    int contor = 0;
+    for (auto pl_ptr : playlist_list) {
+        auto entry_ptr = std::make_unique<PlaylistEntry>(
+            pl_ptr, ++contor
+        );
+        l_ptr->AddUiElement(std::move(entry_ptr));
+    }
 }
 
 /// ============================ Main ===== Create ===== Specific Album =============

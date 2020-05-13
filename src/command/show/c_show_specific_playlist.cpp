@@ -1,6 +1,6 @@
 #include "c_show_specific_playlist.hpp"
 
-CShowSpecificPlaylist::CShowSpecificPlaylist()
+CShowSpecificPlaylist::CShowSpecificPlaylist(SharedPtr<PPlaylist> ptr) : playlist_(ptr)
 {}
 
 void CShowSpecificPlaylist::SetPlaylist(SharedPtr<PPlaylist> ptr)
