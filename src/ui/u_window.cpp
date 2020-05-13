@@ -8,7 +8,8 @@ Window::Window(int sz_x, int sz_y, int off_x, int off_y, Window::Type w_type) :
     size_y(sz_y),
     g_off_x(off_x),
     g_off_y(off_y),
-    type_(w_type)
+    type_(w_type),
+    prev_state(Constants::State::W::None)
 {
     w_view_.reset(sf::FloatRect(off_x, off_y, size_x, size_y));
 }
@@ -233,6 +234,13 @@ void Window::MainController(int off_x, int off_y)
     {
         Logger::Get() << "INFO:  The app wants state Create (playlist), but \n \
                           The Main Window Controller doesn't have to ask for a new view";
+        break;
+    }
+
+    case Constants::State::W::None :
+    {
+        Logger::Get() << "WARNING:  The app wants state None, but \n \
+                          The Main Window Controller doesn't have to ask for a new view. WHO DID THIS?";
         break;
     }
 

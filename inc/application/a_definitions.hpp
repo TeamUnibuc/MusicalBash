@@ -27,7 +27,9 @@ namespace Constants
             ViewAlbum,
             Queue,
             Import,
-            Create
+            Create,
+
+            None
         };
     }
 }
