@@ -4,11 +4,13 @@ sqlite3 *DBHandler::db = NULL;
 
 char *DBHandler::zErrMsg = 0;
 
-const std::string DBHandler::sql_insert_ = "INSERT INTO MusicalBash (id, content) VALUES (0, ''); ";
+const std::string DBHandler::sql_insert_ = "INSERT INTO MusicalBash (id, content) VALUES (0, \"\"); ";
 
 const std::string DBHandler::sql_delete_ = "DELETE from MusicalBash where ID=0; ";
 
-const std::string DBHandler::sql_select_ = "SELECT content from MusicalBash;";
+const std::string DBHandler::sql_select_ = "SELECT content from MusicalBash; ";
+
+const std::string DBHandler::sql_create_ = "CREATE TABLE MusicalBash(id int primary_key, content longtext); ";
 
 std::string DBHandler::response = "";
 
@@ -32,7 +34,8 @@ int DBHandler::callback(void *NotUsed, int argc, char **argv, char **azColName)
 
 void DBHandler::executeOperation(const std::string& operation)
 {
-    int db_res = sqlite3_open("data/database/database.db", &db);
+    std::string database_path = Knowledge::application_path + "/database/database.db";
+    int db_res = sqlite3_open(database_path.c_str(), &db);
 
     if (db_res)
         throw std::runtime_error(sqlite3_errmsg(db));
@@ -81,4 +84,18 @@ std::string DBHandler::ExtractData()
 {
     executeOperation(sql_select_);
     return response;
+}
+
+void DBHandler::CreateTableIfNotExists()
+{
+    std::ifstream test_in(Knowledge::application_path + "/database/database.db");
+    if (!test_in.is_open()){
+        Logger::Get() << "Database folder not found, so will create one" << '\n';
+
+        executeOperation(sql_create_);
+
+        executeOperation(sql_insert_);
+
+        Logger::Get() << "Database initialized" << '\n';
+    }
 }
