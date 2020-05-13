@@ -33,6 +33,7 @@ int DBHandler::callback(void *NotUsed, int argc, char **argv, char **azColName)
 void DBHandler::executeOperation(const std::string& operation)
 {
     int db_res = sqlite3_open("data/database/database.db", &db);
+
     if (db_res)
         throw std::runtime_error(sqlite3_errmsg(db));
     else
@@ -59,6 +60,7 @@ void DBHandler::executeOperation(const std::string& operation)
     }
 
     sqlite3_close(db);
+    delete[] zErrMsg;
 }
 
 void DBHandler::StoreData(std::string data)
