@@ -16,6 +16,8 @@ void ViewsMain::SetTitle(const std::string& str, UiContainer *const c_ptr, UiEle
 {
     SharedPtr<TextBox> tb_ptr(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, str));
     c_ptr->AddUiElementToList(tb_ptr);
+
+    Logger::Get() << "INFO: Set the title to: " << str << '\n';
 }
 
 /// ====================================== Main ======= Create ======= Home ==================

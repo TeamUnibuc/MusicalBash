@@ -27,9 +27,9 @@ template<typename T>
 ColorUpdater<T>::FType ColorUpdater<T>::kDefault = [ ]( T& ){ };
 
 template<typename T>
-ColorUpdater<T>::ColorUpdater(const FType& func) : col_updater_( func )
+ColorUpdater<T>::ColorUpdater(const ColorUpdater<T>::FType & func) : col_updater_( func )
 {}
 
 template<typename T>
-ColorUpdater<T>::ColorUpdater() : col_updater_( kDefault )
+ColorUpdater<T>::ColorUpdater() : col_updater_( ColorUpdater<T>::kDefault )
 {}

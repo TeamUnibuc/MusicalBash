@@ -3,7 +3,7 @@
 PngColorButton::PngColorButton(int szX, int szY, UniquePtr<Command> cPtr, sf::Color normal, sf::Color hover,
                                SharedPtr<PngSprite> pngPtr, std::function<void(sf::Color&)> func) :
     ColorButton(szX, szY, std::move(cPtr), normal, hover),
-    ColorUpdater(func),
+    ColorUpdater<sf::Color>(func),
     sprite_(pngPtr)
 {
     sprite_->SetSize(szX, szY);
