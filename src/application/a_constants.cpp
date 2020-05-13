@@ -16,8 +16,8 @@ constexpr double kTimeToUpdate = 0.1;
 
 const std::string kFontPath = "data/fonts/UbuntuMono-R.ttf";
 
-const sf::Color kWindowBackground = sf::Color(65,  65,  65,  210);
-const sf::Color kAppBackground    = sf::Color(51,  133, 255, 255);
+const sf::Color kWindowBackground = sf::Color(70,  70, 70,  210);
+const sf::Color kAppBackground    = sf::Color(20,  20, 20, 255);
 const sf::Color kSideBtnHover     = sf::Color(20,  20,  20,  240);
 const sf::Color kSideBtnIdle      = sf::Color(100, 100, 100, 240);
 const sf::Color kPurple           = sf::Color(185, 87,  255);

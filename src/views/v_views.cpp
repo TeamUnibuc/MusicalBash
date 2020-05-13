@@ -225,7 +225,8 @@ void ViewsMain::UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr)
 {
     const auto& album = Knowledge::State::data.curr_album;
 
-    Logger::Get() << " Album to update: " << Knowledge::State::data.curr_album->GetName() << '\n';
+    // if (album->GetName() != Constants::application_path + "/downloads")
+    //     Logger::Get() << " Album to update: " << album->GetName() << '\n';
 
     int contor = 0;
     for (auto song_ptr : album->GetMusic()) {
@@ -281,7 +282,8 @@ void ViewsSide::Create(UiContainer *const father_elem)
                           ButtonFactory::SideType::Albums,
                           ButtonFactory::SideType::MusicQueue,
                           ButtonFactory::SideType::ImportAlbum,
-                          ButtonFactory::SideType::CreatePlaylist}) {
+                          ButtonFactory::SideType::CreatePlaylist,
+                          ButtonFactory::SideType::Download}) {
         auto btn_ptr = ButtonFactory::Create(btn_type);
         btn_ptr->SetPosition({20, vertical});
         vertical += btn_ptr->GetHeight() + gap;

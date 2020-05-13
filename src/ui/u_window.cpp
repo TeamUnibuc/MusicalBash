@@ -36,9 +36,9 @@ void Window::Render(sf::RenderWindow& rw, int offX, int offY)
         ptr_el->Render(rw, g_off_x + offX, g_off_y + offY);
     }
 
-    if (type_ == Type::Main) {
-        Logger::Get() << "Render Time Main: " << renderTime.getElapsedTime().asSeconds() << '\n';
-    }
+//     if (type_ == Type::Main) {
+//         Logger::Get() << "Render Time Main: " << renderTime.getElapsedTime().asSeconds() << '\n';
+//     }
 }
 
 void Window::Update(int offX, int offY)

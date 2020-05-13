@@ -90,16 +90,13 @@ void Application::Render()
 
 void Application::Update()
 {
-<<<<<<< HEAD
-    Logger::Get() << "INFO:  New Update tick!\n";
+    // Logger::Get() << "INFO:  New Update tick!\n";
 
-=======
     /// Updating multithread stuff
     CImportAlbum::PostExecutionVerification();
     CCreatePlaylists::PostExecutionVerification();
     CDownloadFromWeb::PostExecutionVerification();
     
->>>>>>> master
     w_side_bar_.Update(0, 0);
     w_status_.Update(0, 0);
     w_main_.Update(0, 0);
@@ -135,7 +132,7 @@ int Application::Run()
             Knowledge::SetEvent(event);
             SetKnowledge_MousePosition();
 
-            Logger::Get() << "SFML:  I Got an event!\n";
+            // Logger::Get() << "SFML:  I Got an event!\n";
 
             switch (event.type)
             {
@@ -209,33 +206,33 @@ int Application::Run()
 
                 
 
-                Logger::Get() << "DEBUG: Adding Album to Player\n";
-                Knowledge::Daddy_Player->CreateAlbum("data");
+                // Logger::Get() << "DEBUG: Adding Album to Player\n";
+                // Knowledge::Daddy_Player->CreateAlbum("data");
 
-                Knowledge::Daddy_Player->addAlbumToQueue( Knowledge::Daddy_Player->getAlbums()[0] );
-
-                Knowledge::Daddy_Player->PlayMusic();
+                // Knowledge::Daddy_Player->addAlbumToQueue( Knowledge::Daddy_Player->getAlbums()[0] );
 
                 // Knowledge::Daddy_Player->PlayMusic();
+
+                // // Knowledge::Daddy_Player->PlayMusic();
                 
-                // Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
+                // // Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
                 
-                for (int i = 0; i < 2; ++i) {
-                    auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];
+                // for (int i = 0; i < 2; ++i) {
+                //     auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];
 
-                    Knowledge::Daddy_Player->addAlbumToQueue(album_ptr);
+                //     Knowledge::Daddy_Player->addAlbumToQueue(album_ptr);
 
-                    Knowledge::Daddy_Player->CreatePlaylist("Test Playlist" + std::to_string(i));
-                    Knowledge::Daddy_Player->CreatePlaylist("Coding" + std::to_string(i));
+                //     Knowledge::Daddy_Player->CreatePlaylist("Test Playlist" + std::to_string(i));
+                //     Knowledge::Daddy_Player->CreatePlaylist("Coding" + std::to_string(i));
 
-                    Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
-                        Knowledge::Daddy_Player->getAllMusic()[2]
-                    );
+                //     Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
+                //         Knowledge::Daddy_Player->getAllMusic()[2]
+                //     );
                     
-                    Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
-                        Knowledge::Daddy_Player->getAllMusic()[1]
-                    );
-                }
+                //     Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
+                //         Knowledge::Daddy_Player->getAllMusic()[1]
+                //     );
+                // }
             }
         }
 
