@@ -25,7 +25,7 @@ Application::Application() :
 void Application::InitializingScript()
 {
     /// computes the absolute path of `$HOME/.musicalbash`
-    Knowledge::CreateApplicationPath();
+    Constants::CreateApplicationPath();
 
     Logger::Get() << "Creating DaddyPlayer Instance\n";
     
@@ -171,7 +171,7 @@ int Application::Run()
             clock_update_.restart();
 
             /// refreshing the downloads folder
-            Knowledge::Daddy_Player->CreateAlbum(Knowledge::application_path + "/downloads");
+            Knowledge::Daddy_Player->CreateAlbum(Constants::application_path + "/downloads");
         }
 
         /// Music Player loop
