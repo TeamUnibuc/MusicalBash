@@ -89,7 +89,7 @@ bool ScrollableList::LastElementIsVisible(int start) const
         used_vertical += element_list[start]->GetHeight();
         ++start;
     }
-    Logger::Get() << "Last visible?   " << (start == (int)element_list.size() ? "YES" : "NO") << "\n";
+    // Logger::Get() << "Last visible?   " << (start == (int)element_list.size() ? "YES" : "NO") << "\n";
     return start == (int)element_list.size();
 }
 

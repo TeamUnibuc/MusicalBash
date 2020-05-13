@@ -9,10 +9,6 @@ class MusicEntry : public UiElement
 {
 private:
 protected:
-    int size_x_, size_y_;
-
-    ColorButton col_btn_;
-
     SharedPtr<PMusic> music_;
 
     int number_;

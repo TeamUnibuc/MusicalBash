@@ -1,6 +1,7 @@
 #pragma once // C_SHOW_PLAYLISTS_HPP_
 
 #include "command.hpp"
+#include "a_knowledge.hpp"
 
 /**
  * TO DO

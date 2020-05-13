@@ -11,8 +11,19 @@ PAlbum::PAlbum(std::string album_path, std::map <std::string, std::shared_ptr<PM
 
     std::vector <std::string> files = filesys.GetResult();
     for (auto i : files) {
-        if (pmusic.find(i) == pmusic.end())
-            pmusic[i] = std::shared_ptr<PMusic> (new PMusic(i));
-        content_.push_back(pmusic[i]);
+        if (pmusic.find(i) == pmusic.end()) {
+            try {
+                auto m_ptr = std::make_shared<PMusic>(i);
+                pmusic[i] = m_ptr;
+                content_.push_back(pmusic[i]);
+            }
+            catch (...) {
+                Logger::Get() << "INFO:  problem creating music with name: " << i << '\n';
+            }
+        }
+        else {
+            content_.push_back(pmusic[i]);
+        }
+        
     }
 }

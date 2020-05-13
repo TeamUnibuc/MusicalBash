@@ -9,6 +9,7 @@
 #include "u_text_button.hpp"
 #include "c_common_commands.hpp"
 #include "c_player.hpp"
+#include "c_download_from_web.hpp"
 
 class ButtonFactory
 {
@@ -23,6 +24,7 @@ public:
         MusicQueue,
         ImportAlbum,
         CreatePlaylist,
+        Download,
         About
     };
     

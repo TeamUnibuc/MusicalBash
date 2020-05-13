@@ -44,6 +44,12 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::SideType type)
                 Constants::kSideBtnIdle, Constants::kSideBtnHover,
                 std::make_unique<TextBox>(0, txtPosY, btnWidth, txtSzY, 1, "Create Playlist"));
         }
+        case SideType::Download : {
+            return std::make_unique<TextButton> (
+                btnWidth, btnHeight, std::make_unique<CDownloadFromWeb>(), 
+                Constants::kSideBtnIdle, Constants::kSideBtnHover,
+                std::make_unique<TextBox>(0, txtPosY, btnWidth, txtSzY, 1, "Download"));
+        }
         case SideType::About : {
             return std::make_unique<TextButton> (
                 btnWidth, btnHeight, std::make_unique<CShowAbout>(), 
@@ -91,7 +97,7 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
                 std::make_shared<PngSprite>("data/img/shuffle_btn.png"),
                 [idle_color](sf::Color& col) {
                     if (Knowledge::Daddy_Player->getSufflingStatus())
-                        col = sf::Color(12, 201, 22);
+                        col = Constants::kGreen;
                     else
                         col = idle_color;
                 }

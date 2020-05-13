@@ -41,7 +41,7 @@ public:
     void SetText(std::string textInput);
 
     /// Helper function to get the text content of the TextBox
-    std::string GetText()const;
+    std::string GetText() const;
 
     /* Helper function to set the alignment of the TextBox
      * If the value given is not valid, it won't change anything

@@ -6,5 +6,5 @@ CShowHome::CShowHome()
 /// TO DO
 void CShowHome::Execute()
 {
-    Logger::Get() << "Command ShowHome Not implemented !!! \n";
+    Knowledge::State::curr_state = Constants::State::W::Home;
 }

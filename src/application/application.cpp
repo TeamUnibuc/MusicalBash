@@ -90,6 +90,8 @@ void Application::Render()
 
 void Application::Update()
 {
+    // Logger::Get() << "INFO:  New Update tick!\n";
+
     /// Updating multithread stuff
     CImportAlbum::PostExecutionVerification();
     CCreatePlaylists::PostExecutionVerification();
@@ -130,6 +132,8 @@ int Application::Run()
             Knowledge::SetEvent(event);
             SetKnowledge_MousePosition();
 
+            // Logger::Get() << "SFML:  I Got an event!\n";
+
             switch (event.type)
             {
                 case sf::Event::MouseButtonPressed:
@@ -158,15 +162,15 @@ int Application::Run()
                     break;
                 }
                 default:
-                {
                     break;
-                }
             }
             /// Update UiElements if they "sense" something need to be changed
-            this->Update(); 
+            if (event.type != sf::Event::MouseMoved) {
+                this->Update(); 
 
-            /// Reset the knowledge so we dont update multiple times
-            Knowledge::ResetEvent();
+                /// Reset the knowledge so we dont update multiple times
+                Knowledge::ResetEvent();
+            }
         }
 
         /// once every ktimetoupdate we have to refresh
@@ -189,7 +193,7 @@ int Application::Run()
 
 
 
-        if(debug_clock.getElapsedTime().asSeconds() > 6) {  /// DEBUG
+        if(debug_clock.getElapsedTime().asSeconds() > 2) {  /// DEBUG
             if (not startedSong) {
                 startedSong = 1;
                 // Logger::Get() << "Creating and playing test music.....\n";
@@ -200,15 +204,35 @@ int Application::Run()
                 // music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
                 // Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
 
+                
+
+                // Logger::Get() << "DEBUG: Adding Album to Player\n";
+                // Knowledge::Daddy_Player->CreateAlbum("data");
+
+                // Knowledge::Daddy_Player->addAlbumToQueue( Knowledge::Daddy_Player->getAlbums()[0] );
+
                 // Knowledge::Daddy_Player->PlayMusic();
-                
-                // Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
-                
-                // auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];
 
-                // Knowledge::Daddy_Player->addAlbumToQueue(album_ptr);
+                // // Knowledge::Daddy_Player->PlayMusic();
+                
+                // // Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
+                
+                // for (int i = 0; i < 2; ++i) {
+                //     auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];
 
-                // Knowledge::Daddy_Player->Zip();
+                //     Knowledge::Daddy_Player->addAlbumToQueue(album_ptr);
+
+                //     Knowledge::Daddy_Player->CreatePlaylist("Test Playlist" + std::to_string(i));
+                //     Knowledge::Daddy_Player->CreatePlaylist("Coding" + std::to_string(i));
+
+                //     Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
+                //         Knowledge::Daddy_Player->getAllMusic()[2]
+                //     );
+                    
+                //     Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
+                //         Knowledge::Daddy_Player->getAllMusic()[1]
+                //     );
+                // }
             }
         }
 
