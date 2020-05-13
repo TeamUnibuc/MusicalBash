@@ -163,14 +163,15 @@ int Application::Run()
 
             /// Reset the knowledge so we dont update multiple times
             Knowledge::ResetEvent();
-
-            /// Reset clock used for forced updates
-            clock_update_.restart();
         }
 
+        /// once every ktimetoupdate we have to refresh
         if (clock_update_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
             this->Update();
             clock_update_.restart();
+
+            /// refreshing the downloads folder
+            Knowledge::Daddy_Player->CreateAlbum(Knowledge::application_path + "/downloads");
         }
 
         /// Music Player loop
