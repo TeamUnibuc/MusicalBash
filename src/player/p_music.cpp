@@ -29,6 +29,12 @@ PMusic::PMusic(std::string path) : played_count_(0), path_(path) {
     }
 }
 
+PMusic::PMusic(PMusic && oth) : played_count_(oth.played_count_),
+    path_(std::move(oth.path_)), duration_seconds_(oth.duration_seconds_)
+{
+    oth.played_count_ = oth.duration_seconds_ = 0;
+}
+
 std::string PMusic::getSongNameWithoutPath() const
 {
     int last_backslash = -1;

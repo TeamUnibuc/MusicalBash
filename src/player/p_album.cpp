@@ -13,8 +13,8 @@ PAlbum::PAlbum(std::string album_path, std::map <std::string, std::shared_ptr<PM
     for (auto i : files) {
         if (pmusic.find(i) == pmusic.end()) {
             try {
-                auto m_ptr = std::make_shared<PMusic>(i);
-                pmusic[i] = m_ptr;
+                auto m_ptr = PMusic(i);
+                pmusic[i] = std::make_shared<PMusic>(std::move(m_ptr));
                 content_.push_back(pmusic[i]);
             }
             catch (...) {

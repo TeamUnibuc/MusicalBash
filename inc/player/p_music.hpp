@@ -27,6 +27,12 @@ public:
     /* Creates a new music from the path path */
     PMusic(std::string path);
 
+    /**
+     * Move operator
+     * for PMusic
+     */
+    PMusic(PMusic && oth);
+
     /// returns only the name of the song, without the path
     std::string getSongNameWithoutPath() const;
 
