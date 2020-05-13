@@ -30,8 +30,14 @@ void Window::setViewPort(const sf::FloatRect& viewRect)
 
 void Window::Render(sf::RenderWindow& rw, int offX, int offY)
 {
+    sf::Clock renderTime;
+
     for (auto ptr_el : element_list) {
         ptr_el->Render(rw, g_off_x + offX, g_off_y + offY);
+    }
+
+    if (type_ == Type::Main) {
+        Logger::Get() << "Render Time Main: " << renderTime.getElapsedTime().asSeconds() << '\n';
     }
 }
 
@@ -139,7 +145,11 @@ void Window::MainController(int off_x, int off_y)
                 scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
         scrl_ptr->ClearAllUiElements();
 
+        // sf::Clock testclock;
+
         ViewsMain::UpdatePlaylists(scrl_ptr, Kld::Daddy_Player->getPlaylists());
+
+        // Logger::Get() << "INFOO TIME:  " << testclock.getElapsedTime().asSeconds() << '\n';
 
         app_state = Constants::State::W::Playlists;
         break;
@@ -200,7 +210,14 @@ void Window::MainController(int off_x, int off_y)
                 ViewsMain::CreateSpecificPlaylist(this, this);
         }
 
-        ViewsMain::UpdateSpecificPlaylist();
+        SharedPtr<ScrollableList> scrl_ptr;
+
+        for (auto p : element_list) 
+            if (dynamic_cast<ScrollableList*>(&*p))
+                scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
+        scrl_ptr->ClearAllUiElements();
+
+        ViewsMain::UpdateSpecificPlaylist(scrl_ptr);
 
         app_state = Constants::State::W::ViewPlaylist;
         break;

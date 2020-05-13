@@ -122,6 +122,8 @@ int Application::Run()
             Knowledge::SetEvent(event);
             SetKnowledge_MousePosition();
 
+            Logger::Get() << "SFML:  I Got an event!\n";
+
             switch (event.type)
             {
                 case sf::Event::MouseButtonPressed:
@@ -149,18 +151,15 @@ int Application::Run()
                     break;
                 }
                 default:
-                {
                     break;
-                }
             }
             /// Update UiElements if they "sense" something need to be changed
-            this->Update(); 
+            if (event.type != sf::Event::MouseMoved) {
+                this->Update(); 
 
-            /// Reset the knowledge so we dont update multiple times
-            Knowledge::ResetEvent();
-
-            /// Reset clock used for forced updates
-            clock_update_.restart();
+                /// Reset the knowledge so we dont update multiple times
+                Knowledge::ResetEvent();
+            }
         }
 
         if (clock_update_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
@@ -189,7 +188,9 @@ int Application::Run()
                 // Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
                 // music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
                 // Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
+
                 
+
                 Logger::Get() << "DEBUG: Adding Album to Player\n";
                 Knowledge::Daddy_Player->CreateAlbum("data");
 
@@ -201,16 +202,22 @@ int Application::Run()
                 
                 Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
                 
-                auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];
+                for (int i = 0; i < 2; ++i) {
+                    auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];
 
-                Knowledge::Daddy_Player->addAlbumToQueue(album_ptr);
+                    Knowledge::Daddy_Player->addAlbumToQueue(album_ptr);
 
-                Knowledge::Daddy_Player->CreatePlaylist("Test Playlist");
-                Knowledge::Daddy_Player->CreatePlaylist("Coding");
+                    Knowledge::Daddy_Player->CreatePlaylist("Test Playlist" + std::to_string(i));
+                    Knowledge::Daddy_Player->CreatePlaylist("Coding" + std::to_string(i));
 
-                Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
-                    Knowledge::Daddy_Player->getAllMusic()[2]
-                );
+                    Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
+                        Knowledge::Daddy_Player->getAllMusic()[2]
+                    );
+                    
+                    Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
+                        Knowledge::Daddy_Player->getAllMusic()[1]
+                    );
+                }
             }
         }
 

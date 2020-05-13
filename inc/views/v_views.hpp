@@ -8,6 +8,7 @@
 #include "u_progress_bar.hpp"
 #include "u_album_entry.hpp"
 #include "u_playlist_entry.hpp"
+#include "u_song_playlist_entry.hpp"
 
 /**
  * ViewsMain is a class that has logic for populating different views
@@ -48,7 +49,7 @@ public:
     static void UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr);
 
     static void CreateSpecificPlaylist(UiContainer *const father, UiElement *const fatherUi);
-    static void UpdateSpecificPlaylist(/* TO DO */);
+    static void UpdateSpecificPlaylist(SharedPtr<ScrollableList> l_ptr);
 };
 
 class ViewsSide

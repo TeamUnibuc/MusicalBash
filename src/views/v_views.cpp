@@ -242,16 +242,32 @@ void ViewsMain::UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr)
 
 void ViewsMain::CreateSpecificPlaylist(UiContainer *const father, UiElement *const fatherUi)
 {
-    Logger::Get() << "ERROR: Main Create Specific Playlist   view not implemented!\n";
+    const auto& playlist = Knowledge::State::data.curr_playlist;
+    SetTitle("Playlist: " + playlist->GetName(), father, fatherUi);
 
+    auto lst_ptr = std::make_unique<ScrollableList>(
+        kListWidthButtons, kListHeight
+    );
+    lst_ptr->SetPosition(kListPoz);
+
+    father->AddUiElementToList(std::move(lst_ptr));
 }
 
 /// ============================ Main ===== Update ===== Specific Playlist =============
 
-void ViewsMain::UpdateSpecificPlaylist(/* TO DO */)
+void ViewsMain::UpdateSpecificPlaylist(SharedPtr<ScrollableList> l_ptr)
 {
-    Logger::Get() << "ERROR: Main Update Specific Playlist   view not implemented!\n";
+    const auto& playlist = Knowledge::State::data.curr_playlist;
 
+    Logger::Get() << " Playlist to update: " << Knowledge::State::data.curr_playlist->GetName() << '\n';
+
+    int contor = 0;
+    for (auto song_ptr : playlist->GetMusic()) {
+        auto entry = std::make_unique<SongPlaylistEntry>(
+            playlist, song_ptr, ++contor
+        );
+        l_ptr->AddUiElement(std::move(entry));
+    }
 }
 
 ///  Side Window
