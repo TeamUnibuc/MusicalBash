@@ -169,11 +169,7 @@ void ViewsMain::UpdateAlbums(SharedPtr<ScrollableList> l_ptr, const std::vector<
     int contor = 0;
     for (auto a_ptr : album_list) {
         auto entry_ptr = std::make_unique<AlbumEntry>(
-            kListWidthSimple, kEntryHeight, 
-            Constants::kSideBtnIdle, Constants::kSideBtnHover,
-            a_ptr, ++contor,
-            std::make_unique<CShowSpecificAlbum>(a_ptr),
-            std::make_shared<PngSprite>("data/img/red_cross.png")
+            a_ptr, ++contor
         );
         l_ptr->AddUiElement(std::move(entry_ptr));
     }
