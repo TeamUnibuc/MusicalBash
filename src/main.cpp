@@ -14,20 +14,17 @@ using namespace std;
 
 int main()
 {
-    /// needs to be integrated somewhere in the code
-    system("mkdir $HOME/.musicalbash -p");
-    system("mkdir $HOME/.musicalbash/downloads -p");
     
-    auto command = CDownloadFromWeb();
-    command.Execute();
+    // auto command = CDownloadFromWeb();
+    // command.Execute();
 
-    this_thread::sleep_for(chrono::seconds(1));
+    // this_thread::sleep_for(chrono::seconds(1));
 
-    while (true) {
-        command.PostExecutionVerification();
-        this_thread::sleep_for(chrono::seconds(1));
-        cerr << "Main\n";
-    }
+    // while (true) {
+    //     command.PostExecutionVerification();
+    //     this_thread::sleep_for(chrono::seconds(1));
+    //     cerr << "Main\n";
+    // }
 
     Logger::Get() << "Starting application...\n";
 

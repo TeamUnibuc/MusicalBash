@@ -24,6 +24,9 @@ Application::Application() :
 
 void Application::InitializingScript()
 {
+    /// computes the absolute path of `$HOME/.musicalbash`
+    Knowledge::CreateApplicationPath();
+
     Logger::Get() << "Creating DaddyPlayer Instance\n";
     
     Knowledge::Daddy_Player = std::make_unique<Player>();
