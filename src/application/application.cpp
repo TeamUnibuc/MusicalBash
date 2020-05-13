@@ -93,6 +93,7 @@ void Application::Update()
     /// Updating multithread stuff
     CImportAlbum::PostExecutionVerification();
     CCreatePlaylists::PostExecutionVerification();
+    CDownloadFromWeb::PostExecutionVerification();
     
     w_side_bar_.Update(0, 0);
     w_status_.Update(0, 0);

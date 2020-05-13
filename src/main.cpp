@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-    // Constants::application_path = "/home/theodor/.musicalbash";
+    // Constants::application_path = "/home/felix/.musicalbash";
     // auto c = COpenDownloadsFolder();
     // c.Execute();
 
