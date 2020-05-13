@@ -6,7 +6,7 @@
 
 #include "sqlite3.h"
 #include "a_logger.hpp"
-#include "a_knowledge.hpp"
+#include "a_constants.hpp"
 
 /*
  * Class that handles the queries into and from the application database

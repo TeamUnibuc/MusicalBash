@@ -34,7 +34,8 @@ int DBHandler::callback(void *NotUsed, int argc, char **argv, char **azColName)
 
 void DBHandler::executeOperation(const std::string& operation)
 {
-    std::string database_path = Knowledge::application_path + "/database/database.db";
+    std::string database_path = Constants::application_path + "/database/database.db";
+    Logger::Get() << "Database path is " << database_path << '\n';
     int db_res = sqlite3_open(database_path.c_str(), &db);
 
     if (db_res)
@@ -68,6 +69,8 @@ void DBHandler::executeOperation(const std::string& operation)
 
 void DBHandler::StoreData(std::string data)
 {
+    CreateTableIfNotExists();
+
     /// First remove the old data
     executeOperation(sql_delete_);
 
@@ -82,13 +85,14 @@ void DBHandler::StoreData(std::string data)
 
 std::string DBHandler::ExtractData()
 {
+    CreateTableIfNotExists();
     executeOperation(sql_select_);
     return response;
 }
 
 void DBHandler::CreateTableIfNotExists()
 {
-    std::ifstream test_in(Knowledge::application_path + "/database/database.db");
+    std::ifstream test_in(Constants::application_path + "/database/database.db");
     if (!test_in.is_open()){
         Logger::Get() << "Database folder not found, so will create one" << '\n';
 
