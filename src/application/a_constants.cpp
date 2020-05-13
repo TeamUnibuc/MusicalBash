@@ -42,6 +42,7 @@ void CreateApplicationPath()
 
     system("mkdir $HOME/.musicalbash -p");
     system("mkdir $HOME/.musicalbash/downloads -p");
+    system("mkdir $HOME/.musicalbash/database -p");    
 
     char path[1024];
     path[0] = 0;

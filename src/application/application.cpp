@@ -24,6 +24,7 @@ Application::Application() :
 
 void Application::InitializingScript()
 {
+    Logger::Get() << "Called the initializing script\n";
     /// computes the absolute path of `$HOME/.musicalbash`
     Constants::CreateApplicationPath();
 
@@ -112,6 +113,8 @@ int Application::Run()
 
     sf::Clock debug_clock;
     bool startedSong = 0;
+
+    Logger::Get() << "Application run called\n";
 
     InitializingScript();
 
