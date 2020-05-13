@@ -9,14 +9,14 @@
  * executes a command when clicked and has an updater_function so it can get
  * information about the state of the app if needed
  */
-class PngColorButton : public ColorButton, public ColorUpdater
+class PngColorButton : public ColorButton, public ColorUpdater<sf::Color>
 {
 protected:
     SharedPtr<PngSprite> sprite_;
 
 public:
     PngColorButton(int szX, int szY, UniquePtr<Command> cPtr, sf::Color normal, sf::Color hover,
-                   SharedPtr<PngSprite> pngPtr, std::function<void(sf::Color&)> func = ColorUpdater::kDefault);
+                   SharedPtr<PngSprite> pngPtr, std::function<void(sf::Color&)> func = ColorUpdater<sf::Color>::kDefault);
 
     void Update(int off_x, int off_y) override;
 

@@ -2,18 +2,16 @@
 
 #include <functional>
 
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-
 /**
- * If you want to change some sf::Color dynamically
+ * If you want to change some object dynamically
  * inherit from this class and use the given function that takes
- * a sf::Color by reference to change it
+ * a some object by reference to change it
  */
+template<typename T>
 class ColorUpdater
 {
 private:
-    using FType = std::function<void(sf::Color&)>;
+    using FType = std::function<void(T&)>;
 
 protected:
     ColorUpdater();
@@ -23,5 +21,15 @@ protected:
     FType col_updater_;
 
     static FType kDefault;
-
 };
+
+template<typename T>
+ColorUpdater<T>::FType ColorUpdater<T>::kDefault = [ ]( T& ){ };
+
+template<typename T>
+ColorUpdater<T>::ColorUpdater(const FType& func) : col_updater_( func )
+{}
+
+template<typename T>
+ColorUpdater<T>::ColorUpdater() : col_updater_( kDefault )
+{}
