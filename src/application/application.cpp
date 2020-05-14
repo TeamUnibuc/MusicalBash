@@ -164,6 +164,13 @@ int Application::Run()
                 default:
                     break;
             }
+            if (Knowledge::GetEvent().type == sf::Event::EventType::MouseButtonPressed) {
+                if (Knowledge::GetEvent().mouseButton.button == sf::Mouse::Button::Left) {
+                    Logger::Get() << "Left click pressed at: " << Knowledge::GetMousePoz().first << ' '
+                                  << Knowledge::GetMousePoz().second << '\n';   
+                }
+            }
+            
             /// Update UiElements if they "sense" something need to be changed
             if (event.type != sf::Event::MouseMoved) {
                 this->Update(); 

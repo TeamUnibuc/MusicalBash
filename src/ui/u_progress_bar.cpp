@@ -1,12 +1,15 @@
 #include "u_progress_bar.hpp"
+#include "a_knowledge.hpp"
+#include "a_utils.hpp"
 
 ProgressBar::ProgressBar(int length, int hLeftBar, int hRightBar, int szCircle,
                 sf::Color c_left, sf::Color c_right, sf::Color c_circle,
-                std::function<float()> func) :
+                std::function<float()> func, UniquePtr<SliderCommand> command) :
     length_(length),
     r_left_({0.f , 1.f * hLeftBar}), r_right_({0.f , 1.f * hRightBar}),
     circle_(szCircle),
-    whatProgress(func)
+    whatProgress(func),
+    command_(std::move(command))
 {
     r_left_.setFillColor(c_left);
     r_right_.setFillColor(c_right);
@@ -35,9 +38,24 @@ void ProgressBar::Render(sf::RenderWindow& rw, int off_x, int off_y)
     rw.draw(circle_);
 }
 
-void ProgressBar::Update(int /* off_x */, int /* off_y */)
+void ProgressBar::Update(int off_x, int off_y)
 {
-    /// Nothing lol ?
+    if (Knowledge::GetEvent().type == sf::Event::EventType::MouseButtonPressed) {
+        if (Knowledge::GetEvent().mouseButton.button == sf::Mouse::Button::Left) {
+            // Logger::Get() << "Left click pressed at: " << Knowledge::GetMousePoz().first << ' '
+            //               << Knowledge::GetMousePoz().second << '\n';
+            // Logger::Get() << "Checking click at: " <<  off_x + pos_x << ' '
+            //               << off_y + pos_y << ' ' <<  sizeX_ << ' ' << sizeY_ << '\n';   
+            if (Utils::PointInsideRect(Knowledge::GetMousePoz(), 
+                                       off_x + pos_x, off_y + pos_y - 20, length_, 40)) {
+                double raport = Knowledge::GetMousePoz().first - off_x - pos_x;
+                raport /= length_;
+                raport *= 100;
+                Logger::Get() << " ProgressBar detected press at " << raport << " percentage of length\n";
+                command_->Execute(raport);
+            }
+        }
+    }
 }
 
 int ProgressBar::GetHeight() const
