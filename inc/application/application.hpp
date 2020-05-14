@@ -34,6 +34,7 @@ private:
 
     /// clock for calling update if nothing happened for some time
     sf::Clock clock_update_;
+    sf::Clock clock_render_;
 
     void InitializingScript();
 

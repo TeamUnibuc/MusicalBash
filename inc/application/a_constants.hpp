@@ -22,6 +22,9 @@ namespace Constants
     extern const sf::Color kPurple;
     extern const sf::Color kGreen;
 
+    /// Private data
+    extern const sf::Event kMockEvent;
+
     /// Maximum framerate
     extern const int    kFrameLimit;
 

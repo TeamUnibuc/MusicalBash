@@ -23,6 +23,8 @@ const sf::Color kSideBtnIdle      = sf::Color(100, 100, 100, 240);
 const sf::Color kPurple           = sf::Color(185, 87,  255);
 const sf::Color kGreen            = sf::Color(12,  201, 22);
 
+const sf::Event kMockEvent = {sf::Event::JoystickConnected, {}};
+
 const std::string kApplicationName = "Musical Bash";
 
 const std::vector<std::string> kMusicExtensions {
@@ -43,7 +45,8 @@ void CreateApplicationPath()
 
     system("mkdir $HOME/.musicalbash -p");
     system("mkdir $HOME/.musicalbash/downloads -p");
-    system("mkdir $HOME/.musicalbash/database -p");    
+    system("mkdir $HOME/.musicalbash/database -p"); 
+    system("mkdir $HOME/.musicalbash/tmp -p");
 
     char path[1024];
     path[0] = 0;

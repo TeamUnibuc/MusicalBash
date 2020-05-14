@@ -11,9 +11,6 @@ State::Data           State::data;
 /// Global variables but available only 
 /// in this translation unit so we are safe
 
-/// Private data
-static const sf::Event kMockEvent = {sf::Event::JoystickConnected, {}};
-
 static sf::Event event_;
 static std::pair<int, int> mouse_poz_;
 
@@ -22,7 +19,7 @@ static std::pair<int, int> mouse_poz_;
 void ResetEvent()
 {
     // mouse_poz_ = {-1, -1};
-    event_ = kMockEvent;
+    event_ = Constants::kMockEvent;
 }
 
 void SetMousePoz(const std::pair<int, int>& where)

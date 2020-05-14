@@ -26,10 +26,11 @@ void ScrollableList::SetStartIndex(int index)
 
 void ScrollableList::Render(sf::RenderWindow& rw, int off_x, int off_y)
 {
-
     /// go as far up as possible while the last element is still visible
     while (start_index_ > 0 && LastElementIsVisible(start_index_ - 1))
         start_index_--;
+
+    // Logger::Get() << "ScrlList Index: " << start_index_ << '\n';
 
     // Logger::Get() << "Rendering ScrlList at Pos: " << off_x + pos_x << " " << off_y + pos_y << '\n';
     // Logger::Get() << "Start index: " << start_index_ << '\n';
@@ -54,21 +55,19 @@ void ScrollableList::Update(int off_x, int off_y)
 
         auto [x, y] = std::pair(mpoz.first - off_x, mpoz.second - off_y);
         
-        Logger::Get() << "Position: " << x << ' ' << y << '\n';
+        // Logger::Get() << "Position: " << x << ' ' << y << '\n';
         if (x >= pos_x && x < pos_x + sizeX_ && y >= pos_y && y < pos_y + sizeY_) {
             int delta = ev.mouseWheelScroll.delta;
-            Logger::Get() << "Scroll with Delta: " << delta << '\n';
+            // Logger::Get() << "Scroll with Delta: " << delta << '\n';
 
-            if (delta < 0) {
+            if (delta < 0 && start_index_ + 1 < (int)element_list.size()) {
                 if (not LastElementIsVisible(start_index_)) {
-                    int min_index = element_list.size();
-                    if (min_index > 0)
-                        min_index--;
-                    start_index_ = std::min(min_index, start_index_ + 1);
+                    start_index_ = std::min(int(element_list.size()), start_index_ + 1 - delta) - 1;
                 }
             }
-            else if (delta > 0 )
-                start_index_ = std::max(0, start_index_ - 1);
+            else if (delta > 0 && start_index_ > 0) {
+                start_index_ = std::max(0, start_index_ - delta);
+            }
         }
     }
     else {

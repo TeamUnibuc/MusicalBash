@@ -46,7 +46,7 @@ void Application::InitUI()
     w_main_.ClearAllUiElements();
     w_status_.ClearAllUiElements();
 
-    rend_window_.setFramerateLimit(Constants::kFrameLimit);
+    rend_window_.setFramerateLimit(Constants::kFrameLimit * 100);
 
     
     if (!Constants::kFont.loadFromFile(Constants::kFontPath))
@@ -65,6 +65,8 @@ void Application::PopulateWindows()
 void Application::Render()
 {
     /// Displays the darker rectangles behind every Big UI Window
+    rend_window_.clear(Constants::kAppBackground);
+
     auto rect = sf::RectangleShape();
 
     rect.setFillColor(Constants::kWindowBackground);
@@ -86,20 +88,29 @@ void Application::Render()
     w_side_bar_.Render(rend_window_, 0, 0);
     w_status_.Render(rend_window_, 0, 0);
     w_main_.Render(rend_window_, 0, 0);
+
+    rend_window_.display(); 
 }
 
 void Application::Update()
 {
     // Logger::Get() << "INFO:  New Update tick!\n";
 
+    
+
     /// Updating multithread stuff
     CImportAlbum::PostExecutionVerification();
     CCreatePlaylists::PostExecutionVerification();
     CDownloadFromWeb::PostExecutionVerification();
     
+    // sf::Clock cll;
+
     w_side_bar_.Update(0, 0);
     w_status_.Update(0, 0);
     w_main_.Update(0, 0);
+
+    // Logger::Get() << "Update Time: " << cll.getElapsedTime().asMilliseconds() << '\n';
+    // cll.restart();
 }
 
 void Application::SetKnowledge_MousePosition()
@@ -122,13 +133,35 @@ int Application::Run()
 
     /// reset clock for updating
     clock_update_.restart();
+    clock_render_.restart();
 
     while (rend_window_.isOpen()){
         
         /// Handle events that took place from last render
 
         sf::Event event;
+        sf::Event scrollSumEvent;
         while (rend_window_.pollEvent(event)){
+            /// Treat the god damn scroll events as much as  you can
+            scrollSumEvent = Utils::AggregateVerticalScrollEvents(rend_window_, event);
+
+            if (scrollSumEvent.mouseWheelScroll.delta != 0) {
+                Knowledge::SetEvent(scrollSumEvent);
+                 /// Update UiElements if they "sense" something need to be changed
+            // if (event.type != sf::Event::MouseMoved) {
+                Logger::Get() << "Scroll Update & Render !!! " << scrollSumEvent.mouseWheelScroll.delta << "\n";
+                this->Update(); 
+                /// Reset the knowledge so we dont update multiple times
+                Knowledge::ResetEvent();
+            // }
+
+            // if (clock_render_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate / 10) {
+                this->Render();
+                clock_render_.restart();
+                // Logger::Get() << "Rendering forced\n";
+            // }
+            }
+
             Knowledge::SetEvent(event);
             SetKnowledge_MousePosition();
 
@@ -139,7 +172,6 @@ int Application::Run()
                 case sf::Event::MouseButtonPressed:
                 {
                     EventHandler::Click();
-                    Logger::Get() << "Size of all music: " << Knowledge::Daddy_Player->getAllMusic().size() << '\n';
                     break;           
                 }
                 case sf::Event::MouseWheelScrolled:
@@ -156,9 +188,7 @@ int Application::Run()
                 }
                 case sf::Event::Closed:
                 {
-                    Knowledge::Daddy_Player->Zip();
-                    rend_window_.close();
-                    Logger::Get() << "The window was closed\n";
+                    EventHandler::Close(rend_window_);
                     break;
                 }
                 default:
@@ -171,17 +201,32 @@ int Application::Run()
                 }
             }
             
-            /// Update UiElements if they "sense" something need to be changed
-            if (event.type != sf::Event::MouseMoved) {
-                this->Update(); 
+            // /// Update UiElements if they "sense" something need to be changed
+            // // if (event.type != sf::Event::MouseMoved) {
+            //     Logger::Get() << "Fast Update\n";
+            //     this->Update(); 
+            //     /// Reset the knowledge so we dont update multiple times
+            //     Knowledge::ResetEvent();
+            // // }
 
-                /// Reset the knowledge so we dont update multiple times
-                Knowledge::ResetEvent();
-            }
+            // // if (clock_render_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate / 10) {
+            //     this->Render();
+            //     clock_render_.restart();
+            //     // Logger::Get() << "Rendering forced\n";
+            // // }
+
+            /// Music Player loop
+        // Knowledge::Daddy_Player->Step();
+
+        // rend_window_.clear(Constants::kAppBackground);
+
+        // this->Render();
+        // rend_window_.display();  
         }
 
         /// once every ktimetoupdate we have to refresh
         if (clock_update_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
+            // Logger::Get() << "LAZY Update & Render\n";
             this->Update();
             clock_update_.restart();
 
@@ -192,10 +237,8 @@ int Application::Run()
         /// Music Player loop
         Knowledge::Daddy_Player->Step();
 
-        rend_window_.clear(Constants::kAppBackground);
-
-        this->Render();
-        rend_window_.display();  
+        this->Render(); 
+        clock_render_.restart();
 
 
 
