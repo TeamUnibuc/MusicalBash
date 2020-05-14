@@ -8,28 +8,19 @@
  * a some object by reference to change it
  */
 template<typename T>
-class ColorUpdater
+class ObjUpdater
 {
 private:
     using FType = std::function<void(T&)>;
 
 protected:
-    ColorUpdater();
+    static const FType kDefault;
 
-    ColorUpdater(const FType& func);
+    ObjUpdater(const FType& func = kDefault) : col_updater_(func)
+    { }
 
     FType col_updater_;
-
-    static FType kDefault;
 };
 
-template<typename T>
-ColorUpdater<T>::FType ColorUpdater<T>::kDefault = [ ]( T& ){ };
-
-template<typename T>
-ColorUpdater<T>::ColorUpdater(const ColorUpdater<T>::FType & func) : col_updater_( func )
-{}
-
-template<typename T>
-ColorUpdater<T>::ColorUpdater() : col_updater_( ColorUpdater<T>::kDefault )
-{}
+template <typename T>
+const ObjUpdater<T>::FType ObjUpdater<T>::kDefault = [ ]( T& ){ };

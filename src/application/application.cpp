@@ -171,6 +171,14 @@ int Application::Run()
                 /// Reset the knowledge so we dont update multiple times
                 Knowledge::ResetEvent();
             }
+
+            /// Music Player loop
+            Knowledge::Daddy_Player->Step();
+
+            rend_window_.clear(Constants::kAppBackground);
+
+            this->Render();
+            rend_window_.display();  
         }
 
         /// once every ktimetoupdate we have to refresh
