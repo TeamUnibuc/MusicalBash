@@ -35,7 +35,7 @@ void CDownloadFromWeb::PostExecutionVerification()
 
             std::string mini_script = "(cd $HOME/.musicalbash/downloads; ";
             mini_script += "youtube-dl " + link_to_music;
-            mini_script += " -x --audio-format mp3 &)";
+            mini_script += " -x --audio-format mp3 -o '%(title)s.%(ext)s' &)";
             
             std::cerr << "Trying to execute \n" + mini_script + "\n\n";
             system(mini_script.c_str());
