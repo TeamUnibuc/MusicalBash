@@ -1,8 +1,7 @@
 #include "c_name_select.hpp"
 
-CNameSelect::CNameSelect()
-{
-}
+CNameSelect::CNameSelect() 
+{ }
 
 void CNameSelect::Execute()
 {

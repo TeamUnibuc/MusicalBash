@@ -19,9 +19,9 @@ protected:
 
     bool ThisButtonClicked(int off_x, int off_y) const;
 
+public:
     bool ThisButtonHovered(int off_x, int off_y) const;
 
-public:
     Button(int szX, int szY, UniquePtr<Command> cPtr);
 
     void Update(int off_x, int off_y);

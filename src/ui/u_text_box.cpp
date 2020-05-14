@@ -37,6 +37,11 @@ void TextBox::SetText(std::string textInput)
     text_.setString(textInput);
 }
 
+std::string TextBox::GetText() const
+{
+    return text_.getString().toAnsiString();
+}
+
 void TextBox::Render(sf::RenderWindow& rw, int off_x, int off_y)
 {
     /// Only for testing purposes

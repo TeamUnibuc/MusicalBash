@@ -75,7 +75,7 @@ std::shared_ptr<PAlbum> PIndex::CreateAlbum(std::string path)
             return i;
         }
     }
-
+    
     palbum_.push_back(std::shared_ptr<PAlbum> (new PAlbum(path, pmusic_)));
     return palbum_.back();
 }

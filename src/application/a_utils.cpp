@@ -27,6 +27,8 @@ namespace Utils
             ret.push_back(char('0' + mins % 10));
             mins /= 10;
         }
+        std::reverse(ret.begin(), ret.end());
+
         ret.push_back(':');
         ret.push_back('0' + ss / 10);
         ret.push_back('0' + ss % 10);

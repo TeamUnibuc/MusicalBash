@@ -2,8 +2,11 @@
 #define INC_APPLICATION_DATABASE_
 
 #include <iostream>
+#include <fstream>
+
 #include "sqlite3.h"
 #include "a_logger.hpp"
+#include "a_constants.hpp"
 
 /*
  * Class that handles the queries into and from the application database
@@ -30,11 +33,17 @@ private:
     /// The sqlite3 operation for selecting the table column we want
     static const std::string sql_select_;
 
+    /// The sqlite3 operation for creating the table
+    static const std::string sql_create_;
+
     /// Tempate for executing various sqlite3 operations
     static void executeOperation(const std::string& operation);
 
     /// Global (sort of) variable to store the result of a sqlite3 query
     static std::string response;
+
+    /// Create the table if it doesn't exist
+    static void CreateTableIfNotExists();
 
 protected:
 public:

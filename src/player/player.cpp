@@ -1,5 +1,4 @@
 #include "player.hpp"
-#include "a_knowledge.hpp"
 
 Player::Player() : index_(new PIndex),
     music_queue_(new PMusicQueue),
