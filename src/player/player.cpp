@@ -80,13 +80,13 @@ std::vector <std::shared_ptr<PMusic>> Player::GetPlayingQueue() const
 
 void Player::PlayMusic()
 {
-    if (music_player_->IsPlaying() || music_queue_->Size() == 0)
-        return;
-    
     if (music_player_->IsPaused()) {
         music_player_->Play();
         return;
     }
+    
+    if (music_player_->IsPlaying() || music_queue_->Size() == 0)
+        return;
 
     std::shared_ptr<PMusic> music;
     if (is_suffling_)
@@ -132,6 +132,7 @@ double Player::getVolume() const
 
 void Player::setVolume(double volume)
 {
+    music_volume_ = volume;
     music_player_->SetVolume(volume);
 }
 

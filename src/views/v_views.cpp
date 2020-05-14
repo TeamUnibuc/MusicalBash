@@ -337,7 +337,8 @@ void ViewsStatus::Create(UiContainer *const father_elem)
                 return 0.;
 
             return curr_second / length * 100; 
-        }
+        },
+        std::make_unique<CPlayerSetPlayingOffset>()
     );
     song_bar->SetPosition({20, 194});
     father_elem->AddUiElementToList(std::move(song_bar));
@@ -348,7 +349,8 @@ void ViewsStatus::Create(UiContainer *const father_elem)
         190, 6, 6, 6, sf::Color::White, sf::Color::Black, Constants::kPurple,
         [](){
             return Knowledge::Daddy_Player->getVolume();
-        } 
+        },
+        std::make_unique<CPlayerSetVol>()
     );
     vol_bar->SetPosition({650, 194});
 

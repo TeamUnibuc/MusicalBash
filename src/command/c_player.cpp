@@ -68,5 +68,34 @@ void CPlayerVolUp::Execute()
     ++ref;
 }
 
+SliderCommand::SliderCommand()
+{ }
 
+SliderCommand::~SliderCommand()
+{ }
 
+CPlayerSetVol::CPlayerSetVol()
+{ }
+
+void CPlayerSetVol::Execute(double volume)
+{
+    if (volume < 0. || volume > 100.)
+        throw bad_behaviour("Invalid volume: received " + std::to_string(volume));
+    Player& ref = *Knowledge::Daddy_Player;
+
+    ref.setVolume(volume);
+}
+
+CPlayerSetPlayingOffset::CPlayerSetPlayingOffset()
+{ }
+
+void CPlayerSetPlayingOffset::Execute(double value)
+{
+    if (value < 0. || value > 100.)
+        throw bad_behaviour("Invalid percentage: received " + std::to_string(value));
+    Player& ref = *Knowledge::Daddy_Player;
+
+    double length = ref.getActiveSongDuration();
+    double new_offset = value * length / 100.;
+    ref.setActiveSongPlayingOffset(new_offset);
+}
