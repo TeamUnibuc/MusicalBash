@@ -17,6 +17,4 @@ namespace Utils
     std::string IntToMinSecondSecond(int time);
 
     sf::Color RandomColor();
-
-    sf::Event AggregateVerticalScrollEvents(sf::RenderWindow& rw, sf::Event& event);
 }

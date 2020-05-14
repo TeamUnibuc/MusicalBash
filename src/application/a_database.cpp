@@ -14,7 +14,7 @@ const std::string DBHandler::sql_create_ = "CREATE TABLE MusicalBash(id int prim
 
 std::string DBHandler::response = "";
 
-int DBHandler::callback(void *NotUsed, int argc, char **argv, char **azColName)
+int DBHandler::callback(void * /* NotUsed */, int /* argc */, char **argv, char ** /* azColName */)
 {
     response = argv[0];
 

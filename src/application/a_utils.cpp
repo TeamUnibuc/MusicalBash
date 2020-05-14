@@ -50,29 +50,4 @@ namespace Utils
         return name;
     }
 
-    sf::Event AggregateVerticalScrollEvents(sf::RenderWindow& rw, sf::Event& event) 
-    {
-        sf::Event ev;
-        sf::Event::MouseWheelScrollEvent scrollSumEvent;
-
-        scrollSumEvent = {sf::Mouse::Wheel::VerticalWheel, 0, 0, 0};
-        while(event.type == sf::Event::MouseWheelScrolled 
-           && event.mouseWheelScroll.wheel == sf::Mouse::Wheel::VerticalWheel) {
-
-            scrollSumEvent.delta += event.mouseWheelScroll.delta;
-
-            if(not rw.pollEvent(event)) {
-                event = Constants::kMockEvent;
-                break;
-            }
-            else {
-                if (event.type != sf::Event::MouseWheelScrolled)
-                    break;
-            }
-        }
-        ev.type = sf::Event::MouseWheelScrolled;
-        ev.mouseWheelScroll = scrollSumEvent;
-        return ev;
-    }
-
 }

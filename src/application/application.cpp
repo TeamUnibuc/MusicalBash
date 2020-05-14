@@ -46,7 +46,7 @@ void Application::InitUI()
     w_main_.ClearAllUiElements();
     w_status_.ClearAllUiElements();
 
-    rend_window_.setFramerateLimit(Constants::kFrameLimit * 100);
+    rend_window_.setFramerateLimit(Constants::kFrameLimit);
 
     
     if (!Constants::kFont.loadFromFile(Constants::kFontPath))

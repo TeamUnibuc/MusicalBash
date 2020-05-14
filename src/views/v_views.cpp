@@ -109,14 +109,9 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
 
 /// ====================================== Main ======= Update  ======= Home ==================
 
-void ViewsMain::UpdateHome(UiContainer *const father, UiElement *const fatherUi)
+void ViewsMain::UpdateHome(UiContainer *const /* father */, UiElement *const /* fatherUi */)
 {
     /// Reupdate Home ? Maybe after some time just redo create
-
-    // if (last_time_home_created_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
-    //     father->ClearAllUiElements();
-    //     CreateHome(father, fatherUi);
-    // }
 }
 
 /// ======================================= Main ===== Create ===== Queue ==========

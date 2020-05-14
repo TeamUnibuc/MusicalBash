@@ -13,15 +13,15 @@ void Click()
     Logger::Get() << "Click at position: " << x << ' ' << y << '\n';
 }
 
-void MouseWheelScrolled(const sf::Event& event)
+void MouseWheelScrolled(const sf::Event& event )
 {
-    // if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel)
-    //     Logger::Get() << "wheel type: vertical - ";
-    // else if (event.mouseWheelScroll.wheel == sf::Mouse::HorizontalWheel)
-    //     Logger::Get() << "wheel type: horizontal - ";
-    // else
-    //     Logger::Get() << "wheel type: unknown - " << std::endl;
-    // Logger::Get() << " wheel movement: " << event.mouseWheelScroll.delta;
+    if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel)
+        Logger::Get() << "wheel type: vertical - ";
+    else if (event.mouseWheelScroll.wheel == sf::Mouse::HorizontalWheel)
+        Logger::Get() << "wheel type: horizontal - ";
+    else
+        Logger::Get() << "wheel type: unknown - " << std::endl;
+    Logger::Get() << " wheel movement: " << event.mouseWheelScroll.delta << '\n';
     // Logger::Get() << " mouse x: " << event.mouseWheelScroll.x;
     // Logger::Get() << " mouse y: " << event.mouseWheelScroll.y << std::endl;
 }
