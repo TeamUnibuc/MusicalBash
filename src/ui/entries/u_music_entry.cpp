@@ -34,7 +34,7 @@ void MusicEntry::Render(sf::RenderWindow& rw, int off_x, int off_y)
     const int txt_height = col_btn_.GetHeight() * kTextScale;
     const int txtLen     = size_x_ - std::max(kMinSpaceForDuration, int(size_x_ * kPercentage));
 
-    TextBox txt_nr(12, off_height, 30, txt_height,
+    TextBox txt_nr(5, off_height, 30, txt_height,
                    0, std::to_string(number_));
     txt_nr.SetColor(Constants::kGreen);
 

@@ -94,10 +94,6 @@ void Application::Render()
 
 void Application::Update()
 {
-    // Logger::Get() << "INFO:  New Update tick!\n";
-
-    
-
     /// Updating multithread stuff
     CImportAlbum::PostExecutionVerification();
     CCreatePlaylists::PostExecutionVerification();
@@ -122,50 +118,17 @@ void Application::SetKnowledge_MousePosition()
 
 int Application::Run()
 {
-    using std::cout;
-
-    sf::Clock debug_clock;
-    bool startedSong = 0;
-
-    Logger::Get() << "Application run called\n";
-
     InitializingScript();
 
     /// reset clock for updating
     clock_update_.restart();
-    clock_render_.restart();
 
     while (rend_window_.isOpen()){
-        
-        /// Handle events that took place from last render
 
         sf::Event event;
-        sf::Event scrollSumEvent;
         while (rend_window_.pollEvent(event)){
-            /// Treat the god damn scroll events as much as  you can
-            scrollSumEvent = Utils::AggregateVerticalScrollEvents(rend_window_, event);
-
-            if (scrollSumEvent.mouseWheelScroll.delta != 0) {
-                Knowledge::SetEvent(scrollSumEvent);
-                 /// Update UiElements if they "sense" something need to be changed
-            // if (event.type != sf::Event::MouseMoved) {
-                Logger::Get() << "Scroll Update & Render !!! " << scrollSumEvent.mouseWheelScroll.delta << "\n";
-                this->Update(); 
-                /// Reset the knowledge so we dont update multiple times
-                Knowledge::ResetEvent();
-            // }
-
-            // if (clock_render_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate / 10) {
-                this->Render();
-                clock_render_.restart();
-                // Logger::Get() << "Rendering forced\n";
-            // }
-            }
-
             Knowledge::SetEvent(event);
             SetKnowledge_MousePosition();
-
-            // Logger::Get() << "SFML:  I Got an event!\n";
 
             switch (event.type)
             {
@@ -174,6 +137,7 @@ int Application::Run()
                     EventHandler::Click();
                     break;           
                 }
+
                 case sf::Event::MouseWheelScrolled:
                 {
                     EventHandler::MouseWheelScrolled(event);
@@ -186,6 +150,7 @@ int Application::Run()
                         EventHandler::DebugKeyDown();
                     break;
                 }
+
                 case sf::Event::Closed:
                 {
                     EventHandler::Close(rend_window_);
@@ -194,107 +159,18 @@ int Application::Run()
                 default:
                     break;
             }
-            if (Knowledge::GetEvent().type == sf::Event::EventType::MouseButtonPressed) {
-                if (Knowledge::GetEvent().mouseButton.button == sf::Mouse::Button::Left) {
-                    Logger::Get() << "Left click pressed at: " << Knowledge::GetMousePoz().first << ' '
-                                  << Knowledge::GetMousePoz().second << '\n';   
-                }
-            }
-            
-            // /// Update UiElements if they "sense" something need to be changed
-            // // if (event.type != sf::Event::MouseMoved) {
-            //     Logger::Get() << "Fast Update\n";
-            //     this->Update(); 
-            //     /// Reset the knowledge so we dont update multiple times
-            //     Knowledge::ResetEvent();
-            // // }
 
-            // // if (clock_render_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate / 10) {
-            //     this->Render();
-            //     clock_render_.restart();
-            //     // Logger::Get() << "Rendering forced\n";
-            // // }
-
-            /// Music Player loop
-        // Knowledge::Daddy_Player->Step();
-
-        // rend_window_.clear(Constants::kAppBackground);
-
-        // this->Render();
-        // rend_window_.display();  
-        }
-
-        /// once every ktimetoupdate we have to refresh
-        if (clock_update_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
-            // Logger::Get() << "LAZY Update & Render\n";
             this->Update();
-            clock_update_.restart();
+            this->Render();
 
-            /// refreshing the downloads folder
-            Knowledge::Daddy_Player->CreateAlbum(Constants::application_path + "/downloads");
+            Knowledge::ResetEvent();
         }
 
-        /// Music Player loop
-        Knowledge::Daddy_Player->Step();
-
-        this->Render(); 
-        clock_render_.restart();
-
-
-
-
-        if(debug_clock.getElapsedTime().asSeconds() > 2) {  /// DEBUG
-            if (not startedSong) {
-                startedSong = 1;
-                // Logger::Get() << "Creating and playing test music.....\n";
-                // auto music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
-                // Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
-                // music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/IWillSurvive.wav"));
-                // Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
-                // music_ptr = SharedPtr<PMusic>(new PMusic("data/music_samples/beatSample.mp3"));
-                // Knowledge::Daddy_Player->addMusicToQueue(music_ptr);
-
-                
-
-                // Logger::Get() << "DEBUG: Adding Album to Player\n";
-                // Knowledge::Daddy_Player->CreateAlbum("data");
-
-                // Knowledge::Daddy_Player->addAlbumToQueue( Knowledge::Daddy_Player->getAlbums()[0] );
-
-                // Knowledge::Daddy_Player->PlayMusic();
-
-                // // Knowledge::Daddy_Player->PlayMusic();
-                
-                // // Knowledge::Daddy_Player->CreateAlbum("data/music_samples");
-                
-                // for (int i = 0; i < 2; ++i) {
-                //     auto album_ptr = Knowledge::Daddy_Player->getAlbums()[0];
-
-                //     Knowledge::Daddy_Player->addAlbumToQueue(album_ptr);
-
-                //     Knowledge::Daddy_Player->CreatePlaylist("Test Playlist" + std::to_string(i));
-                //     Knowledge::Daddy_Player->CreatePlaylist("Coding" + std::to_string(i));
-
-                //     Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
-                //         Knowledge::Daddy_Player->getAllMusic()[2]
-                //     );
-                    
-                //     Knowledge::Daddy_Player->getPlaylists()[0]->AddMusic(
-                //         Knowledge::Daddy_Player->getAllMusic()[1]
-                //     );
-                // }
-            }
+        if (clock_update_.getElapsedTime().asSeconds() > 1. / 80) {
+            this->Update();
+            this->Render();
         }
-
-
     }
 
     return 0;
-}
-
-void Application::_Debug_PrintMousePosition()
-{
-    auto position = sf::Mouse::getPosition();
-    auto window_pos = rend_window_.getPosition();
-    Logger::Get() << "Mouse hovering at: " << position.x - window_pos.x << ' ' << position.y - window_pos.y << '\n';
 }

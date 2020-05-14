@@ -47,9 +47,6 @@ private:
     void SetKnowledge_MousePosition();
 
     void InitUI();
-
-    /// Debug functions
-    void _Debug_PrintMousePosition();
     
 public:
     Application();
