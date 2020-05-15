@@ -6,7 +6,7 @@ AddToPlaylistButton::AddToPlaylistButton(SharedPtr<PPlaylist> ptr) :
                    std::make_shared<PngSprite>("data/img/add_icon.png")),
     pl_ptr_(ptr)
 { 
-    PngColorButton::SetPosition({784, 10});
+    SetPosition({784, 10});
 }
 
 void AddToPlaylistButton::SetPlaylist(SharedPtr<PPlaylist> ptr)

@@ -1,5 +1,5 @@
-#ifndef C_OPEN_DOWNLOADS_FOLDER_
-#define C_OPEN_DOWNLOADS_FOLDER_
+#ifndef C_OPEN_FOLDER_
+#define C_OPEN_FOLDER_
 
 #include "a_constants.hpp"
 #include "command.hpp"
@@ -10,14 +10,15 @@
  * Class able to launch a GUI file explorer
  * with the downloaded music folder
  */
-class COpenDownloadsFolder final : public Command
+class COpenFolder final : public Command
 {
+private:
+    std::string folder_path_;
+
 public:
-    COpenDownloadsFolder();
+    COpenFolder(std::string folderPath);
  
     void Execute();
-
-    std::string GetResult();
 };
 
 #endif // C_OPEN_DOWNLOADS_FOLDER_

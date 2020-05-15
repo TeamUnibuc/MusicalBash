@@ -196,13 +196,17 @@ void Window::MainController(int off_x, int off_y)
         }
 
         SharedPtr<ScrollableList> scrl_ptr;
+        SharedPtr<OpenFolderButton> btn_ptr;
 
-        for (auto p : element_list) 
+        for (auto p : element_list) {
             if (dynamic_cast<ScrollableList*>(&*p))
                 scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
+            if (dynamic_cast<OpenFolderButton*>(&*p))
+                btn_ptr = std::dynamic_pointer_cast<OpenFolderButton>(p);
+        }
         scrl_ptr->ClearAllUiElements();
 
-        ViewsMain::UpdateSpecificAlbum(scrl_ptr);
+        ViewsMain::UpdateSpecificAlbum(scrl_ptr, btn_ptr);
 
         app_state = Constants::State::W::ViewAlbum;
         break;

@@ -136,14 +136,6 @@ UniquePtr<UiElement> ButtonFactory::Create(ActionType type)
 {
     switch (type)
     {
-        case ActionType::AddToPlaylist : {
-            auto ptr = std::make_unique<PngColorButton>(
-                40, 40, std::make_unique<CAddMusicToPlaylist>(),
-                sf::Color::Transparent, Constants::kSideBtnHover,
-                std::make_shared<PngSprite>("data/img/add_icon.png")
-            );
-            return ptr;
-        }
         case ActionType::DeleteSongQueue : {
             auto ptr = std::make_unique<PngColorButton>(
                 40, 40, std::make_unique<CEmptyQueue>(),
