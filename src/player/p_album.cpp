@@ -27,3 +27,11 @@ PAlbum::PAlbum(std::string album_path, std::map <std::string, std::shared_ptr<PM
         
     }
 }
+
+std::string PAlbum::GetPrettyName() const
+{
+    std::string pretty_name = this->GetName();
+    if (pretty_name.find('/') == std::string::npos)
+        throw bad_behaviour("ERROR Invalid path of an album found while trying to get its pretty name");
+    return pretty_name.substr(pretty_name.find_last_of('/') + 1);
+}

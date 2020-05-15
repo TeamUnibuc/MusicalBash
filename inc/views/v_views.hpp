@@ -18,7 +18,7 @@
 class ViewsMain
 {
 private:
-    static void SetTitle(const std::string& str, UiContainer *const c_ptr, UiElement *const fatherUi);
+    static void SetTitle(const std::string& sectionName, UiContainer *const c_ptr, UiElement *const fatherUi, const std::string& sectionDescription = "");
 
 protected:
     /// Height of the Title for each View Name as text at the top of the window
