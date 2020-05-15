@@ -53,6 +53,6 @@ public:
 
     static UniquePtr<UiElement> Create(PlayerType type);
 
-    static UniquePtr<UiElement> CreateAddToPlaylist(SharedPtr<PPlaylist> pl_ptr, int letters);
+    static UniquePtr<UiElement> CreateAddToPlaylist(SharedPtr<PPlaylist> pl_ptr);
 };
 

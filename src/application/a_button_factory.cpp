@@ -157,8 +157,8 @@ UniquePtr<UiElement> ButtonFactory::Create(ActionType type)
     throw bad_behaviour("Trying to create an ActionType button that doesn't exist");
 }
 
-UniquePtr<UiElement> ButtonFactory::CreateAddToPlaylist(SharedPtr<PPlaylist> pl_ptr, int letters)
+UniquePtr<UiElement> ButtonFactory::CreateAddToPlaylist(SharedPtr<PPlaylist> pl_ptr)
 {
-    auto ptr = std::make_unique<AddToPlaylistButton>(pl_ptr, letters);
+    auto ptr = std::make_unique<AddToPlaylistButton>(pl_ptr);
     return ptr;
 }

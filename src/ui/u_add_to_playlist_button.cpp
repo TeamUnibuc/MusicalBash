@@ -1,6 +1,6 @@
 #include "u_add_to_playlist_button.hpp"
 
-AddToPlaylistButton::AddToPlaylistButton(SharedPtr<PPlaylist> ptr, int letters) :
+AddToPlaylistButton::AddToPlaylistButton(SharedPtr<PPlaylist> ptr) :
     PngColorButton(35, 35, nullptr,
                    sf::Color::White, Constants::kGreen,
                    std::make_shared<PngSprite>("data/img/add_icon.png")),
