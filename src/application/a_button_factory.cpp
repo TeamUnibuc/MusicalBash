@@ -53,7 +53,7 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::SideType type)
         case SideType::About : {
             return std::make_unique<TextButton> (
                 btnWidth, btnHeight, std::make_unique<CShowAbout>(), 
-                Constants::kSideBtnIdle, Constants::kSideBtnHover,
+                sf::Color(18, 140, 255, 55), sf::Color(61, 145, 224, 170),
                 std::make_unique<TextBox>(0, txtPosY, btnWidth, txtSzY, 1, "About Musical Bash"));
         }
     }
@@ -130,4 +130,35 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::PlayerType type)
     }
 
     throw bad_behaviour("Trying to create a PlayerType button that doesn't exist");
+}
+
+UniquePtr<UiElement> ButtonFactory::Create(ActionType type)
+{
+    switch (type)
+    {
+        case ActionType::AddToPlaylist : {
+            auto ptr = std::make_unique<PngColorButton>(
+                40, 40, std::make_unique<CAddMusicToPlaylist>(),
+                sf::Color::Transparent, Constants::kSideBtnHover,
+                std::make_shared<PngSprite>("data/img/add_icon.png")
+            );
+            return ptr;
+        }
+        case ActionType::DeleteSongQueue : {
+            auto ptr = std::make_unique<PngColorButton>(
+                40, 40, std::make_unique<CEmptyQueue>(),
+                sf::Color::Transparent, Constants::kSideBtnHover,
+                std::make_shared<PngSprite>("data/img/trash_icon.png")
+            );
+            return ptr;
+        }
+    }
+    
+    throw bad_behaviour("Trying to create an ActionType button that doesn't exist");
+}
+
+UniquePtr<UiElement> ButtonFactory::CreateAddToPlaylist(SharedPtr<PPlaylist> pl_ptr, int letters)
+{
+    auto ptr = std::make_unique<AddToPlaylistButton>(pl_ptr, letters);
+    return ptr;
 }
