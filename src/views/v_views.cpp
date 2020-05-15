@@ -41,9 +41,9 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
 
     SetTitle("Home", father, fatherUi);
 
-    const int colWidth = 220, colHeight = 40, colGap = 70;
+    const int colWidth = 240, colHeight   = 40, colGap = 30;
     const int lineGap  = 10,  lineOffsetX = 36, lineOffsetY = kTitleHeight + 55;
-    const int nrItems  = 4;
+    const int nrItems  = 7;
 
 /// Add the Buttons for Albums, Playlists and Songs  ====================
 
@@ -276,7 +276,7 @@ void ViewsMain::CreateSpecificPlaylist(UiContainer *const father, UiElement *con
 
     father->AddUiElementToList(std::move(lst_ptr));
 
-    auto add_ptr = ButtonFactory::CreateAddToPlaylist(playlist, ("Playlist: " + playlist->GetName()).size());
+    auto add_ptr = ButtonFactory::CreateAddToPlaylist(playlist);
     father->AddUiElementToList(std::move(add_ptr));
 }
 
