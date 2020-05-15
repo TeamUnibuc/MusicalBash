@@ -19,6 +19,8 @@ const sf::Color kWindowBackground = sf::Color(70,  70, 70,  210);
 const sf::Color kAppBackground    = sf::Color(20,  20, 20, 255);
 const sf::Color kSideBtnHover     = sf::Color(20,  20,  20,  240);
 const sf::Color kSideBtnIdle      = sf::Color(100, 100, 100, 240);
+const sf::Color kSideActBtnIdle   = sf::Color(59, 50, 44, 240);
+const sf::Color kSideActBtnHover  = sf::Color(128, 99, 80, 240);
 const sf::Color kPurple           = sf::Color(185, 87,  255);
 const sf::Color kGreen            = sf::Color(12,  201, 22);
 

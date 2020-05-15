@@ -25,6 +25,9 @@ public:
 
     void AddMusic(std::shared_ptr<PMusic> music) = delete;
 
+    /// returns a pretty album name
+    std::string GetPrettyName() const;
+
     friend class PIndex;
 };
 

@@ -12,10 +12,26 @@ const std::pair<int,int> ViewsMain::kListPoz = {40, 50};
 
 /// ====== Utils =====================
 
-void ViewsMain::SetTitle(const std::string& str, UiContainer *const c_ptr, UiElement *const fatherUi)
+void ViewsMain::SetTitle(const std::string& sectionName, UiContainer *const c_ptr,
+                        UiElement *const fatherUi, const std::string& sectionDescription)
 {
-    SharedPtr<TextBox> tb_ptr(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, str));
+    std::string nameBlanks = "";
+    std::string descriptionBlanks = "";
+    if (sectionDescription.size() > 0){
+        for (unsigned i=0; i < sectionName.size(); i++)
+            nameBlanks += " ";
+        for (unsigned i=0; i < sectionDescription.size(); i++)
+            descriptionBlanks += " ";
+        nameBlanks += " ";
+        descriptionBlanks += " ";
+    }
+    SharedPtr<TextBox> tb_ptr(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, sectionName + descriptionBlanks));
+    SharedPtr<TextBox> tb_ptr2(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, nameBlanks + sectionDescription));
+    sf::Color section_description_color(83, 219, 68);
+    tb_ptr2->SetColor(section_description_color);
     c_ptr->AddUiElementToList(tb_ptr);
+    if (sectionDescription.size() > 0)
+        c_ptr->AddUiElementToList(tb_ptr2);
 }
 
 /// ====================================== Main ======= Create ======= Home ==================
@@ -54,7 +70,7 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
             colWidth, colHeight, std::move(c_spec_alb),
             sf::Color::Transparent, Constants::kSideBtnHover,
             std::make_unique<TextBox>(
-                11, 8, colWidth, 25, 0, album_list[i]->GetName()
+                11, 8, colWidth, 25, 0, album_list[i]->GetPrettyName()
             )
         );
         btn_ptr->SetPosition({lineOffsetX, lineOffsetY + (lineGap + colHeight) * i});
@@ -217,7 +233,7 @@ void ViewsMain::UpdatePlaylists(SharedPtr<ScrollableList> l_ptr,
 void ViewsMain::CreateSpecificAlbum(UiContainer *const father, UiElement *const fatherUi)
 {
     const auto& album = Knowledge::State::data.curr_album;
-    SetTitle("Album: " + album->GetName(), father, fatherUi);
+    SetTitle("Album:", father, fatherUi, album->GetPrettyName());
 
     auto lst_ptr = std::make_unique<ScrollableList>(
         kListWidthButtons, kListHeight
@@ -252,7 +268,7 @@ void ViewsMain::UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr)
 void ViewsMain::CreateSpecificPlaylist(UiContainer *const father, UiElement *const fatherUi)
 {
     const auto& playlist = Knowledge::State::data.curr_playlist;
-    SetTitle("Playlist: " + playlist->GetName(), father, fatherUi);
+    SetTitle("Playlist:", father, fatherUi, playlist->GetName());
 
     auto lst_ptr = std::make_unique<ScrollableList>(
         kListWidthButtons, kListHeight
@@ -284,7 +300,7 @@ void ViewsMain::UpdateSpecificPlaylist(SharedPtr<ScrollableList> l_ptr)
 
 void ViewsSide::Create(UiContainer *const father_elem)
 {
-    for (int  vertical = 20, gap = 20;
+    for (int vertical = 20, gap = 20;
          auto btn_type : {ButtonFactory::SideType::Home,
                           ButtonFactory::SideType::Playlists,
                           ButtonFactory::SideType::Albums,

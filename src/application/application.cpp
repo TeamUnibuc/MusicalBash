@@ -10,15 +10,15 @@ Application::Application() :
             sf::Style::Default),
 
     w_side_bar_(kWidth * 1/4 - kGap, kHeight - kGap, 
-                kGap * 1/2, kGap * 1/2,
+                kGap * 2/3, kGap * 1/2,
                 Musical::Window::Type::Side),
 
-    w_main_(kWidth * 3/4 - kGap, kHeight * 2/3 - kGap,
-            w_side_bar_.GetWidth() + kGap * 3/2, kGap * 1/2,
+    w_main_(kWidth * 3/4 - kGap, kHeight * 2/3 - kGap * 1/2,
+            w_side_bar_.GetWidth() + kGap * 4/3, kGap * 1/2,
             Musical::Window::Type::Main),
             
     w_status_(kWidth * 3/4 - kGap, kHeight * 1/3 - kGap,
-              w_side_bar_.GetWidth() + kGap * 3/2, w_main_.GetHeight() + kGap * 3/2,
+              w_side_bar_.GetWidth() + kGap * 4/3, w_main_.GetHeight() + kGap,
               Musical::Window::Type::Status)
 {}
 

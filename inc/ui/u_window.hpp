@@ -35,13 +35,13 @@ private:
     void StatusController(int off_x, int off_y);
 
 public:
-    /// Height of the window, Height of the window, the horizontal offset of the window
+    /// Width of the window, Height of the window, the horizontal offset of the window
     Window(int sz_x, int sz_y, int off_x, int off_y, Type w_type);
 
-    /// Utility stuff
+    /// Get Width of the Window (view)
     int GetWidth() const;
 
-    /// Get width and Height of the Window (view)
+    /// Get Height of the Window (view)
     int GetHeight() const;
 
     /// Set on which part of the screen the view will be shown
