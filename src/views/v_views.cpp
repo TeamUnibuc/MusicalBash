@@ -25,10 +25,9 @@ void ViewsMain::SetTitle(const std::string& sectionName, UiContainer *const c_pt
         nameBlanks += " ";
         descriptionBlanks += " ";
     }
-    SharedPtr<TextBox> tb_ptr(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, sectionName + descriptionBlanks));
-    SharedPtr<TextBox> tb_ptr2(new TextBox(0, 5, fatherUi->GetWidth(), kTitleHeight, 1, nameBlanks + sectionDescription));
-    sf::Color section_description_color(83, 219, 68);
-    tb_ptr2->SetColor(section_description_color);
+    SharedPtr<TextBox> tb_ptr(new TextBox(0, 5, fatherUi->GetWidth() - 120, kTitleHeight, 1, sectionName + descriptionBlanks, 0));
+    SharedPtr<TextBox> tb_ptr2(new TextBox(0, 5, fatherUi->GetWidth() - 120, kTitleHeight, 1, nameBlanks + sectionDescription));
+    tb_ptr2->SetColor(Constants::kGreen);
     c_ptr->AddUiElementToList(tb_ptr);
     if (sectionDescription.size() > 0)
         c_ptr->AddUiElementToList(tb_ptr2);

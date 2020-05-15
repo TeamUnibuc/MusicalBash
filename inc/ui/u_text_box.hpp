@@ -17,6 +17,8 @@ private:
     int alignment_;
 
     sf::Text text_;
+
+    bool show_dots_;
     
 protected:
 
@@ -31,7 +33,7 @@ public:
      *    2. right-aligned
      *  If the value for alignment is not valid, it defaults to 0
      */
-    TextBox(int posX, int posY, int sizeX, int sizeY, int alignment, std::string textInput);
+    TextBox(int posX, int posY, int sizeX, int sizeY, int alignment, std::string textInput, bool showDots = true);
 
     /*
      * Function for setting the text inside the TextBox

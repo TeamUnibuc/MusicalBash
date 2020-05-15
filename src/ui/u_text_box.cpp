@@ -1,7 +1,7 @@
 #include "u_text_box.hpp"
 
-TextBox::TextBox(int posX, int posY, int sizeX, int sizeY, int alignment, std::string textInput):
-    UiElement(posX, posY), sizeX_(sizeX), sizeY_(sizeY)
+TextBox::TextBox(int posX, int posY, int sizeX, int sizeY, int alignment, std::string textInput, bool showDots):
+    UiElement(posX, posY), sizeX_(sizeX), sizeY_(sizeY), show_dots_(showDots)
 {
     if (alignment < 0 || alignment > 2)
         alignment_ = 0;
@@ -33,7 +33,7 @@ void TextBox::SetText(std::string textInput)
     /// Multiply 0.9 to add a bit of padding to the left and to the right
     uint character_limit = textInput.size() * (sizeX_ * 0.9) / textBounds.width;
     if (textInput.size() > character_limit)
-        textInput = textInput.substr(0, character_limit - 3) + "...";
+        textInput = textInput.substr(0, character_limit - 3) + (show_dots_ ? "..." : "   ");
     text_.setString(textInput);
 }
 

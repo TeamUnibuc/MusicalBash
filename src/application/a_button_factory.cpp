@@ -53,7 +53,7 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::SideType type)
         case SideType::About : {
             return std::make_unique<TextButton> (
                 btnWidth, btnHeight, std::make_unique<CShowAbout>(), 
-                Constants::kSideBtnIdle, Constants::kSideBtnHover,
+                sf::Color(18, 140, 255, 55), sf::Color(61, 145, 224, 170),
                 std::make_unique<TextBox>(0, txtPosY, btnWidth, txtSzY, 1, "About Musical Bash"));
         }
     }
