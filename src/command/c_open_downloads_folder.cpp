@@ -4,7 +4,7 @@ COpenDownloadsFolder::COpenDownloadsFolder() { }
 
 void COpenDownloadsFolder::Execute()
 {
-    std::string command = "xdg-open " + Constants::application_path + "/downloads";
+    std::string command = "xdg-open " + Constants::kApplicationPath + "/downloads";
     system(command.c_str());
 }
 

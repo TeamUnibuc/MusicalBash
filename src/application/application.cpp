@@ -166,7 +166,8 @@ int Application::Run()
             Knowledge::ResetEvent();
         }
 
-        if (clock_update_.getElapsedTime().asSeconds() > 1. / 80) {
+        if (clock_update_.getElapsedTime().asSeconds() > 1. / Constants::kFrameLimit) {
+            Knowledge::Daddy_Player->CreateAlbum(Constants::kApplicationPath + "/downloads");
             this->Update();
             this->Render();
         }

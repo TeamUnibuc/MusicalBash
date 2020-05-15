@@ -28,10 +28,6 @@ namespace Constants
     /// Maximum framerate
     extern const int    kFrameLimit;
 
-    /// How much time to pass until Update function it's propagated again, even if no event takes place
-    extern const double kTimeToUpdate;
-
-
     /// Name of the application
     extern const std::string              kApplicationName;
 
@@ -45,7 +41,7 @@ namespace Constants
     extern const int  kVolumeStep;
     extern const int  kStartingVolume;
 
-    extern std::string application_path;
+    extern std::string kApplicationPath;
 
     void CreateApplicationPath();
 };

@@ -12,7 +12,6 @@ constexpr int kTopBarSize = 40;
 constexpr int kGap = 30;
 
 constexpr int    kFrameLimit   = 75;
-constexpr double kTimeToUpdate = 0.1;
 
 const std::string kFontPath = "data/fonts/UbuntuMono-R.ttf";
 
@@ -37,11 +36,11 @@ sf::Font kFont;
 constexpr int kVolumeStep = 10;
 constexpr int kStartingVolume = 50;
 
-std::string application_path;
+std::string kApplicationPath;
 
 void CreateApplicationPath()
 {
-    Logger::Get() << "Creating applicaition folders\n";
+    Logger::Get() << "INFO:  Creating applicaition folders\n";
 
     system("mkdir $HOME/.musicalbash -p");
     system("mkdir $HOME/.musicalbash/downloads -p");
@@ -57,10 +56,13 @@ void CreateApplicationPath()
     if (path[0] == 0)
         throw bad_behaviour("Unable to find application path!");
     
-    application_path = std::string(path);
-    application_path.pop_back();
+    kApplicationPath = std::string(path);
+    kApplicationPath.pop_back();
 
-    Logger::Get() << "Found app path at \"" + application_path + "\"\n";
+    Logger::Get() << "INFO:  Found app path at \"" + kApplicationPath + "\"\n";
+
+    Logger::Get() << "INFO:  Running rm cache command for youtube-dl\n";
+    system("youtube-dl --rm-cache-dir");
 }
 
 }
