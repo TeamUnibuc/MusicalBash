@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include "math.h"
 
 #include "a_constants.hpp"
 #include "a_logger.hpp"

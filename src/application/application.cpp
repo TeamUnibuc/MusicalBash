@@ -7,7 +7,7 @@ Application::Application() :
     /// App will anyway scale how it should on resize
     rend_window_(sf::VideoMode(kWidth, kHeight), 
             Constants::kApplicationName,
-            sf::Style::Close | sf::Style::Titlebar),
+            sf::Style::Default),
 
     w_side_bar_(kWidth * 1/4 - kGap, kHeight - kGap, 
                 kGap * 1/2, kGap * 1/2,
@@ -113,7 +113,14 @@ void Application::SetKnowledge_MousePosition()
 {
     auto position = sf::Mouse::getPosition();
     auto window_pos = rend_window_.getPosition();
-    Knowledge::SetMousePoz({position.x - window_pos.x, position.y - window_pos.y - Constants::kTopBarSize});
+    
+    std::pair <int, int> poz = { position.x - window_pos.x, position.y - window_pos.y - Constants::kTopBarSize };
+    double mult_x = 1. * Constants::kWidth / rend_window_.getSize().x; 
+    double mult_y = 1. * Constants::kHeight / rend_window_.getSize().y;
+    poz.first = std::round(poz.first * mult_x);
+    poz.second = std::round(poz.second * mult_y);
+
+    Knowledge::SetMousePoz(poz);
 }
 
 int Application::Run()

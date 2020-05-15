@@ -40,14 +40,12 @@ void ProgressBar::Render(sf::RenderWindow& rw, int off_x, int off_y)
 
 void ProgressBar::Update(int off_x, int off_y)
 {
+    const int HEIGHT_PROGRESS_BAR = 20;
+
     if (Knowledge::GetEvent().type == sf::Event::EventType::MouseButtonPressed) {
         if (Knowledge::GetEvent().mouseButton.button == sf::Mouse::Button::Left) {
-            // Logger::Get() << "Left click pressed at: " << Knowledge::GetMousePoz().first << ' '
-            //               << Knowledge::GetMousePoz().second << '\n';
-            // Logger::Get() << "Checking click at: " <<  off_x + pos_x << ' '
-            //               << off_y + pos_y << ' ' <<  sizeX_ << ' ' << sizeY_ << '\n';   
             if (Utils::PointInsideRect(Knowledge::GetMousePoz(), 
-                                       off_x + pos_x, off_y + pos_y - 20, length_, 40)) {
+                                       off_x + pos_x, off_y + pos_y - HEIGHT_PROGRESS_BAR, length_, 2 * HEIGHT_PROGRESS_BAR)) {
                 double raport = Knowledge::GetMousePoz().first - off_x - pos_x;
                 raport /= length_;
                 raport *= 100;
