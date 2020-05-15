@@ -43,7 +43,7 @@ void Player::DeletePlaylist(const std::shared_ptr<PPlaylist> playlist)
     index_->DeletePlaylist(playlist);
 }
 
-std::vector <std::shared_ptr<PMusic>> Player::getAllMusic()
+PTrack Player::getAllMusic() const
 {
     return index_->getAllMusic();
 }

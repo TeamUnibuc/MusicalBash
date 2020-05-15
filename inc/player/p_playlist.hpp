@@ -19,9 +19,6 @@ public:
     /// constructor with playlist name
     PPlaylist(std::string name);
 
-    /// adds a title to the track
-    void AddMusic(std::shared_ptr<PMusic> music);
-
     friend class PIndex;
 };
 

@@ -69,7 +69,7 @@ public:
     void DeletePlaylist(const std::shared_ptr<PPlaylist> playlist);
 
     /// returns all the music
-    std::vector <std::shared_ptr<PMusic>> getAllMusic();
+    PTrack getAllMusic() const;
 
     /// returns a list with all the available albums
     std::vector <std::shared_ptr<PAlbum>> getAlbums();

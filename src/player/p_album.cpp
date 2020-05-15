@@ -21,7 +21,7 @@ PAlbum::PAlbum(std::string album_path, std::map <std::string, std::shared_ptr<PM
                 Logger::Get() << "INFO:  problem creating music with name: " << i << '\n';
             }
         }
-        else {
+        else if (pmusic[i]->isValidMusic()) {
             content_.push_back(pmusic[i]);
         }
         

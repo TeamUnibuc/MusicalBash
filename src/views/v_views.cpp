@@ -50,8 +50,9 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
 
     auto album_list = Knowledge::Daddy_Player->getAlbums();
     auto playlist_list = Knowledge::Daddy_Player->getPlaylists();
-    auto music_list = Knowledge::Daddy_Player->getAllMusic();
-
+    auto music_track_list = Knowledge::Daddy_Player->getAllMusic();
+    auto music_list = music_track_list.GetMusic();
+    
     std::random_shuffle(album_list.begin(), album_list.end());
     std::random_shuffle(playlist_list.begin(), playlist_list.end());
     std::random_shuffle(music_list.begin(), music_list.end());

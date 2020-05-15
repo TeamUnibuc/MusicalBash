@@ -2,6 +2,7 @@
 #define INC_P_MUSIC_
 
 #include <string>
+#include <filesystem>
 
 #include <SFML/Audio.hpp>
 #include "c_mp3_file_duration.hpp"
@@ -47,6 +48,9 @@ public:
 
     /// Returns the duration of the music in seconds
     double getDuration() const;
+
+    /// verifies if the music is valid (still exists on disk)
+    bool isValidMusic() const;
 };
 
 #endif // INC_P_MUSIC_
