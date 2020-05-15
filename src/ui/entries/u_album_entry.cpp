@@ -42,7 +42,7 @@ void AlbumEntry::Render(sf::RenderWindow& rw, int off_x, int off_y)
     txt_nr.SetColor(Constants::kGreen);
 
     TextBox album_name(30, off_height, txtLen, txt_height, 
-                      0, album_ptr_->GetName());
+                      0, album_ptr_->GetPrettyName());
 
     TextBox underline(30, off_height + 10, txtLen, txt_height, 
                       0, std::string(album_name.GetText().size(), '_'));

@@ -19,6 +19,7 @@ namespace Constants
     extern const sf::Color kWindowBackground;
     extern const sf::Color kAppBackground;
     extern const sf::Color kSideBtnIdle, kSideBtnHover;
+    extern const sf::Color kSideActBtnIdle, kSideActBtnHover;
     extern const sf::Color kPurple;
     extern const sf::Color kGreen;
 
