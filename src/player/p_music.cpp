@@ -31,11 +31,8 @@ PMusic::PMusic(std::string path) : played_count_(0), path_(path) {
 
 std::string PMusic::getSongNameWithoutPath() const
 {
-    int last_backslash = -1;
-    for (int i = 0; i < (int)path_.size(); i++)
-        if (path_[i] == '/')
-            last_backslash = i;
-    return path_.substr(last_backslash + 1);
+    std::string pretty_path_ = path_.substr(path_.find_last_of('/') + 1);
+    return pretty_path_.substr(0, pretty_path_.find_last_of('.'));
 }
 
 std::string PMusic::Zip() const
