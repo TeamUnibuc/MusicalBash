@@ -23,6 +23,11 @@ public:
     /// creates an album with a given path
     PAlbum(std::string album_path, std::map <std::string, std::shared_ptr<PMusic>> & pmusic);
 
+    void AddMusic(std::shared_ptr<PMusic> music) = delete;
+
+    /// returns a pretty album name
+    std::string GetPrettyName() const;
+
     friend class PIndex;
 };
 

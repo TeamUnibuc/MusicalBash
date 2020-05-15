@@ -1,5 +1,6 @@
  
 #include "p_music.hpp"
+#include "a_exceptions.hpp"
 
 #include <stdexcept>
 #include <sstream>
@@ -8,6 +9,9 @@
 PMusic::PMusic() : played_count_(0), path_("None"), duration_seconds_(0) { }
 
 PMusic::PMusic(std::string path) : played_count_(0), path_(path) {
+    if (!isValidMusic())
+        throw bad_behaviour("Invalid path! Music does not exist!");
+        
     bool duration_calculated = false;
     /// If it is an mp3 file, then use the specific command
     if (path.size() > 3) {
@@ -81,4 +85,9 @@ void PMusic::addPlayedCount()
 double PMusic::getDuration() const
 {
     return duration_seconds_;
+}
+
+bool PMusic::isValidMusic() const
+{
+    return std::filesystem::exists(path_);
 }

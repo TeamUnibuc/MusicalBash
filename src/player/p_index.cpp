@@ -56,9 +56,13 @@ void PIndex::Unzip()
         while (sz--) {
             getline(buff, s);
             if (pmusic_.find(s) == pmusic_.end()) {
-                std::ifstream in(s);
-                if (in.is_open())
-                    pmusic_[s] = std::shared_ptr<PMusic> (new PMusic(s));
+                try {
+                    auto m_ptr = std::shared_ptr<PMusic> (new PMusic(s));
+                    pmusic_[s] = m_ptr;
+                }
+                catch (...) {
+                    Logger::Get() << "Found invalid music: " << s << '\n';
+                }
             }
             if (pmusic_.find(s) != pmusic_.end())
                 ptr->AddMusic(pmusic_[s]);
@@ -96,13 +100,14 @@ std::vector <std::shared_ptr<PPlaylist>> PIndex::getPlaylists() const
     return pplaylist_;
 }
 
-std::vector <std::shared_ptr<PMusic>> PIndex::getAllMusic() const
+PTrack PIndex::getAllMusic() const
 {
-    std::vector <std::shared_ptr<PMusic>> ans;
+    PTrack ans;
     for (auto i : pmusic_)
-        ans.push_back(i.second);
+        if (i.second->isValidMusic())
+            ans.AddMusic(i.second);
 
-    return ans;
+    return std::move(ans);
 }
 
 std::shared_ptr<PMusic> PIndex::getMusicPtr(const std::string& name)

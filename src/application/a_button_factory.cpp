@@ -35,19 +35,19 @@ UniquePtr<UiElement> ButtonFactory::Create(ButtonFactory::SideType type)
         case SideType::ImportAlbum : {
             return std::make_unique<TextButton> (
                 btnWidth, btnHeight, std::make_unique<CImportAlbum>(), 
-                Constants::kSideBtnIdle, Constants::kSideBtnHover,
+                Constants::kSideActBtnIdle, Constants::kSideActBtnHover,
                 std::make_unique<TextBox>(0, txtPosY, btnWidth, txtSzY, 1, "Import Album"));
         }
         case SideType::CreatePlaylist : {
             return std::make_unique<TextButton> (
                 btnWidth, btnHeight, std::make_unique<CCreatePlaylists>(), 
-                Constants::kSideBtnIdle, Constants::kSideBtnHover,
+                Constants::kSideActBtnIdle, Constants::kSideActBtnHover,
                 std::make_unique<TextBox>(0, txtPosY, btnWidth, txtSzY, 1, "Create Playlist"));
         }
         case SideType::Download : {
             return std::make_unique<TextButton> (
                 btnWidth, btnHeight, std::make_unique<CDownloadFromWeb>(), 
-                Constants::kSideBtnIdle, Constants::kSideBtnHover,
+                Constants::kSideActBtnIdle, Constants::kSideActBtnHover,
                 std::make_unique<TextBox>(0, txtPosY, btnWidth, txtSzY, 1, "Download"));
         }
         case SideType::About : {

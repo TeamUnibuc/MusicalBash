@@ -12,17 +12,20 @@ fi
 
 
 # used for the sfml binaries
-apt install libsfml-dev
+apt -y install libsfml-dev
 
 # used for computing the mp3 music length
-apt install libmpg123-dev
-apt install mp3info
+apt -y install libmpg123-dev
+apt -y install mp3info
 
 # used for basically all external commands
-apt install zenity
+apt -y install zenity
 
 # used for downloading music from the web
-apt install youtube-dl
+apt -y install youtube-dl
 
 # used for sorting the index into the database
-apt install libsqlite3-dev
+apt -y install libsqlite3-dev
+
+# remove .musicalbash folder
+rm -rf $HOME/.musicalbash

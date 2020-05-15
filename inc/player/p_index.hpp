@@ -5,6 +5,7 @@
 #include "p_playlist.hpp"
 #include "p_music.hpp"
 #include "a_database.hpp"
+#include "a_logger.hpp"
 
 #include <map>
 #include <set>
@@ -44,7 +45,7 @@ public:
     std::vector <std::shared_ptr<PPlaylist>> getPlaylists() const;
     
     /// returns all the music
-    std::vector <std::shared_ptr<PMusic>> getAllMusic() const;
+    PTrack getAllMusic() const;
     
     /// returns shared_ptr with given music
     std::shared_ptr<PMusic> getMusicPtr(const std::string& name);
