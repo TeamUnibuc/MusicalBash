@@ -31,7 +31,7 @@ void DebugKeyDown()
     // Logger::Get() << "Curr playing offset:  " << Knowledge::Daddy_Player->getActiveSongPlayingOffset() << '\n';
     // Logger::Get() << "Curr song Length:  " << Knowledge::Daddy_Player->getActiveSongDuration() << '\n';
     Logger::Get() << "Nr songs in Queue: " << Knowledge::Daddy_Player->GetPlayingQueue().size() << "\n";
-    Logger::Get() << "Size of all music: " << Knowledge::Daddy_Player->getAllMusic().size() << '\n';
+    Logger::Get() << "Size of all music: " << Knowledge::Daddy_Player->getAllMusic().GetMusic().size() << '\n';
 
 }
 

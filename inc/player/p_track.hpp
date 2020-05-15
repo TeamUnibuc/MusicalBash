@@ -2,6 +2,7 @@
 #define INC_P_TRACK_
 
 #include "p_music.hpp"
+#include "a_logger.hpp"
 
 #include <vector>
 #include <string>
@@ -21,6 +22,12 @@ public:
     /// default contructor
     PTrack();
 
+    /// move constructor
+    PTrack(PTrack && oth);
+
+    /// assignation move constructor
+    PTrack & operator=(PTrack && oth);
+
     /// returns the name of the track
     std::string GetName() const;
 
@@ -28,7 +35,10 @@ public:
     int Size() const;
 
     /// returns smart_ptrs to the music content of the track
-    std::vector <std::shared_ptr<PMusic>> GetMusic() const;
+    std::vector <std::shared_ptr<PMusic>> GetMusic();
+
+    /// adds a title to the track
+    void AddMusic(std::shared_ptr<PMusic> music);
 };
 
 #endif // INC_P_TRACK_
