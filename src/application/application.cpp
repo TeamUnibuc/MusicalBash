@@ -156,6 +156,11 @@ int Application::Run()
                     EventHandler::Close(rend_window_);
                     break;
                 }
+                case sf::Event::MouseMoved:
+                {
+                    continue;
+                    break;
+                }
                 default:
                     break;
             }
@@ -170,6 +175,9 @@ int Application::Run()
             Knowledge::Daddy_Player->CreateAlbum(Constants::kApplicationPath + "/downloads");
             this->Update();
             this->Render();
+            Knowledge::Daddy_Player->Step();
+
+            clock_update_.restart();
         }
     }
 
