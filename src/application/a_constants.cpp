@@ -12,7 +12,6 @@ constexpr int kTopBarSize = 40;
 constexpr int kGap = 30;
 
 constexpr int    kFrameLimit   = 75;
-constexpr double kTimeToUpdate = 0.1;
 
 const std::string kFontPath = "data/fonts/UbuntuMono-R.ttf";
 
@@ -22,6 +21,8 @@ const sf::Color kSideBtnHover     = sf::Color(20,  20,  20,  240);
 const sf::Color kSideBtnIdle      = sf::Color(100, 100, 100, 240);
 const sf::Color kPurple           = sf::Color(185, 87,  255);
 const sf::Color kGreen            = sf::Color(12,  201, 22);
+
+const sf::Event kMockEvent = {sf::Event::JoystickConnected, {}};
 
 const std::string kApplicationName = "Musical Bash";
 
@@ -35,15 +36,16 @@ sf::Font kFont;
 constexpr int kVolumeStep = 10;
 constexpr int kStartingVolume = 50;
 
-std::string application_path;
+std::string kApplicationPath;
 
 void CreateApplicationPath()
 {
-    Logger::Get() << "Creating applicaition folders\n";
+    Logger::Get() << "INFO:  Creating applicaition folders\n";
 
     system("mkdir $HOME/.musicalbash -p");
     system("mkdir $HOME/.musicalbash/downloads -p");
-    system("mkdir $HOME/.musicalbash/database -p");    
+    system("mkdir $HOME/.musicalbash/database -p"); 
+    system("mkdir $HOME/.musicalbash/tmp -p");
 
     char path[1024];
     path[0] = 0;
@@ -54,10 +56,13 @@ void CreateApplicationPath()
     if (path[0] == 0)
         throw bad_behaviour("Unable to find application path!");
     
-    application_path = std::string(path);
-    application_path.pop_back();
+    kApplicationPath = std::string(path);
+    kApplicationPath.pop_back();
 
-    Logger::Get() << "Found app path at \"" + application_path + "\"\n";
+    Logger::Get() << "INFO:  Found app path at \"" + kApplicationPath + "\"\n";
+
+    Logger::Get() << "INFO:  Running rm cache command for youtube-dl\n";
+    system("youtube-dl --rm-cache-dir");
 }
 
 }

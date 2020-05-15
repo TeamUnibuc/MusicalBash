@@ -109,14 +109,9 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
 
 /// ====================================== Main ======= Update  ======= Home ==================
 
-void ViewsMain::UpdateHome(UiContainer *const father, UiElement *const fatherUi)
+void ViewsMain::UpdateHome(UiContainer *const /* father */, UiElement *const /* fatherUi */)
 {
     /// Reupdate Home ? Maybe after some time just redo create
-
-    // if (last_time_home_created_.getElapsedTime().asSeconds() > Constants::kTimeToUpdate) {
-    //     father->ClearAllUiElements();
-    //     CreateHome(father, fatherUi);
-    // }
 }
 
 /// ======================================= Main ===== Create ===== Queue ==========
@@ -138,7 +133,7 @@ void ViewsMain::CreateQueue(UiContainer * const c_ptr, UiElement *const fatherUi
 void ViewsMain::UpdateQueue(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PMusic>>& music_list)
 {
     int contor = 0;
-    for (auto m_ptr : music_list) {
+    for (const auto& m_ptr : music_list) {
         auto entry_ptr = std::make_unique<MusicEntry>(
             kListWidthSimple, kEntryHeight, 
             Constants::kSideBtnIdle, Constants::kSideBtnHover,
@@ -168,12 +163,24 @@ void ViewsMain::UpdateAlbums(SharedPtr<ScrollableList> l_ptr,
                              const std::vector<SharedPtr<PAlbum>>& album_list)
 {
     int contor = 0;
-    for (auto a_ptr : album_list) {
+    for (const auto& a_ptr : album_list) {
         auto entry_ptr = std::make_unique<AlbumEntry>(
             a_ptr, ++contor
         );
         l_ptr->AddUiElement(std::move(entry_ptr));
     }
+
+    // auto ptr = std::make_shared<PMusic>();
+
+    // int contor = 0;
+    // for (const auto& a_ptr : album_list) {
+    //     auto entry_ptr = std::make_unique<MusicEntry>(
+    //         kListWidthSimple, kEntryHeight, 
+    //         Constants::kSideBtnIdle, Constants::kSideBtnHover,
+    //         ptr, ++contor
+    //     );
+    //     l_ptr->AddUiElement(std::move(entry_ptr));
+    // }
 }
 
 /// ============================= Main ===== Create ===== Playlists =================

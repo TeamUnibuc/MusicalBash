@@ -14,7 +14,7 @@ const std::string DBHandler::sql_create_ = "CREATE TABLE MusicalBash(id int prim
 
 std::string DBHandler::response = "";
 
-int DBHandler::callback(void *NotUsed, int argc, char **argv, char **azColName)
+int DBHandler::callback(void * /* NotUsed */, int /* argc */, char **argv, char ** /* azColName */)
 {
     response = argv[0];
 
@@ -34,7 +34,7 @@ int DBHandler::callback(void *NotUsed, int argc, char **argv, char **azColName)
 
 void DBHandler::executeOperation(const std::string& operation)
 {
-    std::string database_path = Constants::application_path + "/database/database.db";
+    std::string database_path = Constants::kApplicationPath + "/database/database.db";
     Logger::Get() << "Database path is " << database_path << '\n';
     int db_res = sqlite3_open(database_path.c_str(), &db);
 
@@ -92,7 +92,7 @@ std::string DBHandler::ExtractData()
 
 void DBHandler::CreateTableIfNotExists()
 {
-    std::ifstream test_in(Constants::application_path + "/database/database.db");
+    std::ifstream test_in(Constants::kApplicationPath + "/database/database.db");
     if (!test_in.is_open()){
         Logger::Get() << "Database folder not found, so will create one" << '\n';
 

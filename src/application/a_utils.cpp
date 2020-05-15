@@ -41,4 +41,13 @@ namespace Utils
         srand(time(0));
         return sf::Color(1u * (rand() << 16) + rand());
     }
+
+    std::string ReplaceExtensionWith(std::string name, std::string ext)
+    {
+        while (not name.empty() && name.back() != '.')
+            name.pop_back();
+        name += ext;
+        return name;
+    }
+
 }

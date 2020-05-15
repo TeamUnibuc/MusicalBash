@@ -36,7 +36,7 @@ void PlaylistEntry::Render(sf::RenderWindow& rw, int off_x, int off_y)
     const int txtLen     = kEntryWidth - 12;
 
 /// Render the number and album name
-    TextBox txt_nr(12, off_height, 30, txt_height,
+    TextBox txt_nr(5, off_height, 30, txt_height,
                    0, std::to_string(number_));
     txt_nr.SetColor(Constants::kGreen);
 

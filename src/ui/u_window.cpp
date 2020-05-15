@@ -46,15 +46,21 @@ void Window::Update(int offX, int offY)
     switch (type_)
     {
         case Type::Main : {
+            
+
             MainController(offX + g_off_x, offY + g_off_y);
+
             return;
         }
         case Type::Side : {
             SideController(offX + g_off_x, offY + g_off_y);
+            // Logger::Get() << "Update Side: " << clk.getElapsedTime().asMilliseconds() << '\n';
             return;
         }
         case Type::Status : {
+            // sf::Clock clk;
             StatusController(offX + g_off_x, offY + g_off_y);
+            // Logger::Get() << "Update Status: " << clk.getElapsedTime().asMilliseconds() << '\n';
             return;
         }
     }
@@ -78,6 +84,33 @@ void Window::MainController(int off_x, int off_y)
 
     switch (app_state)
     {  
+    //// ====================== Main ============== Albums ======================
+
+    case Constants::State::W::Albums :
+    {
+        if (prev_state != app_state) {
+            Logger::Get() << "INFO:  New state - Albums\n";
+
+            element_list.clear();
+            ViewsMain::CreateAlbums(this, this);
+        }
+
+        SharedPtr<ScrollableList> scrl_ptr;
+
+        for (auto p : element_list) 
+            if (dynamic_cast<ScrollableList*>(&*p))
+                scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
+        scrl_ptr->ClearAllUiElements();
+
+sf::Clock clk;
+
+        ViewsMain::UpdateAlbums(scrl_ptr, Knowledge::Daddy_Player->getAlbums());
+            // Logger::Get() << "Update Main: " << clk.getElapsedTime().asMilliseconds() << '\n';
+
+        app_state = Constants::State::W::Albums;
+        break;
+    }
+    
     /// ==== Main ==================  Queue  ==========================
     /// Queue state holds two things: A textbox for displaying the name of the view (Music Queue)
     ///   And a Scrollable list for the song entries
@@ -155,29 +188,6 @@ void Window::MainController(int off_x, int off_y)
         break;
     }
 
-    //// ====================== Main ============== Albums ======================
-
-    case Constants::State::W::Albums :
-    {
-        if (prev_state != app_state) {
-            Logger::Get() << "INFO:  New state - Albums\n";
-
-            element_list.clear();
-            ViewsMain::CreateAlbums(this, this);
-        }
-
-        SharedPtr<ScrollableList> scrl_ptr;
-
-        for (auto p : element_list) 
-            if (dynamic_cast<ScrollableList*>(&*p))
-                scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
-        scrl_ptr->ClearAllUiElements();
-
-        ViewsMain::UpdateAlbums(scrl_ptr, Knowledge::Daddy_Player->getAlbums());
-
-        app_state = Constants::State::W::Albums;
-        break;
-    }
 
     case Constants::State::W::ViewAlbum : 
     {
