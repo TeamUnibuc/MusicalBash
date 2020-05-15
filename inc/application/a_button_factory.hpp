@@ -10,6 +10,8 @@
 #include "c_common_commands.hpp"
 #include "c_player.hpp"
 #include "c_download_from_web.hpp"
+#include "u_add_to_playlist_button.hpp"
+#include "c_empty_queue.hpp"
 
 class ButtonFactory
 {
@@ -41,11 +43,8 @@ public:
 
     enum class ActionType
     {
-        DeleteAlbum,
-        DeletePlaylist,
         DeleteSongQueue,
-        AddToPlaylist,
-        DeleteFromPlaylist
+        AddToPlaylist
     };
 
     static UniquePtr<UiElement> Create(SideType type);
@@ -53,4 +52,7 @@ public:
     static UniquePtr<UiElement> Create(ActionType type);
 
     static UniquePtr<UiElement> Create(PlayerType type);
+
+    static UniquePtr<UiElement> CreateAddToPlaylist(SharedPtr<PPlaylist> pl_ptr, int letters);
 };
+

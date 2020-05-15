@@ -49,7 +49,7 @@ public:
     static void UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr);
 
     static void CreateSpecificPlaylist(UiContainer *const father, UiElement *const fatherUi);
-    static void UpdateSpecificPlaylist(SharedPtr<ScrollableList> l_ptr);
+    static void UpdateSpecificPlaylist(SharedPtr<ScrollableList> l_ptr, SharedPtr<AddToPlaylistButton> add_btn);
 };
 
 class ViewsSide

@@ -259,15 +259,20 @@ void ViewsMain::CreateSpecificPlaylist(UiContainer *const father, UiElement *con
     lst_ptr->SetPosition(kListPoz);
 
     father->AddUiElementToList(std::move(lst_ptr));
+
+    auto add_ptr = ButtonFactory::CreateAddToPlaylist(playlist, ("Playlist: " + playlist->GetName()).size());
+    father->AddUiElementToList(std::move(add_ptr));
 }
 
 /// ============================ Main ===== Update ===== Specific Playlist =============
 
-void ViewsMain::UpdateSpecificPlaylist(SharedPtr<ScrollableList> l_ptr)
+void ViewsMain::UpdateSpecificPlaylist(SharedPtr<ScrollableList> l_ptr, SharedPtr<AddToPlaylistButton> add_btn)
 {
     const auto& playlist = Knowledge::State::data.curr_playlist;
 
-    Logger::Get() << " Playlist to update: " << Knowledge::State::data.curr_playlist->GetName() << '\n';
+    add_btn->SetPlaylist(playlist);
+
+    // Logger::Get() << " Playlist to update: " << Knowledge::State::data.curr_playlist->GetName() << '\n';
 
     int contor = 0;
     for (auto song_ptr : playlist->GetMusic()) {

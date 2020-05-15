@@ -13,10 +13,10 @@ void CAddMusicToPlaylist::Execute()
 
 void CAddMusicToPlaylist::Execute(std::shared_ptr<PPlaylist> playlist)
 {
-    Logger::Get() << "Import Album command received\n";
+    Logger::Get() << "Add Music To Playlist command received\n";
 
     if (file_select_command_) {
-        Logger::Get() << "   Found pending import album command so skipping...\n";
+        Logger::Get() << "   Found Add to Music album command so skipping...\n";
         return;
     }
 

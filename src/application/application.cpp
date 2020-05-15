@@ -98,6 +98,7 @@ void Application::Update()
     CImportAlbum::PostExecutionVerification();
     CCreatePlaylists::PostExecutionVerification();
     CDownloadFromWeb::PostExecutionVerification();
+    CAddMusicToPlaylist::PostExecutionVerification();
     
     // sf::Clock cll;
 

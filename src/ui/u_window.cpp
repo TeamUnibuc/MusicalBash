@@ -46,10 +46,7 @@ void Window::Update(int offX, int offY)
     switch (type_)
     {
         case Type::Main : {
-            
-
             MainController(offX + g_off_x, offY + g_off_y);
-
             return;
         }
         case Type::Side : {
@@ -102,7 +99,7 @@ void Window::MainController(int off_x, int off_y)
                 scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
         scrl_ptr->ClearAllUiElements();
 
-sf::Clock clk;
+        sf::Clock clk;
 
         ViewsMain::UpdateAlbums(scrl_ptr, Knowledge::Daddy_Player->getAlbums());
             // Logger::Get() << "Update Main: " << clk.getElapsedTime().asMilliseconds() << '\n';
@@ -221,13 +218,17 @@ sf::Clock clk;
         }
 
         SharedPtr<ScrollableList> scrl_ptr;
+        SharedPtr<AddToPlaylistButton> btn_ptr;
 
-        for (auto p : element_list) 
+        for (auto p : element_list) {
             if (dynamic_cast<ScrollableList*>(&*p))
                 scrl_ptr = std::dynamic_pointer_cast<ScrollableList>(p);
+            if (dynamic_cast<AddToPlaylistButton*>(&*p))
+                btn_ptr = std::dynamic_pointer_cast<AddToPlaylistButton>(p);
+        }
         scrl_ptr->ClearAllUiElements();
 
-        ViewsMain::UpdateSpecificPlaylist(scrl_ptr);
+        ViewsMain::UpdateSpecificPlaylist(scrl_ptr, btn_ptr);
 
         app_state = Constants::State::W::ViewPlaylist;
         break;

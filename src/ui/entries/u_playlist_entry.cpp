@@ -3,11 +3,11 @@
 PlaylistEntry::PlaylistEntry(SharedPtr<PPlaylist> pl_ptr, int number) :
     pl_ptr_(pl_ptr),
     sprite_del_btn_("data/img/red_cross.png"),
-    col_btn_(kColBtnSize.first, kColBtnSize.second, 
+    col_btn_(kColBtnSize.first, kColBtnSize.second,
              std::make_unique<CShowSpecificPlaylist>(pl_ptr), 
              sf::Color::Transparent, Constants::kSideBtnHover),
     del_btn_(kDelBtnSize.first, kDelBtnSize.second,
-             std::make_unique<CDeletePlaylist>(pl_ptr), 
+             std::make_unique<CDeletePlaylist>(pl_ptr),
              sf::Color::Transparent, Constants::kSideBtnHover),
     number_(number)
 {
