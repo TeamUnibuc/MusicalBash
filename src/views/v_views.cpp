@@ -41,9 +41,9 @@ void ViewsMain::CreateHome(UiContainer *const father, UiElement *const fatherUi)
 
     SetTitle("Home", father, fatherUi);
 
-    const int colWidth = 220, colHeight = 40, colGap = 70;
+    const int colWidth = 240, colHeight   = 40, colGap = 30;
     const int lineGap  = 10,  lineOffsetX = 36, lineOffsetY = kTitleHeight + 55;
-    const int nrItems  = 4;
+    const int nrItems  = 7;
 
 /// Add the Buttons for Albums, Playlists and Songs  ====================
 
@@ -186,17 +186,7 @@ void ViewsMain::UpdateAlbums(SharedPtr<ScrollableList> l_ptr,
         l_ptr->AddUiElement(std::move(entry_ptr));
     }
 
-    // auto ptr = std::make_shared<PMusic>();
 
-    // int contor = 0;
-    // for (const auto& a_ptr : album_list) {
-    //     auto entry_ptr = std::make_unique<MusicEntry>(
-    //         kListWidthSimple, kEntryHeight, 
-    //         Constants::kSideBtnIdle, Constants::kSideBtnHover,
-    //         ptr, ++contor
-    //     );
-    //     l_ptr->AddUiElement(std::move(entry_ptr));
-    // }
 }
 
 /// ============================= Main ===== Create ===== Playlists =================
@@ -240,11 +230,14 @@ void ViewsMain::CreateSpecificAlbum(UiContainer *const father, UiElement *const 
     lst_ptr->SetPosition(kListPoz);
 
     father->AddUiElementToList(std::move(lst_ptr));
+
+    auto folder_ptr = std::make_unique<OpenFolderButton>(album);
+    father->AddUiElementToList(std::move(folder_ptr));
 }
 
 /// ============================ Main ===== Update ===== Specific Album =============
 
-void ViewsMain::UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr)
+void ViewsMain::UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr, SharedPtr<OpenFolderButton> btn_ptr)
 {
     const auto& album = Knowledge::State::data.curr_album;
 
@@ -260,6 +253,8 @@ void ViewsMain::UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr)
         );
         l_ptr->AddUiElement(std::move(entry));
     }
+
+    btn_ptr->SetAlbum(album);
 }
 
 /// ============================ Main ===== Create ===== Specific Playlist =============
@@ -276,8 +271,8 @@ void ViewsMain::CreateSpecificPlaylist(UiContainer *const father, UiElement *con
 
     father->AddUiElementToList(std::move(lst_ptr));
 
-    auto add_ptr = ButtonFactory::CreateAddToPlaylist(playlist, ("Playlist: " + playlist->GetName()).size());
-    father->AddUiElementToList(std::move(add_ptr));
+    auto add_ptr = ButtonFactory::CreateAddToPlaylist(playlist);
+    father->AddUiElementToList(std::move(add_ptr));    
 }
 
 /// ============================ Main ===== Update ===== Specific Playlist =============

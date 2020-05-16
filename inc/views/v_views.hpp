@@ -46,7 +46,7 @@ public:
     static void UpdatePlaylists(SharedPtr<ScrollableList> l_ptr, const std::vector<SharedPtr<PPlaylist>>& playlist_list);
 
     static void CreateSpecificAlbum(UiContainer *const father, UiElement *const fatherUi);
-    static void UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr);
+    static void UpdateSpecificAlbum(SharedPtr<ScrollableList> l_ptr, SharedPtr<OpenFolderButton> btn_ptr);
 
     static void CreateSpecificPlaylist(UiContainer *const father, UiElement *const fatherUi);
     static void UpdateSpecificPlaylist(SharedPtr<ScrollableList> l_ptr, SharedPtr<AddToPlaylistButton> add_btn);

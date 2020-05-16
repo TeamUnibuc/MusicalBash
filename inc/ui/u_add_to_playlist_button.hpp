@@ -9,7 +9,7 @@ private:
     SharedPtr<PPlaylist> pl_ptr_;
 
 public:
-    AddToPlaylistButton(SharedPtr<PPlaylist> ptr, int letters);
+    AddToPlaylistButton(SharedPtr<PPlaylist> ptr);
 
     void SetPlaylist(SharedPtr<PPlaylist> ptr);
 
