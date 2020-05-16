@@ -55,6 +55,12 @@ public:
 
     /// deletes a playlist. Throws error if is does not exist
     void DeletePlaylist(const std::shared_ptr<PPlaylist> playlist);
+
+    /// Operator to add an album to the index
+    PIndex& operator +=(const std::shared_ptr<PAlbum> album);
+
+    /// Operator to add a playlist to the index
+    PIndex& operator +=(const std::shared_ptr<PPlaylist> playlist);
 };
 
 #endif // INC_P_INDEX_

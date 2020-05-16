@@ -14,6 +14,7 @@ constexpr int kGap = 30;
 constexpr int    kFrameLimit   = 75;
 
 const std::string kFontPath = "data/fonts/UbuntuMono-R.ttf";
+const std::string kAppIconPath = "data/img/app_icon.png";
 
 const sf::Color kWindowBackground = sf::Color(70,  70, 70,  210);
 const sf::Color kAppBackground    = sf::Color(20,  20, 20, 255);

@@ -39,6 +39,8 @@ namespace Constants
     extern sf::Font           kFont;
     extern const std::string  kFontPath;
 
+    extern const std::string  kAppIconPath;
+
     extern const int  kVolumeStep;
     extern const int  kStartingVolume;
 
