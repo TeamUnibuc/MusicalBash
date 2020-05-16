@@ -410,8 +410,7 @@ void ViewsStatus::Create(UiContainer *const father_elem)
   }
   { /// The app icon above the volume control buttons
     auto icon_ptr = std::make_unique<PngSprite>(Constants::kAppIconPath);
-    icon_ptr->SetSize(110, 110);
-    icon_ptr->SetPosition(685, 2);
+    icon_ptr->SetPosition(687, 2);
     father_elem->AddUiElementToList(std::move(icon_ptr));
   }
 }
