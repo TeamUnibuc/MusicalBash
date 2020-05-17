@@ -94,7 +94,7 @@ void CDownloadFromWeb::DownloadAndMove(std::string url)
     std::cerr << "Executing:  \n  " + download_script + "\n\n";
     system(download_script.c_str());
 
-    const std::string apostrofName = "'" + fileName + "'";
+    const std::string apostrofName = "\"" + fileName + "\"";
 
     std::string move_script = "mv " + kTempPath + apostrofName + "  " + kDownloadPath + apostrofName;
     std::cerr << "Executing:  \n " + move_script + "\n\n";

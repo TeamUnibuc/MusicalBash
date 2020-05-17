@@ -86,6 +86,15 @@ public:
     /// adds a playlist to the playing queue
     void addPlaylistToQueue(const std::shared_ptr<PPlaylist> playlist);
 
+    /// adds music to queue
+    Player& operator+= (const std::shared_ptr<PMusic> music);
+
+    /// adds an album to the playing queue
+    Player& operator+= (const std::shared_ptr<PAlbum> album);
+
+    /// adds a playlist to the playing queue
+    Player& operator+= (const std::shared_ptr<PPlaylist> playlist);
+
     /// returns the list of songs in the playing queue
     std::vector <std::shared_ptr<PMusic>> GetPlayingQueue() const;
 

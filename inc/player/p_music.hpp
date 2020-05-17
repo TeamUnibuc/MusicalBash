@@ -51,6 +51,12 @@ public:
 
     /// verifies if the music is valid (still exists on disk)
     bool isValidMusic() const;
+
+    /// adds 1 to played count
+    PMusic& operator++();
+
+    /// adds x to played count
+    PMusic& operator+= (int x);
 };
 
 #endif // INC_P_MUSIC_

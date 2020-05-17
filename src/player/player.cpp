@@ -73,6 +73,24 @@ void Player::addPlaylistToQueue(const std::shared_ptr<PPlaylist> playlist)
     (*music_queue_) += playlist;
 }
 
+Player& Player::operator+= (const std::shared_ptr<PMusic> music)
+{
+    addMusicToQueue(music);
+    return *this;
+}
+
+Player& Player::operator+= (const std::shared_ptr<PAlbum> album)
+{
+    addAlbumToQueue(album);
+    return *this;
+}
+
+Player& Player::operator+= (const std::shared_ptr<PPlaylist> playlist)
+{
+    addPlaylistToQueue(playlist);
+    return *this;
+}
+
 std::vector <std::shared_ptr<PMusic>> Player::GetPlayingQueue() const
 {
     return music_queue_->GetMusic();

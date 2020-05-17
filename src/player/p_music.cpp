@@ -88,3 +88,15 @@ bool PMusic::isValidMusic() const
 {
     return std::filesystem::exists(path_);
 }
+
+PMusic& PMusic::operator++()
+{
+    played_count_++;
+    return *this;
+}
+
+PMusic& PMusic::operator+= (int x)
+{
+    played_count_ += x;
+    return *this;
+}
