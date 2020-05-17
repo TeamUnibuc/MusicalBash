@@ -21,5 +21,6 @@ void CDeleteSongFromPlaylist::Execute()
     if (not playlist_)
         throw null_pointer("Executing command DeleteSongFromPlaylist with NullPointer for Playlist");
     
-    Logger::Get() << "ERROR:  Command Delete Song From Playlist Not implemented!!!";
+    playlist_->DeleteSong(music_);
+    Logger::Get() << "INFO:  Command Delete Song From Playlist Called!!!";
 }

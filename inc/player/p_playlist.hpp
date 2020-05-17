@@ -19,6 +19,9 @@ public:
     /// constructor with playlist name
     PPlaylist(std::string name);
 
+    /// Helper function to delete a song from the playlist
+    void DeleteSong(const std::shared_ptr<PMusic> music);
+
     friend class PIndex;
 };
 

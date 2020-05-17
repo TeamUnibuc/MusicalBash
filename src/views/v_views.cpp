@@ -403,4 +403,9 @@ void ViewsStatus::Create(UiContainer *const father_elem)
     );
     father_elem->AddUiElementToList(std::move(until_ptr));
   }
+  { /// The app icon above the volume control buttons
+    auto icon_ptr = std::make_unique<PngSprite>(Constants::kAppIconPath);
+    icon_ptr->SetPosition(687, 2);
+    father_elem->AddUiElementToList(std::move(icon_ptr));
+  }
 }

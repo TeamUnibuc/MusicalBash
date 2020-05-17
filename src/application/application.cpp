@@ -48,6 +48,13 @@ void Application::InitUI()
 
     rend_window_.setFramerateLimit(Constants::kFrameLimit);
 
+    sf::Image application_icon;
+    if (!application_icon.loadFromFile(Constants::kAppIconPath))
+        throw loading_error(Constants::kAppIconPath);
+    else
+        Logger::Get() << "Successfuly loaded the application icon" << '\n';
+    rend_window_.setIcon(application_icon.getSize().x, application_icon.getSize().y, application_icon.getPixelsPtr());
+    
     
     if (!Constants::kFont.loadFromFile(Constants::kFontPath))
         throw loading_error(Constants::kFontPath);

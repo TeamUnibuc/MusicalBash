@@ -132,3 +132,27 @@ void PIndex::DeletePlaylist(const std::shared_ptr<PPlaylist> playlist)
 
     pplaylist_.erase(find(pplaylist_.begin(), pplaylist_.end(), playlist));
 }
+
+PIndex& PIndex::operator+= (const std::shared_ptr<PAlbum> album)
+{
+    for (auto i : palbum_) {
+        if (i->GetName() == album->GetName()) {
+            return *this;
+        }
+    }
+    
+    palbum_.push_back(album);
+    return *this;
+}
+
+PIndex& PIndex::operator+= (const std::shared_ptr<PPlaylist> playlist)
+{
+    for (auto i : pplaylist_) {
+        if (i->GetName() == playlist->GetName()) {
+            return *this;
+        }
+    }
+    
+    pplaylist_.push_back(playlist);
+    return *this;
+}
