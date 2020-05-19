@@ -6,6 +6,6 @@ COpenFolder::COpenFolder(std::string folderPath) : folder_path_(folderPath)
 void COpenFolder::Execute()
 {
     Logger::Get() << "INFO:  Command is opening folder: " + folder_path_ << '\n';
-    std::string command = "xdg-open " + folder_path_;
+    std::string command = "xdg-open \"" + folder_path_ + "\"";
     system(command.c_str());
 }
